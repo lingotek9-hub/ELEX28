@@ -196,6 +196,40 @@ export default function App() {
     };
   }, [showWelcome, selectedRole]);
 
+  // Robust smooth scrolling for all anchor links
+  useEffect(() => {
+    const handleAnchorClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const anchor = target.closest('a');
+      
+      if (anchor && anchor.hash && anchor.hash.startsWith('#')) {
+        const targetId = anchor.hash.substring(1);
+        
+        if (targetId === '') {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          window.history.pushState(null, '', '#');
+          return;
+        }
+
+        const targetElement = document.getElementById(targetId);
+        
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+          // Update URL without jumping
+          window.history.pushState(null, '', anchor.hash);
+        }
+      }
+    };
+
+    document.addEventListener('click', handleAnchorClick);
+    return () => document.removeEventListener('click', handleAnchorClick);
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col selection:bg-electron-accent selection:text-black relative" dir="rtl">
       <InteractiveBackground />
