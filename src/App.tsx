@@ -41,7 +41,7 @@ const roles = [
   {
     title: "الليدر (Leader)",
     name: "عمر فتحي علي",
-    whatsapp: "00249118222378",
+    whatsapp: "+249118222378",
     description: "القيادة العامة للدفعة، التنسيق مع الإدارة، وتمثيل الطلاب في جميع المحافل.",
     tasks: [
       "تمثيل الدفعة أمام إدارة الكلية والجامعة",
@@ -56,7 +56,7 @@ const roles = [
   {
     title: "الأمين العام",
     name: "مؤتمن علي",
-    whatsapp: "00249118587285",
+    whatsapp: "+249118587285",
     description: "تنظيم الاجتماعات، توثيق القرارات، والإشراف الإداري على لجان الدفعة.",
     tasks: [
       "إدارة المراسلات الرسمية للدفعة",
@@ -72,7 +72,7 @@ const roles = [
     title: "الأمين الأكاديمي",
     name: "عمر فتحي علي",
     deputy: "ميرفت محمد",
-    whatsapp: "00249118222378",
+    whatsapp: "+249118222378",
     description: "توفير المصادر الدراسية، المحاضرات، ومتابعة الشؤون التعليمية للدفعة.",
     tasks: [
       "توفير المراجع والملازم الدراسية",
@@ -87,7 +87,7 @@ const roles = [
   {
     title: "الأمين المالي",
     name: "عثمان عبد القادر",
-    whatsapp: "00249124569091",
+    whatsapp: "+249124569091",
     description: "إدارة ميزانية الدفعة، الاشتراكات، والشفافية المالية في جميع الأنشطة.",
     tasks: [
       "جمع وإدارة اشتراكات الدفعة",
@@ -102,7 +102,7 @@ const roles = [
   {
     title: "الأمين الإعلامي",
     name: "اسراء عادل",
-    whatsapp: "00249994422595",
+    whatsapp: "+249994422595",
     description: "تغطية أخبار الدفعة، إدارة منصات التواصل، وتوثيق اللحظات المميزة.",
     tasks: [
       "إدارة قنوات التواصل الاجتماعي الرسمية",
@@ -117,7 +117,7 @@ const roles = [
   {
     title: "الأمين الثقافي",
     name: "ميرفت محمد",
-    whatsapp: "00249115050714",
+    whatsapp: "+249115050714",
     description: "تنظيم الفعاليات الاجتماعية، المسابقات، والأنشطة التي تعزز روح الدفعة.",
     tasks: [
       "تنظيم الرحلات والفعاليات الترفيهية",
@@ -441,7 +441,7 @@ export default function App() {
             
             <div className="flex justify-center">
               <a 
-                href="https://wa.me/00249118222378"
+                href="https://wa.me/+249118222378"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full md:w-auto px-8 md:px-12 py-4 md:py-5 bg-electron-accent text-black font-bold rounded-2xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 shadow-lg shadow-electron-accent/20"

@@ -64,3 +64,38 @@
 [dir="rtl"] {
   text-align: right;
 }
+
+/* Mobile-specific: Apply hover styles as fixed styles */
+@media (max-width: 767px) {
+  /* Stats cards */
+  .glass-panel.group {
+    border-color: rgba(0, 242, 255, 0.4);
+  }
+  .glass-panel.group .group-hover\:scale-110 {
+    transform: scale(1.1);
+  }
+
+  /* Role cards */
+  .glass-panel.group .group-hover\:opacity-100 {
+    opacity: 1;
+  }
+  .glass-panel.group .hover\:bg-electron-accent {
+    background-color: var(--color-electron-accent);
+    color: black;
+  }
+  .glass-panel.group .group-hover\/btn\:translate-x-1 {
+    transform: translateX(0.25rem);
+  }
+
+  /* Resource cards */
+  .glass-panel.group.hover\:border-electron-accent {
+    border-color: var(--color-electron-accent);
+  }
+  .glass-panel.group .group-hover\:bg-electron-accent {
+    background-color: var(--color-electron-accent);
+    color: black;
+  }
+  .glass-panel.group .group-hover\:opacity-100 {
+    opacity: 1;
+  }
+}
