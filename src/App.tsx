@@ -184,150 +184,21 @@ export default function App() {
     }
   }, []);
 
+  // Professional body scroll lock when modals are open
+  useEffect(() => {
+    if (showWelcome || selectedRole) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [showWelcome, selectedRole]);
+
   return (
-    <div className="min-h-screen flex flex-col selection:bg-electron-accent selection:text-black" dir="rtl">
+    <div className="min-h-screen flex flex-col selection:bg-electron-accent selection:text-black relative" dir="rtl">
       <InteractiveBackground />
-
-      {/* Welcome Modal */}
-      <AnimatePresence>
-        {showWelcome && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/95 backdrop-blur-xl"
-          >
-            <motion.div
-              initial={{ scale: 0.8, y: 40, rotateX: 20 }}
-              animate={{ scale: 1, y: 0, rotateX: 0 }}
-              exit={{ scale: 0.8, y: 40, rotateX: 20 }}
-              className="glass-panel p-10 max-w-lg w-full relative glow-pulse overflow-hidden"
-            >
-              <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-electron-accent to-electron-secondary" />
-              
-              <button 
-                onClick={() => setShowWelcome(false)}
-                className="absolute top-6 left-6 text-gray-500 hover:text-electron-accent transition-colors"
-              >
-                <X size={24} />
-              </button>
-              
-              <div className="text-center">
-                <motion.div 
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  className="w-24 h-24 bg-gradient-to-br from-electron-accent to-electron-secondary p-[2px] rounded-full mx-auto mb-8"
-                >
-                  <div className="w-full h-full bg-electron-bg rounded-full flex items-center justify-center">
-                    <Cpu size={40} className="text-electron-accent" />
-                  </div>
-                </motion.div>
-                
-                <h2 className="text-4xl font-bold mb-4 gradient-text tech-font tracking-tighter">ELEX28</h2>
-                <div className="text-electron-accent text-sm mb-6 tech-font uppercase tracking-widest">Sudan University of Science & Technology</div>
-                
-                <div className="mb-10">
-                  <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">مرحب يا هندسة.. نورت دارك ⚡🛠️</h3>
-                  <p className="text-gray-400 text-lg leading-relaxed">
-                    مرحباً بك في المنصة الرسمية لطلاب هندسة الإلكترونيات <span className="text-white font-bold">السمستر السادس - دفعة 2020</span>. 
-                    هذه المنصة مخصصة حصرياً لأعضاء الدفعة والتنسيق الأكاديمي.
-                  </p>
-                </div>
-                
-                <button 
-                  onClick={() => setShowWelcome(false)}
-                  className="w-full py-4 bg-gradient-to-r from-electron-accent to-electron-secondary text-white font-bold text-xl rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-electron-accent/20"
-                >
-                  تأكيد الهوية والدخول
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      {/* Role Details Modal */}
-      <AnimatePresence>
-        {selectedRole && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[110] flex items-center justify-center p-4 md:p-6 bg-black/90 backdrop-blur-md"
-            onClick={() => setSelectedRole(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.9, y: 20 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.9, y: 20 }}
-              className="glass-panel p-6 md:p-10 max-w-2xl w-full relative overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${selectedRole.gradient}`} />
-              
-              <button 
-                onClick={() => setSelectedRole(null)}
-                className="absolute top-4 left-4 text-gray-500 hover:text-electron-accent transition-colors"
-              >
-                <X size={24} />
-              </button>
-
-              <div className="flex flex-col md:flex-row gap-8 items-start">
-                <div className={`w-20 h-20 md:w-24 md:h-24 glass-panel flex items-center justify-center ${selectedRole.color} shrink-0`}>
-                  <selectedRole.icon size={40} />
-                </div>
-                
-                <div className="flex-1">
-                  <div className="mb-6">
-                    <h3 className="text-2xl md:text-3xl font-bold tech-font gradient-text mb-2">{selectedRole.title}</h3>
-                    <div className="text-white font-bold text-xl mb-1">{selectedRole.name}</div>
-                    {selectedRole.deputy && (
-                      <div className="text-electron-secondary font-bold text-sm mb-2 flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-electron-secondary animate-pulse" />
-                        النائبة: {selectedRole.deputy}
-                      </div>
-                    )}
-                    <div className="text-electron-accent/60 text-xs tech-font uppercase tracking-widest">Engineering Student | ELEX28</div>
-                  </div>
-
-                  <div className="space-y-6">
-                    <div>
-                      <h4 className="text-electron-accent text-xs tech-font uppercase tracking-widest mb-3">عن المنصب</h4>
-                      <p className="text-gray-300 leading-relaxed text-sm md:text-base">
-                        {selectedRole.description}
-                      </p>
-                    </div>
-
-                    <div>
-                      <h4 className="text-electron-accent text-xs tech-font uppercase tracking-widest mb-3">المهام والمسؤوليات</h4>
-                      <ul className="grid grid-cols-1 gap-2">
-                        {selectedRole.tasks.map((task: string, i: number) => (
-                          <li key={i} className="flex items-center gap-3 text-gray-400 text-sm">
-                            <div className="w-1.5 h-1.5 rounded-full bg-electron-accent shadow-[0_0_5px_#00ffff]" />
-                            {task}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <div className="pt-6 border-t border-white/5">
-                      <a 
-                        href={`https://wa.me/${selectedRole.whatsapp}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-electron-accent text-black font-bold hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-electron-accent/20"
-                      >
-                        <MessageSquare size={20} />
-                        تواصل مباشر عبر واتساب
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Hero Section */}
       <header className="relative min-h-screen flex flex-col items-center justify-center px-4 md:px-6 overflow-hidden py-20">
@@ -624,13 +495,150 @@ export default function App() {
       </footer>
 
       <style dangerouslySetInnerHTML={{ __html: `
-        body {
-          perspective: 1000px;
-        }
         html {
           scroll-behavior: smooth;
         }
       `}} />
+
+      {/* Modals placed at the end for proper stacking context */}
+      <AnimatePresence>
+        {showWelcome && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[999] flex items-center justify-center p-4 md:p-6 bg-black/95 backdrop-blur-xl overflow-y-auto"
+          >
+            <motion.div
+              initial={{ scale: 0.8, y: 40, rotateX: 20 }}
+              animate={{ scale: 1, y: 0, rotateX: 0 }}
+              exit={{ scale: 0.8, y: 40, rotateX: 20 }}
+              className="glass-panel p-6 md:p-10 max-w-lg w-full relative glow-pulse overflow-hidden my-auto"
+            >
+              <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-electron-accent to-electron-secondary" />
+              
+              <button 
+                onClick={() => setShowWelcome(false)}
+                className="absolute top-4 md:top-6 left-4 md:left-6 text-gray-500 hover:text-electron-accent transition-colors"
+              >
+                <X size={24} />
+              </button>
+              
+              <div className="text-center">
+                <motion.div 
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br from-electron-accent to-electron-secondary p-[2px] rounded-full mx-auto mb-6 md:mb-8"
+                >
+                  <div className="w-full h-full bg-electron-bg rounded-full flex items-center justify-center">
+                    <Cpu size={32} className="text-electron-accent md:size-10" />
+                  </div>
+                </motion.div>
+                
+                <h2 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4 gradient-text tech-font tracking-tighter">ELEX28</h2>
+                <div className="text-electron-accent text-[10px] md:text-sm mb-4 md:mb-6 tech-font uppercase tracking-widest">Sudan University of Science & Technology</div>
+                
+                <div className="mb-8 md:mb-10">
+                  <h3 className="text-xl md:text-3xl font-bold text-white mb-3 md:mb-4">مرحب يا هندسة.. نورت دارك ⚡🛠️</h3>
+                  <p className="text-gray-400 text-sm md:text-lg leading-relaxed">
+                    مرحباً بك في المنصة الرسمية لطلاب هندسة الإلكترونيات <span className="text-white font-bold">السمستر السادس - دفعة 2020</span>. 
+                    هذه المنصة مخصصة حصرياً لأعضاء الدفعة والتنسيق الأكاديمي.
+                  </p>
+                </div>
+                
+                <button 
+                  onClick={() => setShowWelcome(false)}
+                  className="w-full py-3 md:py-4 bg-gradient-to-r from-electron-accent to-electron-secondary text-white font-bold text-lg md:text-xl rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-electron-accent/20"
+                >
+                  تأكيد الهوية والدخول
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {selectedRole && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-6 bg-black/90 backdrop-blur-md overflow-y-auto"
+            onClick={() => setSelectedRole(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="glass-panel p-6 md:p-10 max-w-2xl w-full relative overflow-hidden my-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${selectedRole.gradient}`} />
+              
+              <button 
+                onClick={() => setSelectedRole(null)}
+                className="absolute top-4 left-4 text-gray-500 hover:text-electron-accent transition-colors"
+              >
+                <X size={24} />
+              </button>
+
+              <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
+                <div className={`w-16 h-16 md:w-24 md:h-24 glass-panel flex items-center justify-center ${selectedRole.color} shrink-0`}>
+                  <selectedRole.icon size={32} className="md:size-10" />
+                </div>
+                
+                <div className="flex-1">
+                  <div className="mb-4 md:mb-6">
+                    <h3 className="text-xl md:text-3xl font-bold tech-font gradient-text mb-1 md:mb-2">{selectedRole.title}</h3>
+                    <div className="text-white font-bold text-lg md:text-xl mb-1">{selectedRole.name}</div>
+                    {selectedRole.deputy && (
+                      <div className="text-electron-secondary font-bold text-xs md:text-sm mb-2 flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-electron-secondary animate-pulse" />
+                        النائبة: {selectedRole.deputy}
+                      </div>
+                    )}
+                    <div className="text-electron-accent/60 text-[10px] tech-font uppercase tracking-widest">Engineering Student | ELEX28</div>
+                  </div>
+
+                  <div className="space-y-4 md:space-y-6">
+                    <div>
+                      <h4 className="text-electron-accent text-[10px] tech-font uppercase tracking-widest mb-2 md:mb-3">عن المنصب</h4>
+                      <p className="text-gray-300 leading-relaxed text-xs md:text-base">
+                        {selectedRole.description}
+                      </p>
+                    </div>
+
+                    <div>
+                      <h4 className="text-electron-accent text-[10px] tech-font uppercase tracking-widest mb-2 md:mb-3">المهام والمسؤوليات</h4>
+                      <ul className="grid grid-cols-1 gap-1.5 md:gap-2">
+                        {selectedRole.tasks.map((task: string, i: number) => (
+                          <li key={i} className="flex items-center gap-2 md:gap-3 text-gray-400 text-[11px] md:text-sm">
+                            <div className="w-1 md:w-1.5 h-1 md:h-1.5 rounded-full bg-electron-accent shadow-[0_0_5px_#00ffff]" />
+                            {task}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+
+                    <div className="pt-4 md:pt-6 border-t border-white/5">
+                      <a 
+                        href={`https://wa.me/${selectedRole.whatsapp}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full md:w-auto inline-flex items-center justify-center gap-2 md:gap-3 px-6 md:px-8 py-3 md:py-4 rounded-2xl bg-electron-accent text-black font-bold text-sm md:text-base hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-electron-accent/20"
+                      >
+                        <MessageSquare size={18} className="md:size-5" />
+                        تواصل مباشر عبر واتساب
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
