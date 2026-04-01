@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Tajawal:wght@400;700&family=JetBrains+Mono:wght@400&family=Inter:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Tajawal", ui-sans-serif, system-ui, sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --font-display: "Orbitron", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-electron-bg: #020408;
+  --color-electron-panel: rgba(13, 17, 23, 0.7);
+  --color-electron-accent: #00f2ff;
+  --color-electron-secondary: #7000ff;
+  --color-electron-green: #00ff41;
+  --color-electron-border: rgba(255, 255, 255, 0.1);
+}
+
+@layer base {
+  body {
+    @apply bg-electron-bg text-gray-300 font-sans antialiased selection:bg-electron-accent selection:text-black overflow-x-hidden;
+  }
+
+  h1, h2, h3, .tech-font {
+    @apply font-display tracking-wider;
+  }
+}
+
+.glass-panel {
+  @apply backdrop-blur-xl bg-electron-panel border border-electron-border rounded-3xl;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-electron-accent to-electron-secondary;
+}
+
+.gradient-border {
+  position: relative;
+  border-radius: 1.5rem;
+  padding: 1px;
+  background: linear-gradient(to bottom right, var(--color-electron-accent), var(--color-electron-secondary));
+}
+
+.gradient-border-inner {
+  @apply bg-electron-bg rounded-[1.4rem] h-full w-full;
+}
+
+.glow-pulse {
+  animation: glow-pulse 4s infinite alternate;
+}
+
+@keyframes glow-pulse {
+  0% { box-shadow: 0 0 5px rgba(0, 242, 255, 0.2); }
+  100% { box-shadow: 0 0 20px rgba(0, 242, 255, 0.5); }
+}
+
+.circuit-bg {
+  background-image: 
+    linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+[dir="rtl"] {
+  text-align: right;
+}
