@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Tajawal:wght@400;700&family=JetBrains+Mono:wght@400&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Tajawal:wght@400;700&family=Cairo:wght@400;600;700&family=JetBrains+Mono:wght@400&family=Inter:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: "Tajawal", ui-sans-serif, system-ui, sans-serif;
+  --font-cairo: "Cairo", sans-serif;
   --font-inter: "Inter", sans-serif;
   --font-display: "Orbitron", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
@@ -59,6 +60,46 @@
     linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
   background-size: 50px 50px;
+}
+
+.neon-card {
+  position: relative;
+  z-index: 1;
+}
+
+.neon-card::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(90deg, transparent, var(--color-electron-accent), transparent);
+  background-size: 200% 100%;
+  animation: neon-flow 3s linear infinite;
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0.3;
+  mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  padding: 1px;
+}
+
+@keyframes neon-flow {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.neon-glow {
+  box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.neon-glow:hover {
+  box-shadow: 0 0 25px rgba(0, 242, 255, 0.3);
 }
 
 [dir="rtl"] {

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
-import { Cpu, Zap, Radio, BookOpen, DollarSign, Share2, Palette, ChevronDown, X, Globe, ShieldCheck, MessageSquare } from "lucide-react";
+import { Cpu, Zap, Radio, BookOpen, DollarSign, Share2, Palette, ChevronDown, X, Globe, ShieldCheck, MessageSquare, QrCode } from "lucide-react";
 
 // Interactive Particle Background Component
 const InteractiveBackground = () => {
@@ -162,6 +162,73 @@ const studentResources = [
   },
 ];
 
+const courses = [
+  {
+    name: "الاتصالات التماثلية",
+    description: "دراسة أنظمة التعديل التماثلي (AM, FM, PM) وتأثير الضجيج على الإشارات.",
+    icon: Radio,
+    color: "text-blue-400",
+    gradient: "from-blue-500/10 to-cyan-500/10",
+    telegram: "https://t.me/c/3701824243/2"
+  },
+  {
+    name: "المعالجات الدقيقة",
+    description: "بنية المعالج 8086، لغة التجميع (Assembly)، والتعامل مع الذاكرة والمنافذ.",
+    icon: Cpu,
+    color: "text-yellow-400",
+    gradient: "from-yellow-500/10 to-orange-500/10",
+    telegram: "https://t.me/c/3701824243/3"
+  },
+  {
+    name: "التحليل العددي",
+    description: "طرق حل المعادلات الخطية وغير الخطية عددياً، الاستكمال، والتكامل العددي.",
+    icon: Zap,
+    color: "text-cyan-400",
+    gradient: "from-cyan-500/10 to-blue-500/10",
+    telegram: "https://t.me/c/3701824243/4"
+  },
+  {
+    name: "إلكترونيات القدرة",
+    description: "دراسة الثايرستورات، المقومات المحكومة، والمحولات (DC-DC, DC-AC).",
+    icon: Zap,
+    color: "text-green-400",
+    gradient: "from-green-500/10 to-emerald-500/10",
+    telegram: "https://t.me/c/3701824243/5"
+  },
+  {
+    name: "الحقول الكهرومغناطيسية",
+    description: "معادلات ماكسويل، انتشار الأمواج، وخطوط النقل.",
+    icon: Radio,
+    color: "text-purple-400",
+    gradient: "from-purple-500/10 to-pink-500/10",
+    telegram: "https://t.me/c/3701824243/6"
+  },
+  {
+    name: "تماثلية 2",
+    description: "تصميم الدوائر الإلكترونية المتقدمة، مكبرات العمليات، والمرشحات.",
+    icon: Palette,
+    color: "text-orange-400",
+    gradient: "from-orange-500/10 to-red-500/10",
+    telegram: "https://t.me/c/3701824243/7"
+  },
+  {
+    name: "VHDL",
+    description: "لغة وصف العتاد لتصميم الأنظمة الرقمية والدوائر المتكاملة (FPGA).",
+    icon: Cpu,
+    color: "text-red-400",
+    gradient: "from-red-500/10 to-rose-500/10",
+    telegram: "https://t.me/c/3701824243/8"
+  },
+  {
+    name: "OOP",
+    description: "البرمجة كائنية التوجه باستخدام C++، الفئات، الوراثة، وتعدد الأشكال.",
+    icon: BookOpen,
+    color: "text-indigo-400",
+    gradient: "from-indigo-500/10 to-purple-500/10",
+    telegram: "https://t.me/c/3701824243/9"
+  }
+];
+
 const stats = [
   { label: "مهندس ومهندسة", value: "150+", icon: Globe },
   { label: "جامعة السودان", value: "SUST", icon: Cpu },
@@ -171,22 +238,32 @@ const stats = [
 
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(false);
+  const [showResultBanner, setShowResultBanner] = useState(false);
   const [selectedRole, setSelectedRole] = useState<any>(null);
+  const [showCourses, setShowCourses] = useState(false);
+  const [showMaterials, setShowMaterials] = useState(false);
+  const [showChannels, setShowChannels] = useState(false);
+  const [showSchedulesAlert, setShowSchedulesAlert] = useState(false);
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
 
   useEffect(() => {
-    const hasVisited = localStorage.getItem("elex28_visited_v3");
-    if (!hasVisited) {
-      setShowWelcome(true);
-      localStorage.setItem("elex28_visited_v3", "true");
-    }
+    setShowWelcome(true);
   }, []);
+
+  useEffect(() => {
+    if (showResultBanner) {
+      const timer = setTimeout(() => {
+        setShowResultBanner(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showResultBanner]);
 
   // Professional body scroll lock when modals are open
   useEffect(() => {
-    if (showWelcome || selectedRole) {
+    if (showWelcome || selectedRole || showCourses || showMaterials || showChannels || showSchedulesAlert) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -194,7 +271,7 @@ export default function App() {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [showWelcome, selectedRole]);
+  }, [showWelcome, selectedRole, showCourses, showMaterials, showChannels, showSchedulesAlert]);
 
   // Robust smooth scrolling for all anchor links
   useEffect(() => {
@@ -234,6 +311,39 @@ export default function App() {
     <div className="min-h-screen flex flex-col selection:bg-electron-accent selection:text-black relative" dir="rtl">
       <InteractiveBackground />
 
+      {/* Result Notification Banner */}
+      <AnimatePresence>
+        {showResultBanner && (
+          <motion.div
+            initial={{ y: -100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -100, opacity: 0 }}
+            className="fixed top-4 left-4 right-4 z-[100] flex justify-center pointer-events-none"
+          >
+            <div className="glass-panel neon-card neon-glow px-6 py-4 md:px-10 md:py-5 flex items-center gap-4 md:gap-6 pointer-events-auto relative overflow-hidden border-electron-accent/30 max-w-2xl w-full">
+              <div className="absolute inset-0 bg-electron-accent/5 animate-pulse" />
+              <div className="w-10 h-10 md:w-12 md:h-12 bg-electron-accent/20 rounded-xl flex items-center justify-center text-electron-accent shrink-0">
+                <Zap size={24} className="animate-bounce" />
+              </div>
+              <div className="flex-1">
+                <p className="text-white font-bold text-sm md:text-xl font-cairo leading-tight">
+                  تنبيه هام: النتيجة قربت.. اكرب قاشك! 😂🔥
+                </p>
+                <p className="text-electron-accent/60 text-[10px] md:text-xs tech-font uppercase tracking-widest mt-1">
+                  System Alert • Result Pending
+                </p>
+              </div>
+              <button 
+                onClick={() => setShowResultBanner(false)}
+                className="p-2 hover:bg-white/10 rounded-lg transition-colors text-gray-400 hover:text-white"
+              >
+                <X size={20} />
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Hero Section */}
       <header className="relative min-h-screen flex flex-col items-center justify-center px-4 md:px-6 overflow-hidden py-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,255,255,0.08),transparent_70%)]" />
@@ -265,7 +375,7 @@ export default function App() {
           >
             <div className="flex flex-col items-center">
               <div className="relative inline-block px-4">
-                <p className="text-2xl md:text-5xl text-white font-black tech-font tracking-tight mb-2 leading-tight">
+                <p className="text-2xl md:text-5xl text-white font-black font-cairo tracking-tight mb-2 leading-tight">
                   المركز الرقمي المتكامل لطلاب <span className="text-electron-accent">هندسة الإلكترونيات</span>
                 </p>
                 <div className="h-0.5 md:h-1 w-1/2 mx-auto bg-gradient-to-r from-transparent via-electron-accent to-transparent opacity-50" />
@@ -309,14 +419,14 @@ export default function App() {
       <section className="py-12 md:py-20 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
           {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="glass-panel p-6 md:p-8 text-center group hover:border-electron-accent/40 transition-all"
-            >
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: i * 0.1 }}
+                className="glass-panel neon-card neon-glow p-6 md:p-8 text-center group hover:border-electron-accent/40 transition-all"
+              >
               <div className="flex flex-col items-center justify-center text-center">
                 <stat.icon className="mb-3 md:mb-4 text-electron-accent group-hover:scale-110 transition-transform" size={24} />
                 <div className="text-2xl md:text-4xl font-bold text-white mb-1 md:mb-2 tech-font">{stat.value}</div>
@@ -330,13 +440,10 @@ export default function App() {
       {/* Structure Section */}
       <section id="structure" className="py-20 md:py-32 px-6 max-w-7xl mx-auto w-full relative">
         <div className="mb-16 md:mb-24 text-center">
-          <motion.h2 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 tech-font"
+          <h2 className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 font-cairo"
           >
             هيكل <span className="gradient-text">الدفعة</span>
-          </motion.h2>
+          </h2>
           <p className="text-gray-500 max-w-xl mx-auto text-base md:text-lg leading-relaxed">
             تعرف على الفريق الإداري المسؤول عن تنظيم شؤون الدفعة والتنسيق الأكاديمي والاجتماعي.
           </p>
@@ -344,15 +451,15 @@ export default function App() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {roles.map((role, index) => (
-            <motion.div
-              key={role.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              whileHover={{ y: -10 }}
-              transition={{ delay: index * 0.05 }}
-              className={`glass-panel p-8 md:p-10 flex flex-col gap-4 md:gap-6 items-start relative overflow-hidden group`}
-            >
+              <motion.div
+                key={role.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -10 }}
+                transition={{ delay: index * 0.05 }}
+                className={`glass-panel neon-card neon-glow p-8 md:p-10 flex flex-col gap-4 md:gap-6 items-start relative overflow-hidden group`}
+              >
               <div className={`absolute inset-0 bg-gradient-to-br ${role.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
               
               <div className={`w-12 h-12 md:w-16 md:h-16 glass-panel flex items-center justify-center ${role.color} relative z-10`}>
@@ -391,7 +498,7 @@ export default function App() {
         
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="mb-16 md:mb-24">
-            <h2 className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 tech-font">بوابة <span className="gradient-text">الطلاب</span></h2>
+            <h2 className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 font-cairo">بوابة <span className="gradient-text">الطلاب</span></h2>
             <p className="text-gray-500 max-w-xl text-base md:text-lg">كل ما تحتاجه في مسيرتك بالسمستر السادس، مجمع في مكان واحد.</p>
           </div>
 
@@ -400,11 +507,26 @@ export default function App() {
               <motion.a
                 key={res.title}
                 href={res.link}
+                onClick={(e) => {
+                  if (res.title === "المقررات الدراسية") {
+                    e.preventDefault();
+                    setShowCourses(true);
+                  } else if (res.title === "المواد والملفات") {
+                    e.preventDefault();
+                    setShowMaterials(true);
+                  } else if (res.title === "القنوات الرسمية") {
+                    e.preventDefault();
+                    setShowChannels(true);
+                  } else if (res.title === "الجداول الدراسية") {
+                    e.preventDefault();
+                    setShowSchedulesAlert(true);
+                  }
+                }}
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}
-                className="glass-panel p-6 md:p-8 group hover:border-electron-accent transition-all relative overflow-hidden"
+                className="glass-panel neon-card neon-glow p-6 md:p-8 group hover:border-electron-accent transition-all relative overflow-hidden"
               >
                 <div className="absolute top-4 left-4 tech-font text-[8px] md:text-[10px] text-electron-accent/40 border border-electron-accent/20 px-2 py-1 rounded">
                   {res.tag}
@@ -431,11 +553,11 @@ export default function App() {
       {/* CTA Section */}
       <section className="py-16 md:py-32 px-4 md:px-6">
         <div className="max-w-5xl mx-auto">
-          <div className="glass-panel p-8 md:p-20 text-center relative overflow-hidden">
+          <div className="glass-panel neon-card neon-glow p-8 md:p-20 text-center relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-electron-accent via-electron-secondary to-electron-accent" />
             
-            <h2 className="text-3xl md:text-6xl font-bold mb-4 md:mb-8 tech-font tracking-tighter">تواصل مع <span className="text-electron-accent">الفريق</span></h2>
-            <p className="text-sm md:text-xl text-gray-400 mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed">
+            <h2 className="text-3xl md:text-6xl font-bold mb-4 md:mb-8 font-cairo tracking-tighter">تواصل مع <span className="text-electron-accent">الفريق</span></h2>
+            <p className="text-sm md:text-xl text-gray-400 mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed font-cairo">
               هل لديك اقتراح لتطوير المنصة أو استفسار أكاديمي؟ نحن هنا للاستماع إليك.
             </p>
             
@@ -468,11 +590,15 @@ export default function App() {
                 نسعى لتمكين الطلاب من خلال توفير الموارد الأكاديمية والتنظيمية في بيئة تقنية متطورة.
               </p>
               <div className="flex gap-4">
-                {[Radio, Share2, Globe].map((Icon, idx) => (
-                  <a key={idx} href="#" className="w-10 h-10 rounded-xl border border-white/5 bg-white/5 flex items-center justify-center text-gray-400 hover:text-electron-accent hover:border-electron-accent/50 hover:bg-electron-accent/5 transition-all duration-300">
-                    <Icon size={18} />
-                  </a>
-                ))}
+                <a href="https://whatsapp.com/channel/0029VbCoSxB4NVipkChIbc15" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl border border-white/5 bg-white/5 flex items-center justify-center text-gray-400 hover:text-green-500 hover:border-green-500/50 hover:bg-green-500/5 transition-all duration-300">
+                  <MessageSquare size={18} />
+                </a>
+                <a href="https://t.me/+Agkt05rV37tmODc0" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl border border-white/5 bg-white/5 flex items-center justify-center text-gray-400 hover:text-blue-400 hover:border-blue-400/50 hover:bg-blue-400/5 transition-all duration-300">
+                  <Share2 size={18} />
+                </a>
+                <a href="#" className="w-10 h-10 rounded-xl border border-white/5 bg-white/5 flex items-center justify-center text-gray-400 hover:text-electron-accent hover:border-electron-accent/50 hover:bg-electron-accent/5 transition-all duration-300">
+                  <Globe size={18} />
+                </a>
               </div>
             </div>
             
@@ -518,6 +644,9 @@ export default function App() {
           <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-gray-600 text-[10px] uppercase tracking-[0.2em] font-medium">
             <div className="text-center md:text-right">
               DESIGNED BY <span className="text-electron-accent">ELEX28 TECH TEAM</span>
+              <div className="text-[8px] italic font-bold text-electron-accent drop-shadow-[0_0_5px_rgba(0,242,255,0.8)] mt-1 tech-font tracking-widest">
+                OMAR FATHI
+              </div>
             </div>
             <div className="flex flex-wrap justify-center gap-6 md:gap-10">
               <a href="#" className="hover:text-white transition-colors">Privacy</a>
@@ -547,7 +676,7 @@ export default function App() {
               initial={{ scale: 0.8, y: 40, rotateX: 20 }}
               animate={{ scale: 1, y: 0, rotateX: 0 }}
               exit={{ scale: 0.8, y: 40, rotateX: 20 }}
-              className="glass-panel p-6 md:p-10 max-w-lg w-full relative glow-pulse overflow-hidden my-auto"
+              className="glass-panel neon-card neon-glow p-6 md:p-10 max-w-lg w-full relative overflow-hidden my-auto"
             >
               <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-electron-accent to-electron-secondary" />
               
@@ -569,11 +698,11 @@ export default function App() {
                   </div>
                 </motion.div>
                 
-                <h2 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4 gradient-text tech-font tracking-tighter">ELEX28</h2>
+                <h2 className="text-3xl md:text-4xl font-bold mb-3 md:mb-4 gradient-text font-cairo tracking-tighter">ELEX28</h2>
                 <div className="text-electron-accent text-[10px] md:text-sm mb-4 md:mb-6 tech-font uppercase tracking-widest">Sudan University of Science & Technology</div>
                 
                 <div className="mb-8 md:mb-10">
-                  <h3 className="text-xl md:text-3xl font-bold text-white mb-3 md:mb-4">مرحب يا هندسة.. نورت دارك ⚡🛠️</h3>
+                  <h3 className="text-xl md:text-3xl font-bold text-white mb-3 md:mb-4 font-cairo">مرحب يا هندسة.. نورت دارك ⚡🛠️</h3>
                   <p className="text-gray-400 text-sm md:text-lg leading-relaxed">
                     مرحباً بك في المنصة الرسمية لطلاب هندسة الإلكترونيات <span className="text-white font-bold">السمستر السادس - دفعة 2020</span>. 
                     هذه المنصة مخصصة حصرياً لأعضاء الدفعة والتنسيق الأكاديمي.
@@ -581,8 +710,11 @@ export default function App() {
                 </div>
                 
                 <button 
-                  onClick={() => setShowWelcome(false)}
-                  className="w-full py-3 md:py-4 bg-gradient-to-r from-electron-accent to-electron-secondary text-white font-bold text-lg md:text-xl rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-electron-accent/20"
+                  onClick={() => {
+                    setShowWelcome(false);
+                    setShowResultBanner(true);
+                  }}
+                  className="w-full py-3 md:py-4 bg-gradient-to-r from-electron-accent to-electron-secondary text-white font-bold text-lg md:text-xl rounded-2xl hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-electron-accent/20 font-cairo"
                 >
                   تأكيد الهوية والدخول
                 </button>
@@ -624,10 +756,10 @@ export default function App() {
                 
                 <div className="flex-1">
                   <div className="mb-4 md:mb-6">
-                    <h3 className="text-xl md:text-3xl font-bold tech-font gradient-text mb-1 md:mb-2">{selectedRole.title}</h3>
-                    <div className="text-white font-bold text-lg md:text-xl mb-1">{selectedRole.name}</div>
+                    <h3 className="text-xl md:text-3xl font-bold font-cairo gradient-text mb-1 md:mb-2">{selectedRole.title}</h3>
+                    <div className="text-white font-bold text-lg md:text-xl mb-1 font-cairo">{selectedRole.name}</div>
                     {selectedRole.deputy && (
-                      <div className="text-electron-secondary font-bold text-xs md:text-sm mb-2 flex items-center gap-2">
+                      <div className="text-electron-secondary font-bold text-xs md:text-sm mb-2 flex items-center gap-2 font-cairo">
                         <div className="w-1.5 h-1.5 rounded-full bg-electron-secondary animate-pulse" />
                         النائبة: {selectedRole.deputy}
                       </div>
@@ -667,6 +799,286 @@ export default function App() {
                       </a>
                     </div>
                   </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showCourses && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-6 bg-black/90 backdrop-blur-md overflow-y-auto"
+            onClick={() => setShowCourses(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="glass-panel p-6 md:p-10 max-w-4xl w-full relative overflow-hidden my-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-electron-accent via-electron-secondary to-electron-accent" />
+              
+              <button 
+                onClick={() => setShowCourses(false)}
+                className="absolute top-4 left-4 text-gray-500 hover:text-electron-accent transition-colors z-20"
+              >
+                <X size={24} />
+              </button>
+
+              <div className="relative z-10">
+                <div className="mb-8 md:mb-12">
+                  <h3 className="text-2xl md:text-5xl font-bold font-cairo gradient-text mb-2 md:mb-4">المقررات الدراسية</h3>
+                  <p className="text-gray-400 text-sm md:text-lg font-cairo">تفاصيل ومحتوى مواد السمستر السادس - هندسة الإلكترونيات SUST</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+                  {courses.map((course, idx) => (
+                    <motion.div
+                      key={course.name}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.05 }}
+                      className={`glass-panel neon-card neon-glow p-5 md:p-6 relative overflow-hidden group hover:border-electron-accent/50 transition-all`}
+                    >
+                      <div className={`absolute inset-0 bg-gradient-to-br ${course.gradient} opacity-20 group-hover:opacity-40 transition-opacity`} />
+                      <div className="flex gap-4 md:gap-5 items-start relative z-10">
+                        <div className={`w-10 h-10 md:w-12 md:h-12 glass-panel flex items-center justify-center ${course.color} shrink-0`}>
+                          <course.icon size={20} className="md:size-6" />
+                        </div>
+                        <div>
+                          <h4 className="text-white font-bold text-base md:text-xl mb-1 md:mb-2 tech-font">{course.name}</h4>
+                          <p className="text-gray-400 text-[11px] md:text-sm leading-relaxed">
+                            {course.description}
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <div className="mt-8 md:mt-12 pt-6 border-t border-white/5 flex justify-center">
+                  <button 
+                    onClick={() => setShowCourses(false)}
+                    className="px-8 md:px-12 py-3 md:py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-bold hover:bg-electron-accent hover:text-black transition-all tech-font"
+                  >
+                    إغلاق النافذة
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showMaterials && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-6 bg-black/90 backdrop-blur-md overflow-y-auto"
+            onClick={() => setShowMaterials(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="glass-panel p-6 md:p-10 max-w-4xl w-full relative overflow-hidden my-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-electron-accent via-electron-secondary to-electron-accent" />
+              
+              <button 
+                onClick={() => setShowMaterials(false)}
+                className="absolute top-4 left-4 text-gray-500 hover:text-electron-accent transition-colors z-20"
+              >
+                <X size={24} />
+              </button>
+
+              <div className="relative z-10">
+                <div className="mb-8 md:mb-12">
+                  <h3 className="text-2xl md:text-5xl font-bold tech-font gradient-text mb-2 md:mb-4">المواد والملفات</h3>
+                  <p className="text-gray-400 text-sm md:text-lg">روابط مباشرة لقنوات التلغرام الخاصة بكل مادة - السمستر السادس</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+                  {courses.map((course, idx) => (
+                    <motion.a
+                      key={course.name}
+                      href={course.telegram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.05 }}
+                      className={`glass-panel p-5 md:p-6 relative overflow-hidden group hover:border-electron-accent transition-all flex items-center justify-between gap-4`}
+                    >
+                      <div className={`absolute inset-0 bg-gradient-to-br ${course.gradient} opacity-10 group-hover:opacity-20 transition-opacity`} />
+                      <div className="flex gap-4 items-center relative z-10">
+                        <div className={`w-10 h-10 md:w-12 md:h-12 glass-panel flex items-center justify-center ${course.color} shrink-0`}>
+                          <course.icon size={20} className="md:size-6" />
+                        </div>
+                        <div>
+                          <h4 className="text-white font-bold text-base md:text-lg tech-font">{course.name}</h4>
+                          <div className="text-electron-accent/60 text-[10px] tech-font uppercase tracking-widest">Telegram Channel</div>
+                        </div>
+                      </div>
+                      <div className="relative z-10 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center text-electron-accent group-hover:bg-electron-accent group-hover:text-black transition-all">
+                        <Share2 size={14} className="-rotate-90" />
+                      </div>
+                    </motion.a>
+                  ))}
+                </div>
+
+                <div className="mt-8 md:mt-12 pt-6 border-t border-white/5 flex justify-center">
+                  <button 
+                    onClick={() => setShowMaterials(false)}
+                    className="px-8 md:px-12 py-3 md:py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-bold hover:bg-electron-accent hover:text-black transition-all tech-font"
+                  >
+                    إغلاق النافذة
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showSchedulesAlert && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[1100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+            onClick={() => setShowSchedulesAlert(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.8, rotate: -5 }}
+              animate={{ scale: 1, rotate: 0 }}
+              exit={{ scale: 0.8, rotate: 5 }}
+              className="glass-panel p-8 md:p-12 max-w-md w-full text-center relative overflow-hidden neon-card"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-electron-accent via-electron-secondary to-electron-accent" />
+              
+              <div className="w-24 h-24 bg-electron-accent/10 rounded-full flex items-center justify-center mx-auto mb-8 relative">
+                <div className="absolute inset-0 rounded-full border-2 border-electron-accent/30 animate-ping" />
+                <Zap size={48} className="text-electron-accent" />
+              </div>
+
+              <h3 className="text-2xl md:text-4xl font-bold font-cairo gradient-text mb-6">همسة من النظام</h3>
+              
+              <div className="space-y-4 mb-10">
+                <p className="text-xl md:text-2xl text-white font-bold leading-relaxed font-cairo">
+                  شنو يا مستعجل؟ 😂
+                </p>
+                <p className="text-gray-400 text-lg font-cairo">
+                  لسة الجداول مانزلت، خليك ريلاكس شوية!
+                </p>
+              </div>
+
+              <button 
+                onClick={() => setShowSchedulesAlert(false)}
+                className="w-full py-4 rounded-2xl bg-electron-accent text-black font-black font-cairo hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_rgba(0,242,255,0.3)]"
+              >
+                حاضر يا هندسة
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {showChannels && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-6 bg-black/90 backdrop-blur-md overflow-y-auto"
+            onClick={() => setShowChannels(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="glass-panel p-6 md:p-10 max-w-2xl w-full relative overflow-hidden my-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 via-blue-500 to-green-500" />
+              
+              <button 
+                onClick={() => setShowChannels(false)}
+                className="absolute top-4 left-4 text-gray-500 hover:text-electron-accent transition-colors z-20"
+              >
+                <X size={24} />
+              </button>
+
+              <div className="relative z-10">
+                <div className="mb-8 md:mb-12 text-center">
+                  <h3 className="text-2xl md:text-5xl font-bold font-cairo gradient-text mb-2 md:mb-4">القنوات الرسمية</h3>
+                  <p className="text-gray-400 text-sm md:text-lg font-cairo">انضم لمجتمع ELEX28 على منصات التواصل الاجتماعي</p>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* WhatsApp Channel */}
+                  <motion.a
+                    href="https://whatsapp.com/channel/0029VbCoSxB4NVipkChIbc15"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="glass-panel neon-card neon-glow p-8 group hover:border-green-500 transition-all flex flex-col items-center text-center gap-6 relative overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="w-20 h-20 rounded-3xl bg-green-500/10 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-black transition-all">
+                      <MessageSquare size={40} />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold font-cairo mb-2">قناة الواتساب</h4>
+                      <p className="text-gray-500 text-sm font-cairo">أخبار الدفعة، التنبيهات العاجلة، والإعلانات الرسمية.</p>
+                    </div>
+                    <div className="px-6 py-2 rounded-full border border-green-500/30 text-green-500 text-xs font-bold group-hover:bg-green-500 group-hover:text-black transition-all font-cairo">
+                      انضم الآن
+                    </div>
+                  </motion.a>
+
+                  {/* Telegram Channel */}
+                  <motion.a
+                    href="https://t.me/+Agkt05rV37tmODc0"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="glass-panel neon-card neon-glow p-8 group hover:border-blue-400 transition-all flex flex-col items-center text-center gap-6 relative overflow-hidden"
+                  >
+                    <div className="absolute inset-0 bg-blue-400/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="w-20 h-20 rounded-3xl bg-blue-400/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-400 group-hover:text-black transition-all">
+                      <Share2 size={40} />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold font-cairo mb-2">قناة التلغرام</h4>
+                      <p className="text-gray-500 text-sm font-cairo">المكتبة الرقمية، الملفات الأكاديمية، والنقاشات العلمية.</p>
+                    </div>
+                    <div className="px-6 py-2 rounded-full border border-blue-400/30 text-blue-400 text-xs font-bold group-hover:bg-blue-400 group-hover:text-black transition-all font-cairo">
+                      انضم الآن
+                    </div>
+                  </motion.a>
+                </div>
+
+                <div className="mt-10 pt-6 border-t border-white/5 flex justify-center">
+                  <button 
+                    onClick={() => setShowChannels(false)}
+                    className="px-8 md:px-12 py-3 md:py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-bold hover:bg-electron-accent hover:text-black transition-all tech-font"
+                  >
+                    إغلاق النافذة
+                  </button>
                 </div>
               </div>
             </motion.div>
