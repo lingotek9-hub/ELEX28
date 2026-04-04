@@ -464,7 +464,7 @@ export default function App() {
                 <div className="h-0.5 md:h-1 w-1/2 mx-auto bg-gradient-to-r from-transparent via-electron-accent to-transparent opacity-50" />
               </div>
               
-              <p className="text-sm md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-medium px-6 mt-4 md:mt-8">
+              <p className="text-sm md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed font-medium px-6 mt-4 md:mt-8 font-cairo">
                 بوابة السمستر السادس | <span className="text-electron-secondary font-bold">دفعة 2020</span>
                 <br />
                 <span className="text-[8px] md:text-sm uppercase tracking-[0.1em] md:tracking-[0.2em] opacity-60">Sudan University of Science & Technology</span>
@@ -478,12 +478,12 @@ export default function App() {
             transition={{ delay: 0.6 }}
             className="mt-10 md:mt-20 flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8 px-6"
           >
-            <a href="#structure" className="w-full md:w-auto group relative px-8 md:px-14 py-4 md:py-5 bg-white text-black font-bold rounded-2xl overflow-hidden transition-all hover:scale-105 active:scale-95 tech-font shadow-[0_20px_50px_rgba(255,255,255,0.1)] text-center">
+            <a href="#structure" className="w-full md:w-auto group relative px-8 md:px-14 py-4 md:py-5 bg-white text-black font-bold rounded-2xl overflow-hidden transition-all hover:scale-105 active:scale-95 font-cairo shadow-[0_20px_50px_rgba(255,255,255,0.1)] text-center">
               <div className="absolute inset-0 bg-electron-accent translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               <span className="relative z-10 group-hover:text-black">هيكل الدفعة</span>
             </a>
-            <a href="#resources" className="w-full md:w-auto px-8 md:px-14 py-4 md:py-5 glass-panel border-white/10 hover:border-electron-accent/50 hover:bg-white/5 transition-all hover:scale-105 active:scale-95 tech-font backdrop-blur-md text-center">
-              بوابة الطلاب
+            <a href="#resources" className="w-full md:w-auto px-8 md:px-14 py-4 md:py-5 glass-panel border-white/10 hover:border-electron-accent/50 hover:bg-white/5 transition-all hover:scale-105 active:scale-95 font-cairo backdrop-blur-md text-center">
+              بوابة الدفعة
             </a>
           </motion.div>
         </motion.div>
@@ -581,7 +581,7 @@ export default function App() {
         
         <div className="max-w-7xl mx-auto w-full relative z-10">
           <div className="mb-16 md:mb-24">
-            <h2 className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 font-cairo">بوابة <span className="gradient-text">الطلاب</span></h2>
+            <h2 className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 font-cairo">بوابة <span className="gradient-text">الدفعة</span></h2>
             <p className="text-gray-500 max-w-xl text-base md:text-lg">كل ما تحتاجه في مسيرتك بالسمستر السادس، مجمع في مكان واحد.</p>
           </div>
 
@@ -687,8 +687,8 @@ export default function App() {
             
             <div className="md:col-span-3">
               <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-[0.2em] opacity-90">الوصول السريع</h4>
-              <ul className="space-y-4 text-gray-500 text-sm">
-                {['هيكل الدفعة', 'بوابة الطلاب', 'المكتبة الرقمية', 'تواصل معنا'].map((item, idx) => (
+              <ul className="space-y-4 text-gray-500 text-sm font-cairo">
+                {['هيكل الدفعة', 'بوابة الدفعة', 'المكتبة الرقمية', 'تواصل معنا'].map((item, idx) => (
                   <li key={idx}>
                     <a href="#" className="hover:text-electron-accent transition-colors flex items-center gap-2 group">
                       <div className="w-1 h-1 rounded-full bg-electron-accent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -1054,7 +1054,7 @@ export default function App() {
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              className="glass-panel p-6 md:p-10 max-w-4xl w-full relative overflow-hidden my-auto neon-card"
+              className="glass-panel p-4 md:p-10 max-w-4xl w-full relative overflow-hidden my-auto neon-card"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-electron-accent via-electron-secondary to-electron-accent" />
@@ -1079,9 +1079,9 @@ export default function App() {
                   <table className="w-full text-right border-collapse">
                     <thead>
                       <tr className="border-b border-white/10 bg-white/5">
-                        <th className="p-4 md:p-6 text-electron-accent font-bold font-cairo text-sm md:text-lg">المادة</th>
-                        <th className="p-4 md:p-6 text-electron-accent font-bold font-cairo text-sm md:text-lg">المحاضر</th>
-                        <th className="p-4 md:p-6 text-electron-accent font-bold font-cairo text-sm md:text-lg text-center">الساعات</th>
+                        <th className="p-3 md:p-6 text-electron-accent font-bold font-cairo text-xs md:text-lg">المادة</th>
+                        <th className="p-3 md:p-6 text-electron-accent font-bold font-cairo text-xs md:text-lg">المحاضر</th>
+                        <th className="p-3 md:p-6 text-electron-accent font-bold font-cairo text-xs md:text-lg text-center">الساعات</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -1093,19 +1093,19 @@ export default function App() {
                           transition={{ delay: idx * 0.05 }}
                           className="border-b border-white/5 hover:bg-electron-accent/5 transition-colors group"
                         >
-                          <td className="p-4 md:p-6 text-white font-bold font-cairo text-sm md:text-base group-hover:text-electron-accent transition-colors">
+                          <td className="p-3 md:p-6 text-white font-bold font-cairo text-[11px] md:text-base group-hover:text-electron-accent transition-colors">
                             {course.name}
                           </td>
-                          <td className="p-4 md:p-6 text-gray-300 font-cairo text-sm md:text-base">
-                            <div className="flex items-center gap-2">
-                              <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
-                                <User size={14} className="text-electron-accent" />
+                          <td className="p-3 md:p-6 text-gray-300 font-cairo text-[11px] md:text-base">
+                            <div className="flex items-center gap-1.5 md:gap-2">
+                              <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 shrink-0">
+                                <User size={12} className="md:size-[14px] text-electron-accent" />
                               </div>
-                              {course.prof}
+                              <span className="truncate max-w-[80px] md:max-w-none">{course.prof}</span>
                             </div>
                           </td>
-                          <td className="p-4 md:p-6 text-center">
-                            <span className="px-3 py-1 rounded-full bg-electron-accent/10 text-electron-accent text-xs font-bold tech-font border border-electron-accent/20">
+                          <td className="p-3 md:p-6 text-center">
+                            <span className="px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-electron-accent/10 text-electron-accent text-[9px] md:text-xs font-bold tech-font border border-electron-accent/20 whitespace-nowrap">
                               {course.hours} CH
                             </span>
                           </td>
