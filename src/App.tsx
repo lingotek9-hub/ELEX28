@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
-import { Cpu, Zap, Radio, BookOpen, DollarSign, Share2, Palette, ChevronDown, X, Globe, ShieldCheck, MessageSquare, QrCode } from "lucide-react";
+import { Cpu, Zap, Radio, BookOpen, DollarSign, Share2, Palette, ChevronDown, X, Globe, ShieldCheck, MessageSquare, QrCode, User, Clock } from "lucide-react";
 
 // Interactive Particle Background Component
 const InteractiveBackground = () => {
@@ -9,6 +9,9 @@ const InteractiveBackground = () => {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
+      // Update CSS variables for cards
+      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
@@ -169,7 +172,16 @@ const courses = [
     icon: Radio,
     color: "text-blue-400",
     gradient: "from-blue-500/10 to-cyan-500/10",
-    telegram: "https://t.me/c/3701824243/2"
+    telegram: "https://t.me/c/3701824243/2",
+    details: {
+      title: "الاتصالات التماثلية (Analog Communications)",
+      instructor: "د. أشرف قسم السيد",
+      hours: "3 ساعات",
+      overview: "دراسة المبادئ الأساسية لأنظمة الاتصالات التماثلية وكيفية نقل المعلومات عبر الموجات الكهرومغناطيسية، وهي مادة أساسية لفهم هندسة الاتصالات.",
+      content: "تشمل المادة أنواع التعديل المختلفة (AM, FM, PM)، وتحليل الإشارات في المجال الزمني والترددي باستخدام تحويلات فورييه، وتأثير الضجيج (Noise) على جودة الاستقبال وكيفية تقليله.",
+      studyMethod: "التركيز على فهم تحويلات فورييه (Fourier Transform) وحل المسائل الرياضية المتعلقة بنسبة الإشارة إلى الضجيج (SNR). يُنصح بمراجعة مفاهيم الإشارات والنظم.",
+      examInfo: "الامتحان عادة ما يتضمن مسائل رياضية حول حسابات القدرة وكفاءة التعديل، بالإضافة إلى بعض الأسئلة النظرية حول مقارنة أنواع التعديل المختلفة."
+    }
   },
   {
     name: "المعالجات الدقيقة",
@@ -177,7 +189,16 @@ const courses = [
     icon: Cpu,
     color: "text-yellow-400",
     gradient: "from-yellow-500/10 to-orange-500/10",
-    telegram: "https://t.me/c/3701824243/3"
+    telegram: "https://t.me/c/3701824243/3",
+    details: {
+      title: "المعالجات الدقيقة (Microprocessors)",
+      instructor: "د. خليفة الطيب",
+      hours: "3 ساعات",
+      overview: "فهم البنية الداخلية للمعالجات الدقيقة وكيفية برمجتها والتعامل مع العتاد (Hardware) بشكل مباشر، مما يربط بين البرمجيات والدوائر الإلكترونية.",
+      content: "دراسة معالج Intel 8086 بالتفصيل، لغة التجميع (Assembly Language)، تنظيم الذاكرة، والمداخل والمخارج (I/O Interfacing)، بالإضافة إلى المقاطعات (Interrupts).",
+      studyMethod: "التطبيق العملي ضروري جداً؛ حاول كتابة برامج بسيطة بلغة التجميع وفهم كيفية عمل المسجلات (Registers) والذاكرة خطوة بخطوة. مرجع فلويد أو باري بري مفيد جداً.",
+      examInfo: "الامتحانات تركز على كتابة كود Assembly لمهام محددة، ورسم مخططات الربط (Interfacing) بين المعالج والذاكرة أو الملحقات."
+    }
   },
   {
     name: "التحليل العددي",
@@ -185,7 +206,16 @@ const courses = [
     icon: Zap,
     color: "text-cyan-400",
     gradient: "from-cyan-500/10 to-blue-500/10",
-    telegram: "https://t.me/c/3701824243/4"
+    telegram: "https://t.me/c/3701824243/4",
+    details: {
+      title: "التحليل العددي (Numerical Analysis)",
+      instructor: "دكتور ساتي",
+      hours: "3 ساعات",
+      overview: "التحليل العددي هو فرع من فروع علم الرياضيات بيستخدم لتحصل على حلول تقريبية للمسائل صعبة الحل، أو المسائل البيصعب التحصل على حل دقيق ليها، ومن أهم فوائد التحليل العددي هي المحاكاة أو simulation للظواهر الفيزيائية زي درجة الحرارة مثلا أو الطقس وغيرها من الاستخدامات.",
+      content: "المادة بتتكون من درس في البداية زي مقدمة كدا دا براه عندو شيت بالإنجليزي فيه أسماء الدروس بالإنجليزي (في امتحان السناير سألهم من تعريف الأسماء دي فما تهملوه)+25 درس مقسمة على 6 أبواب:\n1. Non-Linear Algebraic Equations (finding the Roots).\n2. Linear Algebraic Equations (finding the Unknowns).\n3. Methods of Approximation Theory (constructing the functions).\n4. Numerical Differentiation.\n5. Numerical Integration.\n6. Ordinary Differential Equations (the solution of differential equations).\nكل باب بتكلم عن موضوع مختلف، المقرر بتاعو عبارة عن محاضرات شيتات بالإنجليزي+مرجع بالعربي، ودكتور ساتي مابخلي شي إلا ويجيبو في الامتحان(يعني باختصار ماتفط ولا شي في المقرر) وتسجل وتركز مع كل حرف بقولو في المحاضرة.",
+      studyMethod: "المادة في قرايتها محتاجة تمرين تمرين تمرين كتييير على المسائل ولازم لازم يكون معاك آلة حاسبة ضروري شديييد ولابد من انك تحل أكبر قدر من المسائل و تمرًن يدك على المسائل (كررنا الكلام لاهميتو الشديدة و لأنو لو ماعملت كدا زمن الامتحان ماحيكفيك)، وفي شيت بتاع اثباتات (درجة الاثباتات ماكتيرة في الامتحان بس لايخلو منها الامتحان الناس تضمن درجتها)، فالناس تفهم وتحفظ الاثباتات الفي الشيت دا مع أي اثباتات تانية تلقوها في المقرر.",
+      examInfo: "عموماً طريقة أسألتو في الامتحان غير مباشرة يعني مطلوب منك تتوسع بأكبر قدر ممكن في المسائل دا بالنسبة لدكتور ساتي(تطلعوا على الامتحانات القدييمة)، أما لو وضع الامتحان مساعد التدريس بتاعو (فوكس) ف الامتحان حيكون واضح ومباشر ومابطلع من pdf نيازي (NUMERICAL) زي امتحانات 2016و2015، قيل انو ماطلع من المقرر في امتحان سنايرنا بس امتحانو بكون شامل تفاصيل كل المقرر يعني لو ركزت عليه+كلام الدكتور+حاجات الحفظ+كل المسائل الفيه والاثباتات مابتجيك عوجة بإذن الله.🙌🏼🤍\nوأخيراً عموماً كدا أي حاجة جات من الدكتور سواء شيتات، مراجع وحتى كلامو البقولو اهتم بيه شديد."
+    }
   },
   {
     name: "إلكترونيات القدرة",
@@ -193,7 +223,14 @@ const courses = [
     icon: Zap,
     color: "text-green-400",
     gradient: "from-green-500/10 to-emerald-500/10",
-    telegram: "https://t.me/c/3701824243/5"
+    telegram: "https://t.me/c/3701824243/5",
+    details: {
+      title: "إلكترونيات القدرة",
+      instructor: "د. ريم",
+      hours: "3 ساعات",
+      studyMethod: "المقرر ماكتير بس دا مامعناه انو تقراه في قاب الامتحان لأنو لو عملت كدا للأسف المادة حتغدر بيك😂 لأنو المادة دي محتاجة وقت كتير عشان تفهمها ولازم تمر على كلل شي في المقرر.. المادة فيها الفهم وفيها الحفظ ولازم تفهم كل شي في المقرر لأنو في الامتحان بكون في اسئلة من نوع (أشرح و أذكر )، وبالنسبة للفيديوهات لازم تحضرها كلها وتركز فيها لأنو أثناء الشرح الدكتور ذاكر فيها حاجات ماموجودة في الشيت، ولابد برضو من انك تحل امتحانات السنين السابقة بالذات الحاجات الموجودة في الشيت (على حسب امتحان سنايرنا).",
+      examInfo: "الدكتور بصورة عامة مابطلع من شيتاتو، لكن قد تكون امتحاناتو شوية عاصرة لأنو مطلوب منك تفهم كل حرف في شيتاتو دي، امتحاناتو في الغالب مابتخلو من(تصميم الدوائر)، أما بالنسبة لامتحان السناير ماكان جاهم صعب وماطلع من مفهوم المقرر (ممكن مايجيب الحاجة بالنص لكن بتكون نفس الفهم)."
+    }
   },
   {
     name: "الحقول الكهرومغناطيسية",
@@ -201,7 +238,16 @@ const courses = [
     icon: Radio,
     color: "text-purple-400",
     gradient: "from-purple-500/10 to-pink-500/10",
-    telegram: "https://t.me/c/3701824243/6"
+    telegram: "https://t.me/c/3701824243/6",
+    details: {
+      title: "الحقول الكهرومغناطيسية (Electromagnetics)",
+      instructor: "د. فتح الرحمن إسماعيل",
+      hours: "3 ساعات",
+      overview: "دراسة القوانين الفيزيائية التي تحكم الحقول الكهربائية والمغناطيسية وتفاعلها، وهي من أمتع وأصعب مواد الهندسة الإلكترونية.",
+      content: "معادلات ماكسويل في صورها المختلفة، انتشار الأمواج الكهرومغناطيسية في الأوساط المختلفة، خطوط النقل (Transmission Lines)، والمتجهات (Vectors).",
+      studyMethod: "المادة دسمة رياضياً، تحتاج لتركيز عالي في التفاضل والتكامل المتجهي وفهم المعنى الفيزيائي لكل معادلة. حل مسائل الكتاب (Sadiku) هو مفتاح النجاح.",
+      examInfo: "الامتحان يتطلب مهارات رياضية عالية وفهم عميق للظواهر الفيزيائية. الأسئلة غالباً ما تكون شاملة لعدة مفاهيم في مسألة واحدة."
+    }
   },
   {
     name: "تماثلية 2",
@@ -209,7 +255,16 @@ const courses = [
     icon: Palette,
     color: "text-orange-400",
     gradient: "from-orange-500/10 to-red-500/10",
-    telegram: "https://t.me/c/3701824243/7"
+    telegram: "https://t.me/c/3701824243/7",
+    details: {
+      title: "الإلكترونيات التماثلية 2 (Analog Electronics II)",
+      instructor: "د. فضل حسين",
+      hours: "3 ساعات",
+      overview: "استكمال لدراسة الدوائر الإلكترونية التماثلية المتقدمة وتطبيقاتها في الأنظمة الإلكترونية المعقدة.",
+      content: "مكبرات العمليات (Op-Amps) وتطبيقاتها، المرشحات الفعالة (Active Filters)، المذبذبات (Oscillators)، ودوائر التغذية الراجعة (Feedback) واستقراريتها.",
+      studyMethod: "فهم الدوائر المكافئة (Equivalent Circuits) والتحليل الترددي للدوائر. التدريب على رسم الـ Bode Plots وفهم تأثير الـ Feedback على الكسب والنطاق الترددي.",
+      examInfo: "الامتحانات تركز على تحليل الدوائر (Analysis) وتصميمها (Design) لتحقيق مواصفات معينة."
+    }
   },
   {
     name: "VHDL",
@@ -217,7 +272,15 @@ const courses = [
     icon: Cpu,
     color: "text-red-400",
     gradient: "from-red-500/10 to-rose-500/10",
-    telegram: "https://t.me/c/3701824243/8"
+    telegram: "https://t.me/c/3701824243/8",
+    details: {
+      title: "مادة الVHDL",
+      instructor: "د. ريم",
+      hours: "ساعتين",
+      content: "المادة عبارة عن برمجة للهاردوير، و مقررها بنزل إلكتروني.",
+      studyMethod: "كانت نصيحة من السناير انو يُفَضل انك تمر على الفيديوهات كدا كلها ورا بعض وتحاول تفهمها، بعداك ترجع تبدأ درس درس (لأنو الدروس ليها علاقة ببعض وكل ماتمشي لقدام الفات حيقع ليك أكتر فلما تمر على الفيديوهات حيبقى الفهم أسهل بإذن الله )؛ بالطريقة دي حيقع ليك فهم المادة بإذن الله..🙌🏼 وكمان قِيل انو شيت الدكتورة ماحيكفي بالغرض فممكن ترجع للجزئية بتاعت الVHDL في نهاية كل درس من مرجع فلويد بتاع الرقمية دا حيفيدك في البرمجة..أما بالنسبة للثيوري شيت الدكتورة كفاية ان شاء الله..✅",
+      examInfo: "في الغالب بتكون امتحانات المادة دي مكررة، فالناس تركز على الامتحانات القديمة(ضع دائرة في كل الامتحانات بتاعتها مكررة من الامتحانات القديمة والتستات بس في امتحان سنايرنا 26 كان فيها شوية إضافات)، والبرامج كذلك تحل كل البرامج الفي المقرر+الامتحانات القديمة مابتجيك عوجة بإذن الله.. الامتحان بكون بسيط فبالتالي درجات الأسئلة كبيرة فالناس تحاول تضمن الدرجات."
+    }
   },
   {
     name: "OOP",
@@ -225,7 +288,15 @@ const courses = [
     icon: BookOpen,
     color: "text-indigo-400",
     gradient: "from-indigo-500/10 to-purple-500/10",
-    telegram: "https://t.me/c/3701824243/9"
+    telegram: "https://t.me/c/3701824243/9",
+    details: {
+      title: "البرمجة هدفية التوجيه (OOP)",
+      instructor: "د. عزة",
+      hours: "ساعتين",
+      content: "عبارة عن 9 محاضرات (فيديوهات + بوربوينت).",
+      studyMethod: "المادة زي أي مادة من مواد دكتورة عزة المرت علينا؛ محتاجة تركيز تركيز تركيز وفهم وتطبيق كتير (المواد دي بالنسبة لتخصصنا من الأساسيات المهم نعرفها كويس شديد)، لابد من إنك تركز في أي حاجة بتقولها الدكتورة أثناء الشرح، لأنو ممكن جداً تجيب أسئلة في الامتحان من الأسئلة البتطرحها أثناء الشرح، بالإضافة للامتحانات القديمة، لازم تمر على أكبر قدر من الامتحانات القديمة عشان تقدر توقع فهم المادة وتتمرس فيها، وفي أسئلة مكررة في الامتحانات بلا شك طبعاً، باختصار قرايتك تكون من (المحتوى البتنزلو الدكتورة وشرحها، بالإضافة للامتحانات القديمة ).✅",
+      examInfo: "طبعاً لايُخفى علينا كلنا طريقة امتحان دكتورة عزة، الامتحان بكون كتير ومحتاج منك تخفف يدك، ماتخش الامتحان إلا وانت مراجع كمية كبيرة من امتحاناتها السابقة، بالإضافة لأنك تكون عملت بطريقة المذاكرة المذكورة فوق👆🏼وبإذن الله تعالى حتكون في السليم.✨"
+    }
   }
 ];
 
@@ -244,6 +315,7 @@ export default function App() {
   const [showMaterials, setShowMaterials] = useState(false);
   const [showChannels, setShowChannels] = useState(false);
   const [showSchedulesAlert, setShowSchedulesAlert] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<any>(null);
   const { scrollYProgress } = useScroll();
   const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
@@ -263,7 +335,7 @@ export default function App() {
 
   // Professional body scroll lock when modals are open
   useEffect(() => {
-    if (showWelcome || selectedRole || showCourses || showMaterials || showChannels || showSchedulesAlert) {
+    if (showWelcome || selectedRole || showCourses || showMaterials || showChannels || showSchedulesAlert || selectedCourse) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -271,7 +343,7 @@ export default function App() {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [showWelcome, selectedRole, showCourses, showMaterials, showChannels, showSchedulesAlert]);
+  }, [showWelcome, selectedRole, showCourses, showMaterials, showChannels, showSchedulesAlert, selectedCourse]);
 
   // Robust smooth scrolling for all anchor links
   useEffect(() => {
@@ -306,6 +378,17 @@ export default function App() {
     document.addEventListener('click', handleAnchorClick);
     return () => document.removeEventListener('click', handleAnchorClick);
   }, []);
+
+  const coursesWithProfs = [
+    { name: "الاتصالات التماثلية", prof: "د. أشرف قسم السيد", hours: 3 },
+    { name: "المعالجات الدقيقة", prof: "د. خليفة الطيب", hours: 3 },
+    { name: "التحليل العددي", prof: "د. ساتي", hours: 3 },
+    { name: "إلكترونيات القدرة", prof: "د. ريم عبد المنعم", hours: 3 },
+    { name: "الحقول الكهرومغناطيسية", prof: "د. فتح الرحمن إسماعيل", hours: 3 },
+    { name: "تماثلية 2", prof: "د. فضل حسين", hours: 3 },
+    { name: "VHDL", prof: "د. ريم عبد المنعم", hours: 2 },
+    { name: "OOP", prof: "د. عزة كمال الدين", hours: 2 },
+  ];
 
   return (
     <div className="min-h-screen flex flex-col selection:bg-electron-accent selection:text-black relative" dir="rtl">
@@ -844,7 +927,8 @@ export default function App() {
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.05 }}
-                      className={`glass-panel neon-card neon-glow p-5 md:p-6 relative overflow-hidden group hover:border-electron-accent/50 transition-all`}
+                      onClick={() => course.details && setSelectedCourse(course)}
+                      className={`glass-panel neon-card neon-glow p-5 md:p-6 relative overflow-hidden group hover:border-electron-accent/50 transition-all ${course.details ? 'cursor-pointer' : 'cursor-default'}`}
                     >
                       <div className={`absolute inset-0 bg-gradient-to-br ${course.gradient} opacity-20 group-hover:opacity-40 transition-opacity`} />
                       <div className="flex gap-4 md:gap-5 items-start relative z-10">
@@ -852,7 +936,14 @@ export default function App() {
                           <course.icon size={20} className="md:size-6" />
                         </div>
                         <div>
-                          <h4 className="text-white font-bold text-base md:text-xl mb-1 md:mb-2 tech-font">{course.name}</h4>
+                          <h4 className="text-white font-bold text-base md:text-xl mb-1 md:mb-2 tech-font flex items-center gap-2">
+                            {course.name}
+                            {course.details && (
+                              <span className="text-[8px] md:text-[10px] px-2 py-0.5 rounded-full bg-electron-accent/20 text-electron-accent border border-electron-accent/30 font-cairo">
+                                عرض التفاصيل
+                              </span>
+                            )}
+                          </h4>
                           <p className="text-gray-400 text-[11px] md:text-sm leading-relaxed">
                             {course.description}
                           </p>
@@ -956,40 +1047,87 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[1100] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md"
+            className="fixed inset-0 z-[1100] flex items-center justify-center p-4 md:p-6 bg-black/90 backdrop-blur-md overflow-y-auto"
             onClick={() => setShowSchedulesAlert(false)}
           >
             <motion.div
-              initial={{ scale: 0.8, rotate: -5 }}
-              animate={{ scale: 1, rotate: 0 }}
-              exit={{ scale: 0.8, rotate: 5 }}
-              className="glass-panel p-8 md:p-12 max-w-md w-full text-center relative overflow-hidden neon-card"
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="glass-panel p-6 md:p-10 max-w-4xl w-full relative overflow-hidden my-auto neon-card"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-electron-accent via-electron-secondary to-electron-accent" />
               
-              <div className="w-24 h-24 bg-electron-accent/10 rounded-full flex items-center justify-center mx-auto mb-8 relative">
-                <div className="absolute inset-0 rounded-full border-2 border-electron-accent/30 animate-ping" />
-                <Zap size={48} className="text-electron-accent" />
-              </div>
-
-              <h3 className="text-2xl md:text-4xl font-bold font-cairo gradient-text mb-6">همسة من النظام</h3>
-              
-              <div className="space-y-4 mb-10">
-                <p className="text-xl md:text-2xl text-white font-bold leading-relaxed font-cairo">
-                  شنو يا مستعجل؟ 😂
-                </p>
-                <p className="text-gray-400 text-lg font-cairo">
-                  لسة الجداول مانزلت، خليك ريلاكس شوية!
-                </p>
-              </div>
-
               <button 
                 onClick={() => setShowSchedulesAlert(false)}
-                className="w-full py-4 rounded-2xl bg-electron-accent text-black font-black font-cairo hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_rgba(0,242,255,0.3)]"
+                className="absolute top-4 left-4 text-gray-500 hover:text-electron-accent transition-colors z-20"
               >
-                حاضر يا هندسة
+                <X size={24} />
               </button>
+
+              <div className="relative z-10">
+                <div className="mb-8 text-center">
+                  <div className="w-16 h-16 bg-electron-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-electron-accent/20">
+                    <BookOpen size={32} className="text-electron-accent" />
+                  </div>
+                  <h3 className="text-2xl md:text-4xl font-bold font-cairo gradient-text mb-2">المقررات والمحاضرين</h3>
+                  <p className="text-gray-400 text-sm md:text-lg font-cairo">تفاصيل مواد الفصل الدراسي الحالي - ELEX28</p>
+                </div>
+
+                <div className="overflow-x-auto rounded-2xl border border-white/5 bg-white/5">
+                  <table className="w-full text-right border-collapse">
+                    <thead>
+                      <tr className="border-b border-white/10 bg-white/5">
+                        <th className="p-4 md:p-6 text-electron-accent font-bold font-cairo text-sm md:text-lg">المادة</th>
+                        <th className="p-4 md:p-6 text-electron-accent font-bold font-cairo text-sm md:text-lg">المحاضر</th>
+                        <th className="p-4 md:p-6 text-electron-accent font-bold font-cairo text-sm md:text-lg text-center">الساعات</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {coursesWithProfs.map((course, idx) => (
+                        <motion.tr 
+                          key={idx}
+                          initial={{ opacity: 0, x: -20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: idx * 0.05 }}
+                          className="border-b border-white/5 hover:bg-electron-accent/5 transition-colors group"
+                        >
+                          <td className="p-4 md:p-6 text-white font-bold font-cairo text-sm md:text-base group-hover:text-electron-accent transition-colors">
+                            {course.name}
+                          </td>
+                          <td className="p-4 md:p-6 text-gray-300 font-cairo text-sm md:text-base">
+                            <div className="flex items-center gap-2">
+                              <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10">
+                                <User size={14} className="text-electron-accent" />
+                              </div>
+                              {course.prof}
+                            </div>
+                          </td>
+                          <td className="p-4 md:p-6 text-center">
+                            <span className="px-3 py-1 rounded-full bg-electron-accent/10 text-electron-accent text-xs font-bold tech-font border border-electron-accent/20">
+                              {course.hours} CH
+                            </span>
+                          </td>
+                        </motion.tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div className="mt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center gap-3 text-gray-500 text-xs md:text-sm font-cairo">
+                    <Zap size={16} className="text-electron-accent" />
+                    <span>إجمالي الساعات المعتمدة: <span className="text-electron-accent font-bold">{coursesWithProfs.reduce((acc, curr) => acc + curr.hours, 0)} ساعة</span></span>
+                  </div>
+                  <button 
+                    onClick={() => setShowSchedulesAlert(false)}
+                    className="w-full md:w-auto px-10 py-3 rounded-xl bg-electron-accent text-black font-bold font-cairo hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(0,242,255,0.2)]"
+                  >
+                    حاضر يا هندسة
+                  </button>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
         )}
@@ -1078,6 +1216,124 @@ export default function App() {
                     className="px-8 md:px-12 py-3 md:py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-bold hover:bg-electron-accent hover:text-black transition-all tech-font"
                   >
                     إغلاق النافذة
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {selectedCourse && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[1200] flex items-center justify-center p-4 md:p-6 bg-black/95 backdrop-blur-xl overflow-y-auto"
+            onClick={() => setSelectedCourse(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, y: 30 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 30 }}
+              className="glass-panel p-6 md:p-10 max-w-3xl w-full relative overflow-hidden my-auto neon-card"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${selectedCourse.gradient}`} />
+              
+              <button 
+                onClick={() => setSelectedCourse(null)}
+                className="absolute top-4 left-4 text-gray-500 hover:text-electron-accent transition-colors z-20"
+              >
+                <X size={24} />
+              </button>
+
+              <div className="relative z-10">
+                <div className="mb-8 flex items-center gap-6">
+                  <div className={`w-16 h-16 md:w-20 md:h-20 glass-panel flex items-center justify-center ${selectedCourse.color} border border-white/10`}>
+                    <selectedCourse.icon size={32} className="md:size-10" />
+                  </div>
+                  <div>
+                    <h3 className="text-2xl md:text-4xl font-bold font-cairo gradient-text mb-1">{selectedCourse.details.title}</h3>
+                    <div className="flex flex-wrap gap-4 text-sm md:text-base">
+                      <span className="text-electron-accent font-bold font-cairo flex items-center gap-2">
+                        <User size={16} /> {selectedCourse.details.instructor}
+                      </span>
+                      <span className="text-gray-400 font-cairo flex items-center gap-2">
+                        <Clock size={16} /> {selectedCourse.details.hours}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-8 max-h-[60vh] overflow-y-auto pr-4 custom-scrollbar text-right" dir="rtl">
+                  {selectedCourse.details.overview && (
+                    <section className="space-y-3">
+                      <h4 className="text-electron-accent font-bold font-cairo text-lg flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-electron-accent shadow-[0_0_10px_#00ffff]" />
+                        عن المادة
+                      </h4>
+                      <p className="text-gray-300 leading-relaxed font-cairo text-sm md:text-base whitespace-pre-line">
+                        {selectedCourse.details.overview}
+                      </p>
+                    </section>
+                  )}
+
+                  {selectedCourse.details.content && (
+                    <section className="space-y-3">
+                      <h4 className="text-electron-accent font-bold font-cairo text-lg flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-electron-accent shadow-[0_0_10px_#00ffff]" />
+                        المقرر الدراسي
+                      </h4>
+                      <p className="text-gray-300 leading-relaxed font-cairo text-sm md:text-base whitespace-pre-line">
+                        {selectedCourse.details.content}
+                      </p>
+                    </section>
+                  )}
+
+                  <section className="space-y-3">
+                    <h4 className="text-electron-accent font-bold font-cairo text-lg flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-electron-accent shadow-[0_0_10px_#00ffff]" />
+                      طريقة المذاكرة
+                    </h4>
+                    <div className="glass-panel p-4 md:p-6 border-white/5 bg-white/5 relative overflow-hidden">
+                      <div className="absolute top-0 right-0 w-1 h-full bg-electron-accent/30" />
+                      <p className="text-gray-300 leading-relaxed font-cairo text-sm md:text-base whitespace-pre-line">
+                        {selectedCourse.details.studyMethod}
+                      </p>
+                    </div>
+                  </section>
+
+                  <section className="space-y-3">
+                    <h4 className="text-electron-accent font-bold font-cairo text-lg flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-electron-accent shadow-[0_0_10px_#00ffff]" />
+                      عن الامتحان
+                    </h4>
+                    <div className="glass-panel p-4 md:p-6 border-white/5 bg-white/5 relative overflow-hidden">
+                      <div className="absolute top-0 right-0 w-1 h-full bg-electron-secondary/30" />
+                      <p className="text-gray-300 leading-relaxed font-cairo text-sm md:text-base whitespace-pre-line">
+                        {selectedCourse.details.examInfo}
+                      </p>
+                    </div>
+                  </section>
+                </div>
+
+                <div className="mt-10 flex flex-col md:flex-row gap-4">
+                  <a 
+                    href={selectedCourse.telegram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 py-4 rounded-2xl bg-electron-accent text-black font-bold font-cairo flex items-center justify-center gap-3 hover:scale-105 transition-all shadow-[0_0_20px_rgba(0,242,255,0.2)]"
+                  >
+                    <Share2 size={20} />
+                    قناة المادة على تلغرام
+                  </a>
+                  <button 
+                    onClick={() => setSelectedCourse(null)}
+                    className="flex-1 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-bold font-cairo hover:bg-white/10 transition-all"
+                  >
+                    إغلاق التفاصيل
                   </button>
                 </div>
               </div>

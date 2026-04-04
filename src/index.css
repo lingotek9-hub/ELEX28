@@ -65,41 +65,34 @@
 .neon-card {
   position: relative;
   z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.neon-card::after {
+.neon-card::before {
   content: "";
   position: absolute;
-  inset: -1px;
-  background: linear-gradient(90deg, transparent, var(--color-electron-accent), transparent);
-  background-size: 200% 100%;
-  animation: neon-flow 3s linear infinite;
-  border-radius: inherit;
+  inset: 0;
+  background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(0, 242, 255, 0.03), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s;
   z-index: -1;
-  opacity: 0.3;
-  mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  padding: 1px;
+  pointer-events: none;
 }
 
-@keyframes neon-flow {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+.neon-card:hover::before {
+  opacity: 1;
 }
 
 .neon-glow {
-  box-shadow: 0 0 15px rgba(0, 242, 255, 0.1);
-  transition: box-shadow 0.3s ease;
+  box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .neon-glow:hover {
-  box-shadow: 0 0 25px rgba(0, 242, 255, 0.3);
+  box-shadow: 0 12px 40px -2px rgba(0, 0, 0, 0.4);
+  border-color: rgba(0, 242, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 [dir="rtl"] {
