@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
-import { Cpu, Zap, Radio, BookOpen, DollarSign, Share2, Palette, ChevronDown, X, Globe, ShieldCheck, MessageSquare, QrCode, User, Clock } from "lucide-react";
+import { Cpu, Zap, Radio, BookOpen, DollarSign, Share2, Palette, ChevronDown, X, Globe, ShieldCheck, MessageSquare, QrCode, User, Clock, Calendar } from "lucide-react";
 
 // Interactive Particle Background Component
 const InteractiveBackground = () => {
@@ -300,12 +300,197 @@ const courses = [
   }
 ];
 
+const announcements = [
+  { id: 1, text: "تم اكتمال رفع جميع محاضرات مادة برمجة هدفية التوجيه OOP بنجاح.", type: "success" },
+  { id: 2, text: "تحديث: مادة التصميم بمساعدة الحاسوب VHDL أصبحت مكتملة الآن على المنصة.", type: "update" },
+  { id: 3, text: "إعلان: اكتمال محتوى مادة المعالجات الدقيقة ولغة التجميع بالكامل.", type: "info" },
+  { id: 4, text: "جديد: تم الانتهاء من رفع كافة ملفات مادة إلكترونيات القدرة.", type: "success" },
+];
+
 const stats = [
   { label: "مهندس ومهندسة", value: "150+", icon: Globe },
   { label: "جامعة السودان", value: "SUST", icon: Cpu },
   { label: "السمستر السادس", value: "S6", icon: Zap },
   { label: "دفعة 2020", value: "ELEX28", icon: ShieldCheck },
 ];
+
+function NewsTicker() {
+  return (
+    <div className="w-full bg-black/60 backdrop-blur-xl border-y border-electron-accent/20 py-2 md:py-3 overflow-hidden relative group flex items-center">
+      {/* Fixed Label */}
+      <div className="relative z-20 bg-electron-accent px-3 md:px-6 py-2 md:py-3 flex items-center gap-2 shadow-[10px_0_30px_rgba(0,0,0,0.5)]">
+        <Zap size={14} className="text-black animate-pulse" />
+        <span className="text-black font-bold text-[10px] md:text-xs tech-font uppercase tracking-tighter whitespace-nowrap">
+          Latest News
+        </span>
+      </div>
+
+      {/* Gradient Masks */}
+      <div className="absolute right-[80px] md:right-[150px] top-0 bottom-0 w-10 md:w-20 bg-gradient-to-l from-black/80 to-transparent z-10" />
+      <div className="absolute left-0 top-0 bottom-0 w-10 md:w-20 bg-gradient-to-r from-black/80 to-transparent z-10" />
+      
+      {/* Scrolling Content */}
+      <div className="flex items-center gap-4 whitespace-nowrap animate-marquee py-1">
+        {[...announcements, ...announcements, ...announcements].map((item, idx) => (
+          <div key={idx} className="flex items-center gap-3 px-4 md:px-8 border-l border-white/10 last:border-l-0">
+            <div className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full ${item.type === 'success' ? 'bg-green-500 shadow-[0_0_10px_#22c55e]' : item.type === 'update' ? 'bg-electron-accent shadow-[0_0_10px_#00ffff]' : 'bg-electron-secondary shadow-[0_0_10px_#00f2ff]'} animate-pulse`} />
+            <span className="text-white/90 text-[10px] md:text-sm font-cairo font-medium tracking-wide">
+              {item.text}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(33.333%); }
+        }
+        .animate-marquee {
+          animation: marquee 20s linear infinite;
+        }
+        [dir="rtl"] .animate-marquee {
+          animation: marquee-rtl 20s linear infinite;
+        }
+        @keyframes marquee-rtl {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.333%); }
+        }
+      `}} />
+    </div>
+  );
+}
+
+function ExamCountdown() {
+  const targetDate = new Date('2026-08-01T00:00:00');
+  const startDate = new Date('2026-01-01T00:00:00'); // Assumed start of semester for progress
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+    progress: 0
+  });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const now = new Date();
+      const difference = targetDate.getTime() - now.getTime();
+      const totalDuration = targetDate.getTime() - startDate.getTime();
+      const elapsed = now.getTime() - startDate.getTime();
+      const progress = Math.min(Math.max((elapsed / totalDuration) * 100, 0), 100);
+
+      if (difference > 0) {
+        setTimeLeft({
+          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
+          progress
+        });
+      } else {
+        clearInterval(timer);
+        setTimeLeft(prev => ({ ...prev, progress: 100 }));
+      }
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
+  const timeUnits = [
+    { label: "أيام", value: timeLeft.days },
+    { label: "ساعات", value: timeLeft.hours },
+    { label: "دقائق", value: timeLeft.minutes },
+    { label: "ثواني", value: timeLeft.seconds },
+  ];
+
+  return (
+    <section className="py-20 md:py-32 px-6 relative overflow-hidden">
+      <div className="absolute inset-0 bg-electron-accent/5 blur-[150px] -z-10" />
+      
+      <div className="max-w-5xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="glass-panel p-8 md:p-16 relative overflow-hidden border-white/5 shadow-2xl"
+        >
+          {/* Decorative Elements */}
+          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-electron-accent via-electron-secondary to-electron-accent" />
+          <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-electron-secondary/10 rounded-full blur-3xl" />
+          
+          <div className="relative z-10">
+            <div className="text-center mb-12 md:mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-electron-accent/10 border border-electron-accent/20 text-electron-accent text-[10px] md:text-xs font-bold mb-6 tech-font uppercase tracking-widest">
+                <Clock size={14} className="animate-pulse" />
+                Final Countdown
+              </div>
+              <h2 className="text-3xl md:text-6xl font-bold font-cairo mb-4 tracking-tighter">
+                العد التنازلي <span className="gradient-text">للامتحانات</span>
+              </h2>
+              <p className="text-gray-500 text-sm md:text-lg max-w-2xl mx-auto font-cairo">
+                الوقت يمر بسرعة.. استثمر كل لحظة في المذاكرة والتحصيل العلمي.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-12 md:mb-16">
+              {timeUnits.map((unit, idx) => (
+                <div key={idx} className="relative group">
+                  <div className="glass-panel p-6 md:p-10 flex flex-col items-center justify-center border-white/5 group-hover:border-electron-accent/30 transition-all duration-500 bg-white/[0.02]">
+                    <span className="text-4xl md:text-7xl font-black tech-font text-white mb-2 tracking-tighter">
+                      {String(unit.value).padStart(2, '0')}
+                    </span>
+                    <span className="text-[10px] md:text-xs font-bold font-cairo text-electron-accent uppercase tracking-[0.2em] opacity-60">
+                      {unit.label}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Progress Bar */}
+            <div className="space-y-4">
+              <div className="flex justify-between items-end text-[10px] md:text-xs tech-font font-bold uppercase tracking-widest">
+                <span className="text-gray-500">Semester Progress</span>
+                <span className="text-electron-accent">{Math.round(timeLeft.progress)}%</span>
+              </div>
+              <div className="h-2 md:h-3 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                <motion.div 
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${timeLeft.progress}%` }}
+                  transition={{ duration: 1.5, ease: "easeOut" }}
+                  className="h-full bg-gradient-to-r from-electron-accent to-electron-secondary shadow-[0_0_15px_rgba(0,255,255,0.5)]"
+                />
+              </div>
+              <div className="flex justify-between text-[8px] md:text-[10px] text-gray-600 font-cairo">
+                <span>بداية السمستر</span>
+                <span>1 أغسطس 2026</span>
+              </div>
+            </div>
+
+            <div className="mt-12 md:mt-16 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 pt-8 border-t border-white/5">
+              <div className="flex items-center gap-3">
+                <Calendar size={20} className="text-electron-accent" />
+                <div className="text-right">
+                  <div className="text-white font-bold text-sm md:text-base font-cairo">1 أغسطس 2026</div>
+                  <div className="text-gray-500 text-[10px] md:text-xs tech-font">START DATE</div>
+                </div>
+              </div>
+              <div className="hidden md:block w-[1px] h-10 bg-white/10" />
+              <div className="flex items-center gap-3">
+                <Zap size={20} className="text-electron-secondary" />
+                <div className="text-right">
+                  <div className="text-white font-bold text-sm md:text-base font-cairo">السمستر السادس</div>
+                  <div className="text-gray-500 text-[10px] md:text-xs tech-font">CURRENT TERM</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
 
 export default function App() {
   const [showWelcome, setShowWelcome] = useState(false);
@@ -498,6 +683,9 @@ export default function App() {
         </motion.div>
       </header>
 
+      {/* News Ticker Section */}
+      <NewsTicker />
+
       {/* Stats Section */}
       <section className="py-12 md:py-20 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
@@ -620,7 +808,9 @@ export default function App() {
                 >
                   <res.icon size={24} />
                 </motion.div>
-                <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 tech-font">{res.title}</h3>
+                <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 tech-font flex items-center gap-2">
+                  {res.title}
+                </h3>
                 <p className="text-gray-500 text-xs md:text-sm leading-relaxed mb-4 md:mb-6">
                   {res.description}
                 </p>
@@ -658,6 +848,9 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      {/* Exam Countdown Section */}
+      <ExamCountdown />
 
       {/* Footer */}
       <footer className="relative pt-20 pb-10 px-6 border-t border-electron-border bg-black overflow-hidden font-inter">
