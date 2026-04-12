@@ -305,6 +305,7 @@ const announcements = [
   { id: 2, text: "تحديث: مادة التصميم بمساعدة الحاسوب VHDL أصبحت مكتملة الآن على المنصة.", type: "update" },
   { id: 3, text: "إعلان: اكتمال محتوى مادة المعالجات الدقيقة ولغة التجميع بالكامل.", type: "info" },
   { id: 4, text: "جديد: تم الانتهاء من رفع كافة ملفات مادة إلكترونيات القدرة.", type: "success" },
+  { id: 5, text: "تنبيه: تم إضافة رابط المنصة الإلكترونية للجامعة في قسم القنوات الرسمية.", type: "update" },
 ];
 
 const stats = [
@@ -316,29 +317,33 @@ const stats = [
 
 function NewsTicker() {
   return (
-    <div className="w-full bg-black/60 backdrop-blur-xl border-y border-electron-accent/20 py-2 md:py-3 overflow-hidden relative group flex items-center">
-      {/* Fixed Label */}
-      <div className="relative z-20 bg-electron-accent px-3 md:px-6 py-2 md:py-3 flex items-center gap-2 shadow-[10px_0_30px_rgba(0,0,0,0.5)]">
+    <div className="w-full bg-black/60 backdrop-blur-xl border-y border-electron-accent/20 py-2 md:py-3 overflow-hidden relative group flex items-center h-10 md:h-14">
+      {/* Fixed Label - Absolute on the right for RTL */}
+      <div className="absolute right-0 top-0 bottom-0 z-30 bg-electron-accent px-4 md:px-8 flex items-center gap-2 shadow-[10px_0_30px_rgba(0,0,0,0.5)]">
         <Zap size={14} className="text-black animate-pulse" />
         <span className="text-black font-bold text-[10px] md:text-xs tech-font uppercase tracking-tighter whitespace-nowrap">
           Latest News
         </span>
       </div>
 
-      {/* Gradient Masks */}
-      <div className="absolute right-[80px] md:right-[150px] top-0 bottom-0 w-10 md:w-20 bg-gradient-to-l from-black/80 to-transparent z-10" />
-      <div className="absolute left-0 top-0 bottom-0 w-10 md:w-20 bg-gradient-to-r from-black/80 to-transparent z-10" />
-      
-      {/* Scrolling Content */}
-      <div className="flex items-center gap-4 whitespace-nowrap animate-marquee py-1">
-        {[...announcements, ...announcements, ...announcements].map((item, idx) => (
-          <div key={idx} className="flex items-center gap-3 px-4 md:px-8 border-l border-white/10 last:border-l-0">
-            <div className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full ${item.type === 'success' ? 'bg-green-500 shadow-[0_0_10px_#22c55e]' : item.type === 'update' ? 'bg-electron-accent shadow-[0_0_10px_#00ffff]' : 'bg-electron-secondary shadow-[0_0_10px_#00f2ff]'} animate-pulse`} />
-            <span className="text-white/90 text-[10px] md:text-sm font-cairo font-medium tracking-wide">
-              {item.text}
-            </span>
-          </div>
-        ))}
+      {/* Scrolling Content Container with Gradient Mask for smooth entry/exit */}
+      <div 
+        className="w-full h-full flex items-center overflow-hidden"
+        style={{ 
+          maskImage: 'linear-gradient(to left, transparent 0%, transparent 80px, black 120px, black 90%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to left, transparent 0%, transparent 80px, black 120px, black 90%, transparent 100%)'
+        }}
+      >
+        <div className="flex items-center gap-6 md:gap-12 whitespace-nowrap animate-marquee py-1 pr-[100px] md:pr-[180px]">
+          {[...announcements, ...announcements, ...announcements].map((item, idx) => (
+            <div key={idx} className="flex items-center gap-3 px-4 md:px-8 border-l border-white/10 last:border-l-0">
+              <div className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full ${item.type === 'success' ? 'bg-green-500 shadow-[0_0_10px_#22c55e]' : item.type === 'update' ? 'bg-electron-accent shadow-[0_0_10px_#00ffff]' : 'bg-electron-secondary shadow-[0_0_10px_#00f2ff]'} animate-pulse`} />
+              <span className="text-white/90 text-[10px] md:text-sm font-cairo font-medium tracking-wide">
+                {item.text}
+              </span>
+            </div>
+          ))}
+        </div>
       </div>
 
       <style dangerouslySetInnerHTML={{ __html: `
@@ -347,10 +352,10 @@ function NewsTicker() {
           100% { transform: translateX(33.333%); }
         }
         .animate-marquee {
-          animation: marquee 20s linear infinite;
+          animation: marquee 45s linear infinite;
         }
         [dir="rtl"] .animate-marquee {
-          animation: marquee-rtl 20s linear infinite;
+          animation: marquee-rtl 45s linear infinite;
         }
         @keyframes marquee-rtl {
           0% { transform: translateX(0); }
@@ -1357,7 +1362,7 @@ export default function App() {
                   <p className="text-gray-400 text-sm md:text-lg font-cairo">انضم لمجتمع ELEX28 على منصات التواصل الاجتماعي</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                   {/* WhatsApp Channel */}
                   <motion.a
                     href="https://whatsapp.com/channel/0029VbCoSxB4NVipkChIbc15"
@@ -1365,17 +1370,17 @@ export default function App() {
                     rel="noopener noreferrer"
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="glass-panel neon-card neon-glow p-8 group hover:border-green-500 transition-all flex flex-col items-center text-center gap-6 relative overflow-hidden"
+                    className="glass-panel neon-card neon-glow p-6 group hover:border-green-500 transition-all flex flex-col items-center text-center gap-4 relative overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="w-20 h-20 rounded-3xl bg-green-500/10 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-black transition-all">
-                      <MessageSquare size={40} />
+                    <div className="w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-black transition-all">
+                      <MessageSquare size={32} />
                     </div>
                     <div>
-                      <h4 className="text-xl font-bold font-cairo mb-2">قناة الواتساب</h4>
-                      <p className="text-gray-500 text-sm font-cairo">أخبار الدفعة، التنبيهات العاجلة، والإعلانات الرسمية.</p>
+                      <h4 className="text-lg font-bold font-cairo mb-1">قناة الواتساب</h4>
+                      <p className="text-gray-500 text-[10px] md:text-xs font-cairo">أخبار الدفعة، التنبيهات العاجلة، والإعلانات الرسمية.</p>
                     </div>
-                    <div className="px-6 py-2 rounded-full border border-green-500/30 text-green-500 text-xs font-bold group-hover:bg-green-500 group-hover:text-black transition-all font-cairo">
+                    <div className="px-5 py-1.5 rounded-full border border-green-500/30 text-green-500 text-[10px] font-bold group-hover:bg-green-500 group-hover:text-black transition-all font-cairo">
                       انضم الآن
                     </div>
                   </motion.a>
@@ -1387,21 +1392,67 @@ export default function App() {
                     rel="noopener noreferrer"
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="glass-panel neon-card neon-glow p-8 group hover:border-blue-400 transition-all flex flex-col items-center text-center gap-6 relative overflow-hidden"
+                    className="glass-panel neon-card neon-glow p-6 group hover:border-blue-400 transition-all flex flex-col items-center text-center gap-4 relative overflow-hidden"
                   >
                     <div className="absolute inset-0 bg-blue-400/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="w-20 h-20 rounded-3xl bg-blue-400/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-400 group-hover:text-black transition-all">
-                      <Share2 size={40} />
+                    <div className="w-16 h-16 rounded-2xl bg-blue-400/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-400 group-hover:text-black transition-all">
+                      <Share2 size={32} />
                     </div>
                     <div>
-                      <h4 className="text-xl font-bold font-cairo mb-2">قناة التلغرام</h4>
-                      <p className="text-gray-500 text-sm font-cairo">المكتبة الرقمية، الملفات الأكاديمية، والنقاشات العلمية.</p>
+                      <h4 className="text-lg font-bold font-cairo mb-1">قناة التلغرام</h4>
+                      <p className="text-gray-500 text-[10px] md:text-xs font-cairo">المكتبة الرقمية، الملفات الأكاديمية، والنقاشات العلمية.</p>
                     </div>
-                    <div className="px-6 py-2 rounded-full border border-blue-400/30 text-blue-400 text-xs font-bold group-hover:bg-blue-400 group-hover:text-black transition-all font-cairo">
+                    <div className="px-5 py-1.5 rounded-full border border-blue-400/30 text-blue-400 text-[10px] font-bold group-hover:bg-blue-400 group-hover:text-black transition-all font-cairo">
                       انضم الآن
                     </div>
                   </motion.a>
                 </div>
+
+                {/* University E-Platform Section */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="glass-panel neon-card neon-glow p-6 md:p-8 border-electron-accent/30 relative overflow-hidden"
+                >
+                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-electron-accent to-electron-secondary" />
+                  <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
+                    <div className="w-20 h-20 rounded-3xl bg-electron-accent/10 flex items-center justify-center text-electron-accent shrink-0 border border-electron-accent/20">
+                      <Globe size={40} />
+                    </div>
+                    <div className="flex-1 text-center md:text-right">
+                      <h4 className="text-xl md:text-2xl font-bold font-cairo mb-3 text-white">المنصة الإلكترونية للجامعة</h4>
+                      <p className="text-gray-400 text-sm md:text-base font-cairo mb-6">
+                        المنصة الرسمية لجامعة السودان للعلوم والتكنولوجيا لمتابعة الكورسات والمواد الأكاديمية.
+                      </p>
+                      
+                      <div className="grid grid-cols-1 gap-3 mb-8">
+                        {[
+                          "اضغط على رابط المنصة بالأسفل للذهاب لصفحة تسجيل الدخول.",
+                          "أدخل الرقم الجامعي الخاص بك في خانة 'اسم المستخدم'.",
+                          "أدخل الرقم الجامعي مرة أخرى في خانة 'كلمة المرور'.",
+                          "بعد الدخول، يمكنك تصفح الكورسات المتاحة لك في هذا السمستر."
+                        ].map((step, i) => (
+                          <div key={i} className="flex items-center gap-3 text-right bg-white/5 p-3 rounded-xl border border-white/5">
+                            <div className="w-6 h-6 rounded-full bg-electron-accent/20 flex items-center justify-center text-electron-accent text-xs font-bold shrink-0">
+                              {i + 1}
+                            </div>
+                            <span className="text-gray-300 text-xs md:text-sm font-cairo">{step}</span>
+                          </div>
+                        ))}
+                      </div>
+
+                      <a 
+                        href="https://el.sustech.edu/login/index.php"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-3 px-8 py-4 bg-electron-accent text-black font-bold rounded-2xl hover:scale-105 active:scale-95 transition-all shadow-lg shadow-electron-accent/20 font-cairo w-full md:w-auto justify-center"
+                      >
+                        <Zap size={20} />
+                        الدخول للمنصة الآن
+                      </a>
+                    </div>
+                  </div>
+                </motion.div>
 
                 <div className="mt-10 pt-6 border-t border-white/5 flex justify-center">
                   <button 
