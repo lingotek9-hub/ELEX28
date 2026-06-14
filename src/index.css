@@ -2,10 +2,10 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Tajawal", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Cairo", sans-serif;
   --font-cairo: "Cairo", sans-serif;
   --font-inter: "Inter", sans-serif;
-  --font-display: "Orbitron", sans-serif;
+  --font-display: "Cairo", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   
   --color-electron-bg: #020408;

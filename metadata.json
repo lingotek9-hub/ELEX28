@@ -1,5 +1,12 @@
 {
   "name": "ELEX28 Hub - Semester 6",
   "description": "المنصة الرسمية لطلاب هندسة الإلكترونيات - السمستر السادس - جامعة السودان للعلوم والتكنولوجيا.",
-  "requestFramePermissions": []
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
 }
