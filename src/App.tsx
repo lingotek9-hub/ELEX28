@@ -1728,6 +1728,47 @@ export default function App() {
         html {
           scroll-behavior: smooth;
         }
+        @media print {
+          body {
+            background-color: #02050b !important;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+          }
+          body > *:not(.fixed) {
+            display: none !important;
+          }
+          .fixed:not(:has(#honors-poster-print-node)) {
+            display: none !important;
+          }
+          .fixed:has(#honors-poster-print-node) {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: auto !important;
+            overflow: visible !important;
+            background: #02050b !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: flex !important;
+            align-items: flex-start !important;
+            justify-content: center !important;
+          }
+          .fixed:has(#honors-poster-print-node) button,
+          .fixed:has(#honors-poster-print-node) .modal-control-bar {
+            display: none !important;
+          }
+          #honors-poster-print-node {
+            border: 4px border-double border-yellow-500 !important;
+            box-shadow: none !important;
+            transform: none !important;
+            max-width: 100% !important;
+            width: 100% !important;
+            padding: 24px !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+          }
+        }
       `}} />
 
       {/* Modals placed at the end for proper stacking context */}
@@ -1743,16 +1784,29 @@ export default function App() {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.06)_0%,transparent_70%)] pointer-events-none" />
             
             <div className="my-auto max-w-4xl w-full relative">
-              {/* Back to main button */}
-              <div className="absolute top-[-50px] right-2 left-2 flex justify-between items-center">
-                <span className="text-yellow-400 font-mono font-bold text-xs tracking-widest">[GOLD_ELEX28_POSTER]</span>
-                <button 
-                  onClick={() => setShowPosterModal(false)}
-                  className="px-3.5 py-1.5 bg-white/5 border border-white/10 rounded-xl text-yellow-400 hover:text-white transition-colors text-xs font-bold font-cairo flex items-center gap-1 cursor-pointer"
-                >
-                  <X size={14} />
-                  إغلاق المعاينة
-                </button>
+              {/* Back to main button & control bar */}
+              <div className="absolute top-[-50px] right-2 left-2 flex justify-between items-center modal-control-bar">
+                <span className="text-yellow-400 font-mono font-bold text-xs tracking-widest hidden sm:inline">[GOLD_ELEX28_POSTER]</span>
+                <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+                  <button 
+                    onClick={() => {
+                      setTimeout(() => {
+                        window.print();
+                      }, 100);
+                    }}
+                    className="px-4 py-2 bg-gradient-to-r from-yellow-500 to-amber-600 hover:from-yellow-400 hover:to-amber-500 text-black font-extrabold text-xs font-cairo flex items-center gap-1.5 rounded-xl cursor-pointer shadow-[0_0_15px_rgba(234,179,8,0.3)] transition-all"
+                  >
+                    <Printer size={14} />
+                    طباعة البوستر بجودة عالية
+                  </button>
+                  <button 
+                    onClick={() => setShowPosterModal(false)}
+                    className="px-3.5 py-2 bg-white/5 border border-white/10 rounded-xl text-yellow-400 hover:text-white transition-colors text-xs font-bold font-cairo flex items-center gap-1 cursor-pointer"
+                  >
+                    <X size={14} />
+                    إغلاق المعاينة
+                  </button>
+                </div>
               </div>
 
               {/* The Poster Canvas Frame */}
@@ -1775,20 +1829,124 @@ export default function App() {
                   <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] border border-yellow-500/5 rounded-full animate-pulse" />
                 </div>
 
-                {/* Symmetrical Header vector stars */}
-                <div className="text-center pb-6 border-b border-yellow-500/20 mb-6 relative z-10">
-                  <div className="text-yellow-500 text-2xl flex justify-center gap-1 mb-2">
-                    <Star size={16} />
-                    <Star size={20} className="fill-yellow-500 text-yellow-500" />
-                    <Star size={16} />
-                  </div>
-                  <h3 className="text-[11px] sm:text-xs md:text-sm font-bold text-gray-400 font-cairo uppercase tracking-widest leading-none">Sudan University of Science & Technology</h3>
-                  <h2 className="text-base sm:text-lg md:text-2xl font-black text-white font-cairo mt-1.5 mb-1 text-yellow-500">جامعة السودان للعلوم والتكنولوجيا</h2>
-                  <p className="text-[10px] sm:text-xs text-yellow-500/80 font-bold font-cairo">كلية الهندسة • قسم هندسة الإلكترونيات (ELEX28)</p>
+                {/* Advanced Grid: Symmetrical Header with 1:1 Square Cybernetic Neural Board Graphic */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 pb-6 border-b border-yellow-500/20 mb-6 relative z-10 items-center">
                   
-                  <div className="inline-block mt-4 px-4 py-1.5 bg-yellow-500/10 border border-yellow-500/20 rounded-full">
-                    <span className="text-[10px] sm:text-xs font-bold text-yellow-400 font-cairo tracking-wide">لوحة الشرف الذهبية الرسمية للسمستر الخامس</span>
+                  {/* Left Column (Academic Titles & Certification Info) */}
+                  <div className="md:col-span-8 text-center md:text-right space-y-3 font-cairo">
+                    <div className="flex items-center justify-center md:justify-start gap-2 text-yellow-500 mb-1">
+                      <Star size={14} className="text-yellow-400" />
+                      <Trophy size={20} className="fill-yellow-500 text-yellow-500 animate-pulse" />
+                      <Star size={14} className="text-yellow-400" />
+                    </div>
+                    <span className="text-[10px] sm:text-xs font-mono font-bold text-gray-500 uppercase tracking-widest block">
+                      Sudan University of Science & Technology
+                    </span>
+                    <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-amber-600 font-cairo">
+                      جامعة السودان للعلوم والتكنولوجيا
+                    </h2>
+                    <p className="text-xs sm:text-sm text-yellow-500/90 font-bold">
+                      كلية الهندسة • قسم هندسة الإلكترونيات <span className="font-mono">(ELEX28)</span>
+                    </p>
+                    
+                    <div className="inline-flex items-center gap-2 mt-2 px-4 py-2 bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border border-yellow-500/30 rounded-2xl shadow-[0_0_15px_rgba(234,179,8,0.1)]">
+                      <Crown size={14} className="text-yellow-400" />
+                      <span className="text-xs font-black text-yellow-400 tracking-wide">
+                        لوحة الشرف الذهبية الرسمية للسمستر الخامس
+                      </span>
+                    </div>
                   </div>
+
+                  {/* Right Column (1:1 Perfect Square High-Resolution Cyber-Electronic Schematic) */}
+                  <div className="md:col-span-4 flex justify-center">
+                    <div className="w-40 h-40 sm:w-44 sm:h-44 aspect-square bg-[#030612]/90 border border-yellow-500/30 rounded-3xl p-3 relative overflow-hidden shadow-[0_0_25px_rgba(217,119,6,0.15)] group">
+                      {/* Interactive blueprint background grid */}
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.08)_0%,transparent_85%)] pointer-events-none" />
+                      
+                      {/* SVG Technical Draft */}
+                      <svg className="w-full h-full text-yellow-500/40" viewBox="0 0 160 160" fill="none">
+                        {/* Blueprint grid lines */}
+                        <line x1="10" y1="0" x2="10" y2="160" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        <line x1="30" y1="0" x2="30" y2="160" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        <line x1="50" y1="0" x2="50" y2="160" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        <line x1="70" y1="0" x2="70" y2="160" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        <line x1="90" y1="0" x2="90" y2="160" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        <line x1="110" y1="0" x2="110" y2="160" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        <line x1="130" y1="0" x2="130" y2="160" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        <line x1="150" y1="0" x2="150" y2="160" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        
+                        <line x1="0" y1="10" x2="160" y2="10" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        <line x1="0" y1="30" x2="160" y2="30" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        <line x1="0" y1="50" x2="160" y2="50" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        <line x1="0" y1="70" x2="160" y2="70" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        <line x1="0" y1="90" x2="160" y2="90" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        <line x1="0" y1="110" x2="160" y2="110" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        <line x1="0" y1="130" x2="160" y2="130" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+                        <line x1="0" y1="150" x2="160" y2="150" stroke="rgba(217,119,6,0.06)" strokeWidth="0.5" />
+
+                        {/* Outer concentric technical radar ring */}
+                        <circle cx="80" cy="80" r="70" stroke="rgba(217,119,6,0.12)" strokeWidth="1" strokeDasharray="4 4" />
+                        <circle cx="80" cy="80" r="54" stroke="rgba(212,175,55,0.2)" strokeWidth="1" />
+
+                        {/* Gold-copper neon electronics traces branching off */}
+                        <path d="M 12,80 L 45,80 L 55,70 L 62,70" stroke="url(#goldNeonTrace)" strokeWidth="1.2" />
+                        <path d="M 148,80 L 115,80 L 105,90 L 98,90" stroke="url(#bronzeNeonTrace)" strokeWidth="1.2" />
+                        <path d="M 80,12 L 80,45 L 70,55 L 70,62" stroke="url(#goldNeonTrace)" strokeWidth="1.2" />
+                        <path d="M 80,148 L 80,115 L 90,105 L 90,98" stroke="url(#bronzeNeonTrace)" strokeWidth="1.2" />
+
+                        {/* Diagonally angled traces */}
+                        <path d="M 28,28 L 52,52 L 62,52" stroke="rgba(217,119,6,0.3)" strokeWidth="1" strokeDasharray="3 2" />
+                        <path d="M 132,132 L 108,108 L 98,108" stroke="rgba(217,119,6,0.3)" strokeWidth="1" strokeDasharray="3 2" />
+                        <path d="M 132,28 L 108,52 L 98,52" stroke="rgba(217,119,6,0.3)" strokeWidth="1" />
+                        <path d="M 28,132 L 52,108 L 62,108" stroke="rgba(217,119,6,0.3)" strokeWidth="1" />
+
+                        {/* Outer gold-electroplated pins */}
+                        <circle cx="12" cy="80" r="3.5" stroke="#d4af37" strokeWidth="1.5" className="fill-yellow-500/20" />
+                        <circle cx="148" cy="80" r="3.5" stroke="#a75a20" strokeWidth="1.5" className="fill-amber-500/20" />
+                        <circle cx="80" cy="12" r="3.5" stroke="#d4af37" strokeWidth="1.5" className="fill-yellow-500/20" />
+                        <circle cx="80" cy="148" r="3.5" stroke="#a75a20" strokeWidth="1.5" className="fill-amber-500/20" />
+                        
+                        <circle cx="28" cy="28" r="2.5" stroke="#d4af37" strokeWidth="1" className="fill-yellow-500/10" />
+                        <circle cx="132" cy="132" r="2.5" stroke="#a75a20" strokeWidth="1" className="fill-amber-500/10" />
+                        <circle cx="132" cy="28" r="2.5" stroke="#d4af37" strokeWidth="1" className="fill-yellow-500/10" />
+                        <circle cx="28" cy="132" r="2.5" stroke="#a75a20" strokeWidth="1" className="fill-amber-500/10" />
+
+                        {/* Core central square BGA Processor (The 1:1 Silicon Core Chip aspect-square) */}
+                        <rect x="62" y="62" width="36" height="36" rx="6" stroke="#d4af37" strokeWidth="1.8" className="fill-black/90 shadow-2xl" />
+                        
+                        {/* Pulsing microchip silicon grid vector */}
+                        <rect x="67" y="67" width="26" height="26" rx="4" stroke="rgba(217,119,6,0.4)" strokeWidth="1" strokeDasharray="1 1" className="fill-yellow-500/[0.04]" />
+                        
+                        {/* Micro circuit controller text */}
+                        <text x="80" y="78" fontSize="7" fontWeight="bold" fontFamily="monospace" fill="#eab308" textAnchor="middle" className="tracking-tighter">SDK</text>
+                        <text x="80" y="87" fontSize="7" fontWeight="bold" fontFamily="monospace" fill="#d4af37" textAnchor="middle" className="tracking-tighter font-extrabold text-[5.5px]">ELEX28</text>
+
+                        {/* Little pulsing LED indicator in the chip center */}
+                        <circle cx="80" cy="71" r="1" fill="#eab308" className="animate-ping" />
+
+                        {/* Gradient definitions for technical traces */}
+                        <defs>
+                          <linearGradient id="goldNeonTrace" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#d4af37" stopOpacity="0.8" />
+                            <stop offset="50%" stopColor="#f3f4f6" stopOpacity="0.9" />
+                            <stop offset="100%" stopColor="#ca8a04" stopOpacity="0.8" />
+                          </linearGradient>
+                          <linearGradient id="bronzeNeonTrace" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stopColor="#b45309" stopOpacity="0.8" />
+                            <stop offset="50%" stopColor="#d97706" stopOpacity="0.9" />
+                            <stop offset="100%" stopColor="#78350f" stopOpacity="0.8" />
+                          </linearGradient>
+                        </defs>
+                      </svg>
+
+                      {/* Technical specifications overlaying text */}
+                      <div className="absolute bottom-1 right-2 left-2 flex justify-between font-mono text-[5.5px] text-yellow-500/50">
+                        <span>HW REV 6.0</span>
+                        <span>SUST DEP_E28</span>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
 
                 {/* Top 3 Podium layout Inside Poster */}
@@ -1800,91 +1958,173 @@ export default function App() {
                       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-8 relative z-10 font-cairo">
                         {/* Rank 2 (Right/Silver side) */}
                         {top3[1] && (
-                          <div className="border border-[#e2e8f0]/25 bg-[#050c18]/90 p-4 rounded-2xl flex flex-col items-center text-center shadow-[0_0_20px_rgba(226,232,240,0.06)] order-2 sm:order-3 h-full">
-                            <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-slate-400 to-slate-200 flex items-center justify-center text-slate-900 font-bold text-lg mb-2 shadow-[0_0_15px_rgba(226,232,240,0.3)] relative font-sans">
+                          <div className="border border-slate-500/30 bg-gradient-to-b from-[#0f141d]/90 to-[#030509]/95 p-5 rounded-2xl flex flex-col items-center text-center shadow-[0_0_20px_rgba(148,163,184,0.06)] order-2 sm:order-3 h-full relative overflow-hidden group">
+                            {/* Circuit aesthetic backdrop */}
+                            <div className="absolute top-0 right-0 w-8 h-8 opacity-[0.14] pointer-events-none">
+                              <svg viewBox="0 0 40 40" className="text-slate-400">
+                                <path d="M0 20 h20 v20" fill="none" stroke="currentColor" strokeWidth="2" />
+                                <circle cx="20" cy="20" r="4" fill="currentColor" />
+                              </svg>
+                            </div>
+                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-slate-400 via-slate-300 to-slate-500 flex items-center justify-center text-slate-900 font-bold text-xl mb-3 shadow-[0_0_15px_rgba(148,163,184,0.3)] relative font-sans border border-slate-300/40">
                               🥈
                             </div>
-                            <div className="text-slate-400 text-[10px] font-bold">المرتبة الثانية</div>
-                            <div className="text-slate-200 text-xs font-black mt-1 line-clamp-2 min-h-[32px]">{top3[1].name}</div>
-                            <div className="mt-2 text-slate-300 font-mono text-sm font-black text-center">GPA: {top3[1].gpa}</div>
-                            <div className="mt-1 px-2.5 py-0.5 bg-slate-500/10 rounded-full text-[9px] text-slate-300 border border-slate-500/20 font-bold">{top3[1].merit}</div>
+                            <div className="text-slate-400 text-[10px] font-bold font-cairo">المرتبة الثانية</div>
+                            <div className="text-slate-200 text-sm font-black mt-1.5 line-clamp-2 min-h-[36px]">{top3[1].name}</div>
+                            <div className="mt-3 text-slate-300 font-mono text-sm font-black text-center">GPA: {top3[1].gpa}</div>
+                            <div className="mt-2 px-3 py-0.5 bg-slate-500/10 rounded-full text-[9px] text-slate-300 border border-slate-500/20 font-black">{top3[1].merit}</div>
                           </div>
                         )}
 
                         {/* Rank 1 (Center/Gold Leader Card) - Prominently highlighted */}
                         {top3[0] && (
-                          <div className="border border-yellow-500/40 bg-yellow-500/[0.04] p-5 rounded-2xl flex flex-col items-center text-center shadow-[0_0_30px_rgba(234,179,8,0.15)] order-1 sm:order-2 h-full scale-[1.05] relative z-20">
-                            <div className="absolute top-[-10px] bg-yellow-500 text-black text-[9px] px-3 py-0.5 rounded-full font-black tracking-wide uppercase shadow-[0_0_10px_rgba(234,179,8,0.5)]">
+                          <div className="border-2 border-yellow-500/50 bg-gradient-to-b from-[#1c1404]/98 to-[#050401]/98 p-6 rounded-2xl flex flex-col items-center text-center shadow-[0_0_35px_rgba(234,179,8,0.22)] order-1 sm:order-2 h-full scale-[1.05] relative z-20 overflow-hidden group">
+                            {/* Circuit aesthetic backdrop */}
+                            <div className="absolute top-0 left-0 w-10 h-10 opacity-[0.2] pointer-events-none">
+                              <svg viewBox="0 0 40 40" className="text-yellow-500">
+                                <path d="M40 20 H20 V40" fill="none" stroke="currentColor" strokeWidth="2" />
+                                <circle cx="20" cy="20" r="4" fill="currentColor" />
+                              </svg>
+                            </div>
+                            <div className="absolute inset-0 bg-[#eaab08]/[0.02] pointer-events-none" />
+                            <div className="absolute top-[-10px] bg-yellow-500 text-black text-[9px] px-3.5 py-0.5 rounded-full font-black tracking-wide uppercase shadow-[0_0_15px_rgba(234,179,8,0.4)]">
                               صدارة الدفعة
                             </div>
-                            <div className="w-14 h-14 rounded-full bg-gradient-to-tr from-yellow-500 to-yellow-300 flex items-center justify-center text-yellow-950 font-bold text-2xl mb-2.5 shadow-[0_0_20px_rgba(234,179,8,0.4)] relative font-sans">
+                            <div className="w-16 h-16 rounded-full bg-gradient-to-br from-yellow-400 via-yellow-200 to-amber-600 flex items-center justify-center text-yellow-950 font-bold text-3xl mb-3 shadow-[0_0_25px_rgba(234,179,8,0.5)] relative font-sans border border-yellow-300/40">
                               🏆
                             </div>
-                            <div className="text-yellow-400 text-xs font-bold leading-none animate-pulse">المرتبة الأولى</div>
-                            <div className="text-yellow-400 text-sm font-black mt-1.5 leading-tight line-clamp-2 min-h-[36px]">{top3[0].name}</div>
-                            <div className="mt-2 text-yellow-300 font-mono text-base font-black text-center">GPA: {top3[0].gpa}</div>
-                            <div className="mt-1.5 px-3 py-0.5 bg-yellow-500/20 rounded-full text-[9.5px] text-yellow-300 border border-yellow-500/30 font-black">{top3[0].merit}</div>
+                            <div className="text-yellow-400 text-xs font-black animate-pulse font-cairo">المرتبة الأولى</div>
+                            <div className="text-yellow-400 text-base font-black mt-1.5 leading-tight line-clamp-2 min-h-[40px] drop-shadow-[0_0_3px_rgba(234,179,8,0.2)]">{top3[0].name}</div>
+                            <div className="mt-3 text-yellow-300 font-mono text-base font-black text-center">GPA: {top3[0].gpa}</div>
+                            <div className="mt-2 px-3 py-1 bg-yellow-500/20 rounded-full text-[10px] text-yellow-300 border border-yellow-500/30 font-black">{top3[0].merit}</div>
                           </div>
                         )}
 
                         {/* Rank 3 (Left/Bronze Card) */}
                         {top3[2] && (
-                          <div className="border border-amber-600/25 bg-[#170e05]/95 p-4 rounded-2xl flex flex-col items-center text-center shadow-[0_0_20px_rgba(217,119,6,0.05)] order-3 sm:order-1 h-full">
-                            <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-amber-700 to-amber-500 flex items-center justify-center text-amber-50 font-bold text-lg mb-2 shadow-[0_0_15px_rgba(217,119,6,0.25)] relative font-sans">
+                          <div className="border border-amber-700/40 bg-gradient-to-b from-[#140b04]/95 to-[#040201]/95 p-5 rounded-2xl flex flex-col items-center text-center shadow-[0_0_20px_rgba(217,119,6,0.12)] order-3 sm:order-1 h-full relative overflow-hidden group">
+                            {/* Circuit aesthetic backdrop */}
+                            <div className="absolute bottom-0 left-0 w-8 h-8 opacity-[0.14] pointer-events-none">
+                              <svg viewBox="0 0 40 40" className="text-amber-600">
+                                <path d="M40 20 H20 V0" fill="none" stroke="currentColor" strokeWidth="2" />
+                                <circle cx="20" cy="20" r="4" fill="currentColor" />
+                              </svg>
+                            </div>
+                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-amber-600 via-amber-500 to-amber-800 flex items-center justify-center text-amber-50 font-bold text-xl mb-3 shadow-[0_0_15px_rgba(217,119,6,0.3)] relative font-sans border border-amber-500/40">
                               🥉
                             </div>
-                            <div className="text-amber-500/85 text-[10px] font-bold">المرتبة الثالثة</div>
-                            <div className="text-amber-400 text-xs font-bold mt-1 line-clamp-2 min-h-[32px]">{top3[2].name}</div>
-                            <div className="mt-2 text-amber-400 font-mono text-sm font-black text-center">GPA: {top3[2].gpa}</div>
-                            <div className="mt-1 px-2.5 py-0.5 bg-amber-500/10 rounded-full text-[9px] text-amber-400 border border-amber-500/20 font-bold">{top3[2].merit}</div>
+                            <div className="text-amber-500/85 text-[10px] font-bold font-cairo">المرتبة الثالثة</div>
+                            <div className="text-amber-400 text-sm font-black mt-1.5 line-clamp-2 min-h-[36px]">{top3[2].name}</div>
+                            <div className="mt-3 text-amber-400 font-mono text-sm font-black text-center">GPA: {top3[2].gpa}</div>
+                            <div className="mt-2 px-3 py-0.5 bg-amber-500/10 rounded-full text-[9px] text-amber-400 border border-amber-500/25 font-black">{top3[2].merit}</div>
                           </div>
                         )}
                       </div>
 
                       {/* Remaining Students grouped in 2 organized columns */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 relative z-10 font-cairo pr-1 mb-6">
-                        <div className="space-y-2">
-                          {remaining.slice(0, Math.ceil(remaining.length / 2)).map((s) => (
-                            <div 
-                              key={s.name}
-                              className="flex items-center justify-between p-2.5 rounded-xl border border-[#ffffff]/5 bg-[#05070f]/40 hover:bg-[#0c1020]/50 transition-all text-right"
-                            >
-                              <div className="flex items-center gap-2 max-w-[75%] min-w-0">
-                                <span className="w-5 h-5 rounded bg-white/5 border border-white/10 text-gray-400 flex items-center justify-center shrink-0 font-mono text-[9px] font-bold">
-                                  {s.rank}
-                                </span>
-                                <span className="text-[11px] sm:text-xs font-bold truncate text-gray-300">
-                                  {s.name}
-                                </span>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-3 relative z-10 font-cairo mb-6">
+                        <div className="space-y-2.5">
+                          {remaining.slice(0, Math.ceil(remaining.length / 2)).map((s) => {
+                            const gpaValue = parseFloat(s.gpa);
+                            let itemStyle = "border-slate-500/20 bg-[#05070f]/40 hover:bg-[#0c1020]/50";
+                            let iconStyle = "bg-white/5 border border-white/10 text-gray-400";
+                            let badgeLabel = "";
+                            let badgeStyle = "text-gray-500";
+
+                            if (gpaValue >= 3.25) {
+                              itemStyle = "border-yellow-500/35 bg-gradient-to-l from-yellow-500/[0.03] to-[#040810]/50 hover:bg-yellow-500/[0.08] shadow-[0_0_10px_rgba(212,175,55,0.06)]";
+                              iconStyle = "bg-yellow-500/10 border border-yellow-500/30 text-yellow-400";
+                              badgeLabel = "نخبة ذهبية 🌟";
+                              badgeStyle = "text-yellow-400 font-black";
+                            } else if (gpaValue >= 3.10) {
+                              itemStyle = "border-slate-400/35 bg-gradient-to-l from-slate-400/[0.03] to-[#040810]/50 hover:bg-slate-400/[0.08]";
+                              iconStyle = "bg-slate-400/10 border border-slate-400/30 text-slate-300";
+                              badgeLabel = "تفوق فضي ⭐";
+                              badgeStyle = "text-slate-300 font-bold";
+                            } else {
+                              itemStyle = "border-amber-700/35 bg-gradient-to-l from-amber-700/[0.03] to-[#040810]/50 hover:bg-amber-700/[0.08]";
+                              iconStyle = "bg-amber-700/10 border border-amber-700/30 text-amber-500";
+                              badgeLabel = "تميز برونزي ⚡";
+                              badgeStyle = "text-amber-500 font-semibold";
+                            }
+
+                            return (
+                              <div 
+                                key={s.name}
+                                className={`flex items-center justify-between p-3 rounded-2xl border transition-all duration-300 text-right ${itemStyle}`}
+                              >
+                                <div className="flex items-center gap-3 max-w-[75%] min-w-0">
+                                  <span className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 font-mono text-xs font-bold ${iconStyle}`}>
+                                    {s.rank}
+                                  </span>
+                                  <div className="truncate">
+                                    <span className="text-[12px] sm:text-xs font-black truncate text-gray-200 block">
+                                      {s.name}
+                                    </span>
+                                    <span className={`text-[8.5px] uppercase tracking-wide block mt-0.5 ${badgeStyle}`}>
+                                      {badgeLabel}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div className="flex flex-col items-end shrink-0 font-mono gap-0.5">
+                                  <span className="text-[8px] text-gray-500 block">SCORE:</span>
+                                  <span className="text-xs text-yellow-400 font-black block">{s.gpa}</span>
+                                </div>
                               </div>
-                              <div className="flex items-center gap-1 shrink-0 font-mono text-[10px]">
-                                <span className="text-[8px] text-gray-500">GPA:</span>
-                                <span className="text-xs text-cyan-400 font-semibold">{s.gpa}</span>
-                              </div>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
 
-                        <div className="space-y-2">
-                          {remaining.slice(Math.ceil(remaining.length / 2)).map((s) => (
-                            <div 
-                              key={s.name}
-                              className="flex items-center justify-between p-2.5 rounded-xl border border-[#ffffff]/5 bg-[#05070f]/40 hover:bg-[#0c1020]/50 transition-all text-right"
-                            >
-                              <div className="flex items-center gap-2 max-w-[75%] min-w-0">
-                                <span className="w-5 h-5 rounded bg-white/5 border border-white/10 text-gray-400 flex items-center justify-center shrink-0 font-mono text-[9px] font-bold">
-                                  {s.rank}
-                                </span>
-                                <span className="text-[11px] sm:text-xs font-bold truncate text-gray-300">
-                                  {s.name}
-                                </span>
+                        <div className="space-y-2.5">
+                          {remaining.slice(Math.ceil(remaining.length / 2)).map((s) => {
+                            const gpaValue = parseFloat(s.gpa);
+                            let itemStyle = "border-slate-500/20 bg-[#05070f]/40 hover:bg-[#0c1020]/50";
+                            let iconStyle = "bg-white/5 border border-white/10 text-gray-400";
+                            let badgeLabel = "";
+                            let badgeStyle = "text-gray-500";
+
+                            if (gpaValue >= 3.25) {
+                              itemStyle = "border-yellow-500/35 bg-gradient-to-l from-yellow-500/[0.03] to-[#040810]/50 hover:bg-yellow-500/[0.08] shadow-[0_0_10px_rgba(212,175,55,0.06)]";
+                              iconStyle = "bg-yellow-500/10 border border-yellow-500/30 text-yellow-400";
+                              badgeLabel = "نخبة ذهبية 🌟";
+                              badgeStyle = "text-yellow-400 font-black";
+                            } else if (gpaValue >= 3.10) {
+                              itemStyle = "border-slate-400/35 bg-gradient-to-l from-slate-400/[0.03] to-[#040810]/50 hover:bg-slate-400/[0.08]";
+                              iconStyle = "bg-slate-400/10 border border-slate-400/30 text-slate-300";
+                              badgeLabel = "تفوق فضي ⭐";
+                              badgeStyle = "text-slate-300 font-bold";
+                            } else {
+                              itemStyle = "border-amber-700/35 bg-gradient-to-l from-amber-700/[0.03] to-[#040810]/50 hover:bg-amber-700/[0.08]";
+                              iconStyle = "bg-amber-700/10 border border-amber-700/30 text-amber-500";
+                              badgeLabel = "تميز برونزي ⚡";
+                              badgeStyle = "text-amber-500 font-semibold";
+                            }
+
+                            return (
+                              <div 
+                                key={s.name}
+                                className={`flex items-center justify-between p-3 rounded-2xl border transition-all duration-300 text-right ${itemStyle}`}
+                              >
+                                <div className="flex items-center gap-3 max-w-[75%] min-w-0">
+                                  <span className={`w-6 h-6 rounded-lg flex items-center justify-center shrink-0 font-mono text-xs font-bold ${iconStyle}`}>
+                                    {s.rank}
+                                  </span>
+                                  <div className="truncate">
+                                    <span className="text-[12px] sm:text-xs font-black truncate text-gray-200 block">
+                                      {s.name}
+                                    </span>
+                                    <span className={`text-[8.5px] uppercase tracking-wide block mt-0.5 ${badgeStyle}`}>
+                                      {badgeLabel}
+                                    </span>
+                                  </div>
+                                </div>
+                                <div className="flex flex-col items-end shrink-0 font-mono gap-0.5">
+                                  <span className="text-[8px] text-gray-500 block">SCORE:</span>
+                                  <span className="text-xs text-yellow-400 font-black block">{s.gpa}</span>
+                                </div>
                               </div>
-                              <div className="flex items-center gap-1 shrink-0 font-mono text-[10px]">
-                                <span className="text-[8px] text-gray-500">GPA:</span>
-                                <span className="text-xs text-cyan-400 font-semibold">{s.gpa}</span>
-                              </div>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       </div>
                     </>
@@ -1921,9 +2161,22 @@ export default function App() {
           >
             <motion.div
               initial={{ scale: 0.95, y: 15 }}
-              animate={{ scale: 1, y: 0 }}
+              animate={{ 
+                scale: 1, 
+                y: 0,
+                boxShadow: [
+                  "0 0 35px rgba(0,242,255,0.15), 0 0 10px rgba(168,85,247,0.05)",
+                  "0 0 55px rgba(0,242,255,0.35), 0 0 25px rgba(168,85,247,0.20)",
+                  "0 0 35px rgba(0,242,255,0.15), 0 0 10px rgba(168,85,247,0.05)"
+                ]
+              }}
+              transition={{ 
+                scale: { duration: 0.3 },
+                y: { duration: 0.3 },
+                boxShadow: { duration: 3.5, repeat: Infinity, ease: "easeInOut" }
+              }}
               exit={{ scale: 0.95, y: 15 }}
-              className="border border-electron-accent/20 bg-[#02040a]/98 p-6 md:p-8 max-w-md w-full relative overflow-hidden rounded-2xl shadow-[0_0_40px_rgba(34,211,238,0.15)] text-right font-cairo"
+              className="border border-electron-accent/30 bg-[#02040a]/98 p-6 md:p-8 max-w-md w-full relative overflow-hidden rounded-2xl text-right font-cairo"
             >
               {/* Top accent line */}
               <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-electron-accent to-purple-600" />
@@ -1945,6 +2198,94 @@ export default function App() {
                 </div>
               </div>
 
+              {/* High-Tech Animated Electronics / circuit Board Graphic */}
+              <div className="relative w-full h-36 mb-6 flex items-center justify-center bg-black/60 rounded-xl overflow-hidden border border-electron-accent/15">
+                {/* Ambient glowing radial gradient background */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,242,255,0.18)_0%,transparent_70%)]" />
+                
+                {/* Slow rotating mechanical gear/tech rings */}
+                <motion.div 
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                  className="absolute w-28 h-28 border border-dashed border-electron-accent/20 rounded-full flex items-center justify-center"
+                />
+                
+                <motion.div 
+                  animate={{ rotate: -360 }}
+                  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                  className="absolute w-22 h-22 border border-dotted border-purple-500/20 rounded-full flex items-center justify-center"
+                />
+
+                {/* Circuit paths with flowing current animations */}
+                <svg className="absolute inset-0 w-full h-full text-electron-accent/30" viewBox="0 0 380 144" fill="none">
+                  {/* Left Side Tracks */}
+                  <motion.path 
+                    d="M15,72 L110,72 L130,52" 
+                    stroke="currentColor" 
+                    strokeWidth="1.5"
+                    initial={{ strokeDasharray: "100 100", strokeDashoffset: 100 }}
+                    animate={{ strokeDashoffset: [100, -100] }}
+                    transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                  />
+                  <motion.path 
+                    d="M35,30 L95,30 L125,52" 
+                    stroke="url(#purpleGlowLine)" 
+                    strokeWidth="1.5"
+                    initial={{ strokeDasharray: "80 80", strokeDashoffset: 80 }}
+                    animate={{ strokeDashoffset: [80, -80] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                  />
+                  
+                  {/* Right Side Tracks */}
+                  <motion.path 
+                    d="M365,72 L270,72 L250,92" 
+                    stroke="currentColor" 
+                    strokeWidth="1.5"
+                    initial={{ strokeDasharray: "100 100", strokeDashoffset: -100 }}
+                    animate={{ strokeDashoffset: [-100, 100] }}
+                    transition={{ duration: 3.5, repeat: Infinity, ease: "linear" }}
+                  />
+                  <motion.path 
+                    d="M345,114 L285,114 L255,92" 
+                    stroke="url(#purpleGlowLine)" 
+                    strokeWidth="1.5"
+                    initial={{ strokeDasharray: "80 80", strokeDashoffset: -80 }}
+                    animate={{ strokeDashoffset: [-80, 80] }}
+                    transition={{ duration: 4.5, repeat: Infinity, ease: "linear" }}
+                  />
+
+                  {/* Pulsating Glowing Circuit Node Terminals */}
+                  <circle cx="15" cy="72" r="3" className="fill-electron-accent animate-ping" />
+                  <circle cx="35" cy="30" r="3" className="fill-purple-500" />
+                  <circle cx="365" cy="72" r="3" className="fill-electron-accent" />
+                  <circle cx="345" cy="114" r="3" className="fill-purple-500 animate-ping" />
+                  
+                  <defs>
+                    <linearGradient id="purpleGlowLine" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stopColor="#a855f7" />
+                      <stop offset="100%" stopColor="#ec4899" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+
+                {/* Main Glowing Microchip / CPU with vibrant pulsing shadow */}
+                <motion.div 
+                  animate={{ 
+                    scale: [0.96, 1.04, 0.96],
+                    boxShadow: [
+                      "0 0 15px rgba(0,242,255,0.3), inset 0 0 8px rgba(0,242,255,0.2)",
+                      "0 0 35px rgba(168,85,247,0.8), inset 0 0 15px rgba(168,85,247,0.4)",
+                      "0 0 15px rgba(0,242,255,0.3), inset 0 0 8px rgba(0,242,255,0.2)"
+                    ]
+                  }}
+                  transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                  className="z-10 w-16 h-16 rounded-2xl bg-[#02040a] border border-[#00f2ff]/60 flex items-center justify-center relative"
+                >
+                  <Cpu size={30} className="text-electron-accent animate-pulse" />
+                  <Sparkles size={12} className="absolute top-1 right-1 text-purple-400 animate-bounce" />
+                </motion.div>
+              </div>
+
               <div className="space-y-3">
                 <h3 className="text-lg font-bold text-white leading-tight">
                   حبابك عشرة يا هندسة.. نورت!
@@ -1957,12 +2298,12 @@ export default function App() {
 
               <div className="mt-6">
                 <motion.button 
-                  whileHover={{ scale: 1.02, boxShadow: "0 0 15px rgba(0,242,255,0.25)" }}
+                  whileHover={{ scale: 1.02, boxShadow: "0 0 20px rgba(0,242,255,0.35)" }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => setShowWelcome(false)}
                   className="w-full py-3 bg-gradient-to-r from-electron-accent to-purple-600 text-black font-extrabold text-sm rounded-xl transition-all cursor-pointer text-center flex items-center justify-center gap-1.5"
                 >
-                  <span>حبيبي يا هندسة</span>
+                  <span>زووولي ⚡🛠️</span>
                 </motion.button>
               </div>
             </motion.div>
