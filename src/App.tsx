@@ -91,95 +91,166 @@ const InteractiveBackground = () => {
 const roles = [
   {
     title: "الليدر (Leader)",
+    roleCategory: "القيادة العليا والتمثيل",
     name: "عمر فتحي علي",
+    idCode: "ELEX28-01",
+    badge: "LEADER_OFFICIAL",
     whatsapp: "+249118222378",
-    description: "القيادة العامة للدفعة، التنسيق مع الإدارة، وتمثيل الطلاب في جميع المحافل.",
+    description: "القيادة العامة لدفعة ELEX28، التنسيق مع إدارات الكلية والجامعة، وتمثيل مهندسي الإلكترونيات في كافة المحافل والمحطات الرسمية.",
     tasks: [
-      "تمثيل الدفعة أمام إدارة الكلية والجامعة",
-      "الإشراف العام على جميع لجان وأمانات الدفعة",
-      "اتخاذ القرارات الاستراتيجية بالتنسيق مع مجلس الأمانة",
-      "حل النزاعات والمشاكل التي قد تواجه الطلاب"
+      "تمثيل الدفعة أمام إدارة الكلية وعمادة الشؤون الأكاديمية",
+      "الإشراف الإداري العام والتوجيه لجميع لجان وأمانات الدفعة",
+      "اتخاذ القرارات الاستراتيجية بالتنسيق مع مجلس الأمانة العامة",
+      "معالجة كافة التحديات والطلبات التي تواجه مهندسي الدفعة"
     ],
-    icon: ShieldCheck,
+    icon: Crown,
     color: "text-yellow-400",
-    gradient: "from-yellow-500/20 to-orange-500/20",
+    gradient: "from-yellow-500/20 via-amber-500/10 to-yellow-950/40",
+    borderColor: "border-yellow-500/30 hover:border-yellow-400",
+    glowColor: "shadow-[0_10px_30px_rgba(234,179,8,0.18)]",
+    badgeBg: "bg-yellow-500/10 text-yellow-400 border-yellow-500/30",
+    avatarBg: "bg-gradient-to-br from-yellow-500/20 to-amber-600/30 border-yellow-500/40",
+    accentGlow: "bg-yellow-500/20"
   },
   {
     title: "الأمين العام",
+    roleCategory: "الأمانة العامة والإشراف الإداري",
     name: "مؤتمن علي",
+    idCode: "ELEX28-02",
+    badge: "SEC_GENERAL",
     whatsapp: "+249118587285",
-    description: "تنظيم الاجتماعات، توثيق القرارات، والإشراف الإداري على لجان الدفعة.",
+    description: "إدارة التنسيق التنفيذي، توثيق القرارات الرسمية، والإشراف المباشر على سير العمل داخل مختلف أمانات المجلس.",
     tasks: [
-      "إدارة المراسلات الرسمية للدفعة",
-      "تنظيم وتوثيق محاضر الاجتماعات",
-      "متابعة تنفيذ القرارات الإدارية",
-      "التنسيق بين الأمانات المختلفة"
+      "إدارة وترتيب المراسلات والمخاطبات الرسمية لدفعة ELEX28",
+      "تنظيم وتوثيق محاضر الاجتماعات الدوريّة والقرارات",
+      "متابعة تنفيذ التوصيات والقرارات الإدارية والتنفيذية",
+      "ربط وتسهيل التواصل والتنسيق اليومي بين الأمانات"
     ],
     icon: Globe,
     color: "text-cyan-400",
-    gradient: "from-cyan-500/20 to-blue-500/20",
+    gradient: "from-cyan-500/20 via-teal-500/10 to-cyan-950/40",
+    borderColor: "border-cyan-500/30 hover:border-cyan-400",
+    glowColor: "shadow-[0_10px_30px_rgba(6,182,212,0.18)]",
+    badgeBg: "bg-cyan-500/10 text-cyan-400 border-cyan-500/30",
+    avatarBg: "bg-gradient-to-br from-cyan-500/20 to-blue-600/30 border-cyan-500/40",
+    accentGlow: "bg-cyan-500/20"
   },
   {
     title: "الأمين الأكاديمي",
+    roleCategory: "الشؤون الأكاديمية والتعليمية",
     name: "عمر فتحي علي",
     deputy: "ميرفت محمد",
+    idCode: "ELEX28-03",
+    badge: "ACAD_MINISTER",
     whatsapp: "+249118222378",
-    description: "توفير المصادر الدراسية، المحاضرات، ومتابعة الشؤون التعليمية للدفعة.",
+    description: "إدارة المكتبة الرقمية، توفير المراجع الشاملة، والتنسيق الأكاديمي المستمر مع أساتذة المقررات واللجان التعليمية.",
     tasks: [
-      "توفير المراجع والملازم الدراسية",
-      "التنسيق مع المحاضرين بخصوص الجداول والامتحانات",
-      "تنظيم مجموعات المذاكرة والدعم الأكاديمي",
-      "متابعة المشاكل الأكاديمية للطلاب"
+      "توفير المراجع العلمية والملازم والحلول النموذجية الموثوقة",
+      "التنسيق المباشر مع المحاضرين بخصوص الامتحانات والجداول",
+      "تنظيم ورش المراجعة والمجموعات الدراسية الداعمة للطلاب",
+      "متابعة الشؤون التعليمية وتذليل العقبات الأكاديمية"
     ],
     icon: BookOpen,
     color: "text-blue-400",
-    gradient: "from-blue-500/20 to-indigo-500/20",
+    gradient: "from-blue-500/20 via-indigo-500/10 to-blue-950/40",
+    borderColor: "border-blue-500/30 hover:border-blue-400",
+    glowColor: "shadow-[0_10px_30px_rgba(59,130,246,0.18)]",
+    badgeBg: "bg-blue-500/10 text-blue-400 border-blue-500/30",
+    avatarBg: "bg-gradient-to-br from-blue-500/20 to-indigo-600/30 border-blue-500/40",
+    accentGlow: "bg-blue-500/20"
   },
   {
     title: "الأمين المالي",
+    roleCategory: "الشؤون المالية والاشتراكات",
     name: "عثمان عبد القادر",
+    idCode: "ELEX28-04",
+    badge: "FIN_CHIEF",
     whatsapp: "+249124569091",
-    description: "إدارة ميزانية الدفعة، الاشتراكات، والشفافية المالية في جميع الأنشطة.",
+    description: "التخطيط المالي المتكامل، جمع وإدارة الاشتراكات، وترسيخ أقصى درجات الشفافية والمساءلة في ميزانيات الأنشطة.",
     tasks: [
-      "جمع وإدارة اشتراكات الدفعة",
-      "إعداد التقارير المالية الدورية",
-      "تمويل الأنشطة والفعاليات المعتمدة",
-      "ضمان الشفافية في الصرف المالي"
+      "إدارة الاشتراكات والموارد المالية الخاصة بفعاليات الدفعة",
+      "إعداد وتدقيق التقارير المالية الدورية بشفافية كاملة",
+      "تغطية وتأمين الميزانيات المطلوبة للبرامج والأنشطة",
+      "ترشيد الصرف المالي وضمان حوكمة الموارد والاشتراكات"
     ],
     icon: DollarSign,
-    color: "text-green-400",
-    gradient: "from-green-500/20 to-emerald-500/20",
+    color: "text-emerald-400",
+    gradient: "from-emerald-500/20 via-green-500/10 to-emerald-950/40",
+    borderColor: "border-emerald-500/30 hover:border-emerald-400",
+    glowColor: "shadow-[0_10px_30px_rgba(16,185,129,0.18)]",
+    badgeBg: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
+    avatarBg: "bg-gradient-to-br from-emerald-500/20 to-teal-600/30 border-emerald-500/40",
+    accentGlow: "bg-emerald-500/20"
   },
   {
     title: "الأمين الإعلامي",
+    roleCategory: "الإعلام والهوية البصرية",
     name: "اسراء عادل",
+    idCode: "ELEX28-05",
+    badge: "MEDIA_CHIEF",
     whatsapp: "+249994422595",
-    description: "تغطية أخبار الدفعة، إدارة منصات التواصل، وتوثيق اللحظات المميزة.",
+    description: "إدارة المنصات والقنوات الرسمية، التغطية الإعلامية الاحترافية، وصياغة الهوية البصرية والتصاميم المميزة لدفعة ELEX28.",
     tasks: [
-      "إدارة قنوات التواصل الاجتماعي الرسمية",
-      "نشر الإعلانات والأخبار الهامة",
-      "توثيق فعاليات الدفعة فوتوغرافياً",
-      "تصميم الهوية البصرية للمنشورات"
+      "إدارة وتحديث كافة المنصات والقنوات الرسمية للدفعة",
+      "صياغة ونشر التنبيهات والإعلانات الرسمية بدقة عالية",
+      "التوثيق الإعلامي والتصوير لجميع فعاليات ومناسبات الدفعة",
+      "ابتكار الهوية الجرافيكية والتصاميم البصرية للمنشورات"
     ],
     icon: Radio,
     color: "text-purple-400",
-    gradient: "from-purple-500/20 to-pink-500/20",
+    gradient: "from-purple-500/20 via-fuchsia-500/10 to-purple-950/40",
+    borderColor: "border-purple-500/30 hover:border-purple-400",
+    glowColor: "shadow-[0_10px_30px_rgba(168,85,247,0.18)]",
+    badgeBg: "bg-purple-500/10 text-purple-400 border-purple-500/30",
+    avatarBg: "bg-gradient-to-br from-purple-500/20 to-fuchsia-600/30 border-purple-500/40",
+    accentGlow: "bg-purple-500/20"
   },
   {
     title: "الأمين الثقافي",
+    roleCategory: "الأنشطة الثقافية والاجتماعية",
     name: "ميرفت محمد",
+    idCode: "ELEX28-06",
+    badge: "CULTURE_MINISTER",
     whatsapp: "+249115050714",
-    description: "تنظيم الفعاليات الاجتماعية، المسابقات، والأنشطة التي تعزز روح الدفعة.",
+    description: "تنظيم الفعاليات الاجتماعية، الرحلات الترفيهية، والبرامج الثقافية التي تعزز أواصر الأخوة والتواصل بين جميع المهندسين.",
     tasks: [
-      "تنظيم الرحلات والفعاليات الترفيهية",
-      "إقامة المسابقات الثقافية والرياضية",
-      "تعزيز الروابط الاجتماعية بين الطلاب",
-      "الإشراف على الأنشطة اللاصفية"
+      "تنظيم الرحلات والفعاليات الترفيهية واللقاءات الأخوية",
+      "إقامة المنافسات الثقافية والمسابقات الإبداعية بين المهندسين",
+      "توطيد الروابط الاجتماعية والروح الجماعية داخل الدفعة",
+      "الإشراف والارتقاء بالأنشطة اللاصفية والملتقيات"
     ],
     icon: Palette,
     color: "text-orange-400",
-    gradient: "from-orange-500/20 to-red-500/20",
+    gradient: "from-orange-500/20 via-rose-500/10 to-orange-950/40",
+    borderColor: "border-orange-500/30 hover:border-orange-400",
+    glowColor: "shadow-[0_10px_30px_rgba(249,115,22,0.18)]",
+    badgeBg: "bg-orange-500/10 text-orange-400 border-orange-500/30",
+    avatarBg: "bg-gradient-to-br from-orange-500/20 to-rose-600/30 border-orange-500/40",
+    accentGlow: "bg-orange-500/20"
   },
+  {
+    title: "الأمين الرياضي",
+    roleCategory: "الرياضة والأنشطة التنافسية",
+    name: "محمد ياسر",
+    idCode: "ELEX28-07",
+    badge: "SPORTS_CHIEF",
+    whatsapp: "+249110000000",
+    description: "التخطيط والتنفيذ لكافة الأنشطة والبطولات الرياضية، اختيار وتأهيل منتخب الدفعة، وإشعال روح المنافسة الشريفة.",
+    tasks: [
+      "تنظيم البطولات الكروية والمنافسات الرياضية الدورية للدفعة",
+      "الإشراف على اختيار وتشكييل منتخب الدفعة في دوريات الكلية",
+      "تنظيم الأيام الرياضية المفتوحة والألعاب التفاعلية الممتعة",
+      "تعزيز اللياقة البدنية ونشر الروح الرياضية وتكريم الأبطال"
+    ],
+    icon: Trophy,
+    color: "text-red-400",
+    gradient: "from-red-500/20 via-amber-500/10 to-red-950/40",
+    borderColor: "border-red-500/30 hover:border-red-400",
+    glowColor: "shadow-[0_10px_30px_rgba(239,68,68,0.18)]",
+    badgeBg: "bg-red-500/10 text-red-400 border-red-500/30",
+    avatarBg: "bg-gradient-to-br from-red-500/20 to-amber-600/30 border-red-500/40",
+    accentGlow: "bg-red-500/20"
+  }
 ];
 
 const studentResources = [
@@ -384,8 +455,8 @@ const stats = [
 ];
 
 function ExamCountdown() {
-  const targetDate = new Date('2026-08-01T00:00:00');
-  const startDate = new Date('2026-01-01T00:00:00'); // Assumed start of semester for progress
+  const targetDate = new Date('2026-08-24T00:00:00');
+  const startDate = new Date('2026-06-01T00:00:00'); // Benchmark start date
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -412,7 +483,13 @@ function ExamCountdown() {
         });
       } else {
         clearInterval(timer);
-        setTimeLeft(prev => ({ ...prev, progress: 100 }));
+        setTimeLeft({
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0,
+          progress: 100
+        });
       }
     }, 1000);
 
@@ -420,49 +497,51 @@ function ExamCountdown() {
   }, []);
 
   const timeUnits = [
-    { label: "أيام", value: timeLeft.days },
-    { label: "ساعات", value: timeLeft.hours },
-    { label: "دقائق", value: timeLeft.minutes },
-    { label: "ثواني", value: timeLeft.seconds },
+    { label: "أيام", value: timeLeft.days, color: "text-cyan-400" },
+    { label: "ساعات", value: timeLeft.hours, color: "text-blue-400" },
+    { label: "دقائق", value: timeLeft.minutes, color: "text-purple-400" },
+    { label: "ثواني", value: timeLeft.seconds, color: "text-yellow-400" },
   ];
 
   return (
-    <section className="py-20 md:py-32 px-6 relative overflow-hidden">
+    <section id="exam-countdown" className="py-16 md:py-24 px-4 md:px-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-electron-accent/5 blur-[150px] -z-10" />
-      
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-electron-secondary/10 rounded-full blur-[140px] pointer-events-none" />
+
       <div className="max-w-5xl mx-auto">
         <motion.div 
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="glass-panel p-8 md:p-16 relative overflow-hidden border-white/5 shadow-2xl"
+          className="border border-white/10 bg-[#050914]/80 backdrop-blur-2xl p-6 md:p-14 rounded-3xl relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
         >
-          {/* Decorative Elements */}
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-electron-accent via-electron-secondary to-electron-accent" />
-          <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-electron-secondary/10 rounded-full blur-3xl" />
-          
+          {/* High-Tech Circuit Accent Lines */}
+          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-electron-accent via-electron-secondary to-yellow-500" />
+          <div className="absolute top-0 right-0 w-32 h-32 bg-electron-accent/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-electron-secondary/10 rounded-full blur-3xl pointer-events-none" />
+
           <div className="relative z-10">
-            <div className="text-center mb-12 md:mb-16">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-electron-accent/10 border border-electron-accent/20 text-electron-accent text-[10px] md:text-xs font-bold mb-6 tech-font uppercase tracking-widest">
-                <Clock size={14} className="animate-pulse" />
-                Final Countdown
+            <div className="text-center mb-10 md:mb-14">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-electron-accent/10 border border-electron-accent/25 text-electron-accent text-[10px] md:text-xs font-bold mb-4 font-mono tracking-widest uppercase">
+                <Clock size={14} className="animate-pulse text-electron-accent" />
+                EXAM COUNTDOWN • TERM 06 • 24 AUGUST 2026
               </div>
-              <h2 className="text-3xl md:text-6xl font-bold font-cairo mb-4 tracking-tighter">
-                العد التنازلي <span className="gradient-text">للامتحانات</span>
+              <h2 className="text-3xl md:text-6xl font-black font-cairo mb-4 text-white tracking-tight">
+                العد التنازلي <span className="gradient-text">لامتحانات السمستر السادس</span>
               </h2>
-              <p className="text-gray-500 text-sm md:text-lg max-w-2xl mx-auto font-cairo">
-                الوقت يمر بسرعة.. استثمر كل لحظة في المذاكرة والتحصيل العلمي.
+              <p className="text-gray-400 text-sm md:text-lg max-w-2xl mx-auto font-cairo leading-relaxed">
+                موعد انطلاق الامتحانات النهائية يوم <strong className="text-electron-accent font-mono">24 أغسطس 2026</strong>.. استغل كل لحظة متبقية في المذاكرة والمراجعة والتحصيل العلمي!
               </p>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 mb-12 md:mb-16">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-14">
               {timeUnits.map((unit, idx) => (
                 <div key={idx} className="relative group">
-                  <div className="glass-panel p-6 md:p-10 flex flex-col items-center justify-center border-white/5 group-hover:border-electron-accent/30 transition-all duration-500 bg-white/[0.02]">
-                    <span className="text-4xl md:text-7xl font-black tech-font text-white mb-2 tracking-tighter">
+                  <div className="border border-white/10 bg-black/40 backdrop-blur-xl p-6 md:p-8 rounded-2xl flex flex-col items-center justify-center group-hover:border-electron-accent/40 group-hover:shadow-[0_0_25px_rgba(0,242,255,0.15)] transition-all duration-300">
+                    <span className={`text-4xl md:text-7xl font-black font-mono mb-2 tracking-tighter ${unit.color}`}>
                       {String(unit.value).padStart(2, '0')}
                     </span>
-                    <span className="text-[10px] md:text-xs font-bold font-cairo text-electron-accent uppercase tracking-[0.2em] opacity-60">
+                    <span className="text-[11px] md:text-xs font-bold font-cairo text-gray-400 tracking-wider">
                       {unit.label}
                     </span>
                   </div>
@@ -470,43 +549,44 @@ function ExamCountdown() {
               ))}
             </div>
 
-            {/* Progress Bar */}
-            <div className="space-y-4">
-              <div className="flex justify-between items-end text-[10px] md:text-xs tech-font font-bold uppercase tracking-widest">
-                <span className="text-gray-500">Semester Progress</span>
-                <span className="text-electron-accent">{Math.round(timeLeft.progress)}%</span>
+            {/* Preparation Progress Bar */}
+            <div className="space-y-3 bg-white/[0.02] p-5 rounded-2xl border border-white/5">
+              <div className="flex justify-between items-center text-[10px] md:text-xs font-mono font-bold uppercase tracking-widest">
+                <span className="text-gray-400 font-cairo">مؤشر التقدم نحو بداية الامتحانات</span>
+                <span className="text-electron-accent font-mono">{Math.round(timeLeft.progress)}%</span>
               </div>
-              <div className="h-2 md:h-3 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+              <div className="h-2.5 md:h-3.5 w-full bg-black/60 rounded-full overflow-hidden border border-white/10 p-0.5">
                 <motion.div 
                   initial={{ width: 0 }}
                   whileInView={{ width: `${timeLeft.progress}%` }}
                   transition={{ duration: 1.5, ease: "easeOut" }}
-                  className="h-full bg-gradient-to-r from-electron-accent to-electron-secondary shadow-[0_0_15px_rgba(0,255,255,0.5)]"
+                  className="h-full bg-gradient-to-r from-electron-accent via-electron-secondary to-yellow-400 rounded-full shadow-[0_0_15px_rgba(0,255,255,0.6)]"
                 />
               </div>
-              <div className="flex justify-between text-[8px] md:text-[10px] text-gray-600 font-cairo">
-                <span>بداية السمستر</span>
-                <span>1 أغسطس 2026</span>
+              <div className="flex justify-between text-[9px] md:text-[11px] text-gray-500 font-cairo pt-1">
+                <span>بداية فترة التحضير (1 يونيو 2026)</span>
+                <span className="text-electron-accent font-bold">موعد الامتحان (24 أغسطس 2026)</span>
               </div>
             </div>
 
-            <div className="mt-12 md:mt-16 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 pt-8 border-t border-white/5">
+            <div className="mt-8 md:mt-12 flex flex-col md:flex-row items-center justify-between gap-4 pt-6 border-t border-white/10 text-xs font-cairo">
               <div className="flex items-center gap-3">
-                <Calendar size={20} className="text-electron-accent" />
+                <Calendar size={18} className="text-electron-accent shrink-0" />
                 <div className="text-right">
-                  <div className="text-white font-bold text-sm md:text-base font-cairo">1 أغسطس 2026</div>
-                  <div className="text-gray-500 text-[10px] md:text-xs tech-font">START DATE</div>
+                  <div className="text-white font-bold text-sm">الإثنين، 24 أغسطس 2026</div>
+                  <div className="text-gray-500 text-[10px] font-mono">TARGET EXAM DATE</div>
                 </div>
               </div>
-              <div className="hidden md:block w-[1px] h-10 bg-white/10" />
+              
               <div className="flex items-center gap-3">
-                <Zap size={20} className="text-electron-secondary" />
+                <Zap size={18} className="text-yellow-400 shrink-0" />
                 <div className="text-right">
-                  <div className="text-white font-bold text-sm md:text-base font-cairo">السمستر السادس</div>
-                  <div className="text-gray-500 text-[10px] md:text-xs tech-font">CURRENT TERM</div>
+                  <div className="text-white font-bold text-sm">السمستر السادس (ELEX28)</div>
+                  <div className="text-gray-500 text-[10px] font-mono">ACADEMIC TERM</div>
                 </div>
               </div>
             </div>
+
           </div>
         </motion.div>
       </div>
@@ -975,15 +1055,15 @@ export default function App() {
             transition={{ delay: 0.6 }}
             className="mt-12 md:mt-16 flex flex-col lg:flex-row justify-center items-center gap-4 md:gap-6 px-6 w-full max-w-5xl mx-auto"
           >
-            <a href="#results" className="w-full lg:w-auto group relative px-8 md:px-12 py-4 md:py-5 bg-gradient-to-r from-electron-accent to-electron-secondary text-black font-extrabold rounded-2xl overflow-hidden transition-all hover:scale-105 active:scale-95 font-cairo shadow-[0_10px_35px_rgba(0,242,255,0.25)] text-center text-base md:text-lg flex items-center justify-center gap-2 border border-electron-accent/30">
+            <a href="#exam-countdown" className="w-full lg:w-auto group relative px-8 md:px-12 py-4 md:py-5 bg-gradient-to-r from-electron-accent to-electron-secondary text-black font-extrabold rounded-2xl overflow-hidden transition-all hover:scale-105 active:scale-95 font-cairo shadow-[0_10px_35px_rgba(0,242,255,0.25)] text-center text-base md:text-lg flex items-center justify-center gap-2 border border-electron-accent/30">
               <span className="relative z-10 flex items-center justify-center gap-2 text-black">
-                <Trophy size={18} className="animate-bounce" />
-                نتائج الفصل الخامس ولوحة الشرف
+                <Clock size={18} className="animate-pulse" />
+                عداد قرب الامتحانات (24 أغسطس)
               </span>
             </a>
-            <a href="#structure" className="w-full lg:w-auto group px-8 md:px-12 py-4 md:py-5 glass-panel border-white/10 hover:border-electron-accent/40 hover:bg-white/5 transition-all hover:scale-105 active:scale-95 font-cairo backdrop-blur-md text-center text-white font-bold text-base md:text-lg flex items-center justify-center gap-2">
-              <Cpu size={18} className="text-gray-400 group-hover:text-electron-accent transition-colors" />
-              هيكل ومجلس الدفعة
+            <a href="#results" className="w-full lg:w-auto group px-8 md:px-12 py-4 md:py-5 glass-panel border-white/10 hover:border-yellow-500/40 hover:bg-white/5 transition-all hover:scale-105 active:scale-95 font-cairo backdrop-blur-md text-center text-white font-bold text-base md:text-lg flex items-center justify-center gap-2">
+              <Trophy size={18} className="text-yellow-400 group-hover:scale-110 transition-transform" />
+              لوحة الشرف والنتائج
             </a>
             <a href="#resources" className="w-full lg:w-auto group px-8 md:px-12 py-4 md:py-5 glass-panel border-white/10 hover:border-electron-accent/40 hover:bg-white/5 transition-all hover:scale-105 active:scale-95 font-cairo backdrop-blur-md text-center text-white font-bold text-base md:text-lg relative overflow-hidden flex items-center justify-center gap-2">
               <Zap size={18} className="text-electron-accent animate-pulse" />
@@ -1023,6 +1103,9 @@ export default function App() {
           ))}
         </div>
       </section>
+
+      {/* Prominent Exam Countdown Timer Section on Homepage */}
+      <ExamCountdown />
 
       {/* Elegant Navigation Shortcuts Bento Grid */}
       <section className="py-12 md:py-16 px-6 max-w-7xl mx-auto w-full">
@@ -1437,59 +1520,125 @@ export default function App() {
               className="w-full relative"
             >
               {/* Structure Section */}
-              <section id="structure" className="py-20 md:py-32 px-6 max-w-7xl mx-auto w-full relative">
-        <div className="mb-16 md:mb-24 text-center">
-          <h2 className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 font-cairo"
-          >
-            هيكل <span className="gradient-text">الدفعة</span>
-          </h2>
-          <p className="text-gray-500 max-w-xl mx-auto text-base md:text-lg leading-relaxed">
-            تعرف على الفريق الإداري المسؤول عن تنظيم شؤون الدفعة والتنسيق الأكاديمي والاجتماعي.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {roles.map((role, index) => (
-              <motion.div
-                key={role.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                whileHover={{ y: -10 }}
-                transition={{ delay: index * 0.05 }}
-                className={`glass-panel neon-card neon-glow p-8 md:p-10 flex flex-col gap-4 md:gap-6 items-start relative overflow-hidden group`}
-              >
-              <div className={`absolute inset-0 bg-gradient-to-br ${role.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-              
-              <div className={`w-12 h-12 md:w-16 md:h-16 glass-panel flex items-center justify-center ${role.color} relative z-10`}>
-                <role.icon size={24} />
-              </div>
-              
-              <div className="relative z-10 w-full">
-                <div className="mb-6">
-                  <h3 className="text-xl md:text-2xl font-bold tech-font tracking-tight mb-1">{role.title}</h3>
-                  <div className="text-electron-accent/60 text-[10px] tech-font uppercase tracking-widest">Engineering Council</div>
-                </div>
-                
-                <div className="mb-8">
-                  <div className="text-white font-bold text-lg mb-1">{role.name}</div>
-                  <p className="text-gray-500 text-sm line-clamp-2">
-                    {role.description}
+              <section id="structure" className="py-20 md:py-32 px-4 md:px-6 max-w-7xl mx-auto w-full relative">
+                {/* Header */}
+                <div className="mb-14 md:mb-20 text-center">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-electron-accent/10 border border-electron-accent/30 text-electron-accent text-[10px] md:text-xs font-bold mb-4 font-mono tracking-widest uppercase">
+                    <ShieldCheck size={14} className="animate-pulse text-electron-accent" />
+                    EXECUTIVE ENGINEERING COUNCIL • ELEX28
+                  </div>
+                  <h2 className="text-3xl md:text-6xl font-black mb-4 md:mb-6 font-cairo text-white tracking-tight">
+                    بطاقات مجلس <span className="gradient-text">إدارة الدفعة</span>
+                  </h2>
+                  <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-lg leading-relaxed font-cairo">
+                    بطاقات التعريف الرقمية الرسمية لأعضاء المجلس القيادي والأمانات التخصصية المسؤولة عن تسيير كافة الشؤون الأكاديمية والمالية والإعلامية والرياضية والثقافية.
                   </p>
                 </div>
 
-                <button 
-                  onClick={() => setSelectedRole(role)}
-                  className="w-full py-3 rounded-xl bg-white/5 border border-white/10 text-white text-sm font-bold hover:bg-electron-accent hover:text-black transition-all tech-font flex items-center justify-center gap-2 group/btn"
-                >
-                  عرض التفاصيل والمهام
-                  <ChevronDown size={14} className="-rotate-90 group-hover/btn:translate-x-1 transition-transform" />
-                </button>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
+                {/* Council Members ID Cards Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                  {roles.map((role, index) => {
+                    const RoleIcon = role.icon;
+                    return (
+                      <motion.div
+                        key={role.title}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        whileHover={{ y: -8 }}
+                        transition={{ delay: index * 0.05, duration: 0.4 }}
+                        className={`border ${role.borderColor || 'border-white/10'} bg-[#060a17]/90 backdrop-blur-2xl p-6 md:p-8 rounded-3xl relative overflow-hidden flex flex-col justify-between group transition-all duration-300 ${role.glowColor || ''}`}
+                      >
+                        {/* Ambient Glow & Accent Bar */}
+                        <div className={`absolute -top-20 -right-20 w-48 h-48 rounded-full ${role.accentGlow || 'bg-electron-accent/10'} blur-3xl pointer-events-none group-hover:scale-150 transition-transform duration-700`} />
+                        <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:via-electron-accent transition-all duration-500" />
+                        
+                        <div>
+                          {/* Top Bar: ID Code & Status Badge */}
+                          <div className="flex items-center justify-between gap-2 mb-6 pb-4 border-b border-white/10 relative z-10">
+                            <div className="flex items-center gap-2">
+                              <span className="w-2 h-2 rounded-full bg-electron-accent animate-ping" />
+                              <span className="text-[10px] md:text-xs font-mono font-bold text-gray-400 tracking-wider">
+                                {role.idCode || `ELEX28-0${index+1}`}
+                              </span>
+                            </div>
+                            <span className={`px-2.5 py-1 rounded-full text-[9px] md:text-[10px] font-mono font-bold border tracking-widest ${role.badgeBg || 'bg-white/10 text-white'}`}>
+                              [{role.badge || 'MEMBER'}]
+                            </span>
+                          </div>
+
+                          {/* Profile Header & Avatar */}
+                          <div className="flex items-start gap-4 mb-6 relative z-10">
+                            {/* Avatar Circle */}
+                            <div className={`w-16 h-16 md:w-20 md:h-20 rounded-2xl ${role.avatarBg || 'bg-white/10'} border flex items-center justify-center shrink-0 shadow-lg relative group-hover:scale-105 transition-transform duration-300`}>
+                              <div className="absolute inset-0 bg-white/5 rounded-2xl animate-pulse pointer-events-none" />
+                              <RoleIcon size={32} className={`${role.color} relative z-10`} />
+                            </div>
+
+                            {/* Name & Title */}
+                            <div className="flex-1 min-w-0 text-right">
+                              <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest block mb-1">
+                                {role.roleCategory || 'أمانات الكلية'}
+                              </span>
+                              <h3 className={`text-xl md:text-2xl font-black font-cairo tracking-tight ${role.color} truncate mb-1`}>
+                                {role.title}
+                              </h3>
+                              <div className="text-white font-extrabold text-base md:text-lg font-cairo truncate">
+                                {role.name}
+                              </div>
+                              {role.deputy && (
+                                <div className="text-electron-secondary font-bold text-xs mt-1 font-cairo flex items-center gap-1 justify-end">
+                                  <span>النائبة: {role.deputy}</span>
+                                  <Sparkles size={12} className="text-electron-secondary animate-pulse" />
+                                </div>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Description Statement */}
+                          <p className="text-gray-300 text-xs md:text-sm leading-relaxed font-cairo mb-6 line-clamp-3 text-right bg-white/[0.02] p-3.5 rounded-2xl border border-white/5">
+                            {role.description}
+                          </p>
+
+                          {/* Key Responsibilities Bullet Highlights */}
+                          <div className="mb-6 space-y-2 text-right">
+                            <span className="text-[10px] font-mono text-electron-accent uppercase tracking-widest block mb-2 font-bold">
+                              [ أبرز المهام والمسؤوليات ]
+                            </span>
+                            {role.tasks.slice(0, 2).map((task, idx) => (
+                              <div key={idx} className="flex items-center justify-end gap-2 text-gray-400 text-xs font-cairo">
+                                <span className="truncate">{task}</span>
+                                <div className={`w-1.5 h-1.5 rounded-full ${role.color} shrink-0`} />
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Action Buttons */}
+                        <div className="pt-4 border-t border-white/10 grid grid-cols-2 gap-3 relative z-10">
+                          <a
+                            href={`https://wa.me/${role.whatsapp.replace(/[^0-9]/g, '')}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="py-3 px-3 rounded-xl bg-green-500/10 border border-green-500/30 text-green-400 text-xs font-bold font-cairo hover:bg-green-500 hover:text-black transition-all flex items-center justify-center gap-1.5 group/wa"
+                          >
+                            <MessageSquare size={14} className="group-hover/wa:scale-110 transition-transform" />
+                            <span>واتساب</span>
+                          </a>
+
+                          <button
+                            onClick={() => setSelectedRole(role)}
+                            className="py-3 px-3 rounded-xl bg-white/5 border border-white/10 text-white text-xs font-bold font-cairo hover:bg-electron-accent hover:text-black hover:border-electron-accent transition-all flex items-center justify-center gap-1.5 group/btn"
+                          >
+                            <span>التفاصيل</span>
+                            <ChevronDown size={14} className="-rotate-90 group-hover/btn:translate-x-1 transition-transform" />
+                          </button>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </section>
 
             </motion.div>
           )}
@@ -2317,72 +2466,85 @@ export default function App() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-6 bg-black/90 backdrop-blur-md overflow-y-auto"
+            className="fixed inset-0 z-[1000] flex items-center justify-center p-4 md:p-6 bg-black/90 backdrop-blur-xl overflow-y-auto"
             onClick={() => setSelectedRole(null)}
           >
             <motion.div
               initial={{ scale: 0.9, y: 20 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.9, y: 20 }}
-              className="glass-panel p-6 md:p-10 max-w-2xl w-full relative overflow-hidden my-auto"
+              className={`border ${selectedRole.borderColor || 'border-white/10'} bg-[#060a17]/95 p-6 md:p-10 max-w-2xl w-full relative overflow-hidden my-auto rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.9)]`}
               onClick={(e) => e.stopPropagation()}
             >
               <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${selectedRole.gradient}`} />
               
               <button 
                 onClick={() => setSelectedRole(null)}
-                className="absolute top-4 left-4 text-gray-500 hover:text-electron-accent transition-colors"
+                className="absolute top-5 left-5 text-gray-400 hover:text-white transition-colors bg-white/5 p-2 rounded-full border border-white/10"
               >
-                <X size={24} />
+                <X size={20} />
               </button>
 
-              <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
-                <div className={`w-16 h-16 md:w-24 md:h-24 glass-panel flex items-center justify-center ${selectedRole.color} shrink-0`}>
-                  <selectedRole.icon size={32} className="md:size-10" />
+              <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start text-right" dir="rtl">
+                <div className={`w-20 h-20 md:w-24 md:h-24 rounded-2xl ${selectedRole.avatarBg || 'bg-white/5'} border flex items-center justify-center shrink-0 shadow-xl`}>
+                  <selectedRole.icon size={40} className={selectedRole.color} />
                 </div>
                 
-                <div className="flex-1">
-                  <div className="mb-4 md:mb-6">
-                    <h3 className="text-xl md:text-3xl font-bold font-cairo gradient-text mb-1 md:mb-2">{selectedRole.title}</h3>
-                    <div className="text-white font-bold text-lg md:text-xl mb-1 font-cairo">{selectedRole.name}</div>
+                <div className="flex-1 w-full">
+                  <div className="mb-6 border-b border-white/10 pb-4">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border ${selectedRole.badgeBg || 'bg-white/10'}`}>
+                        [{selectedRole.badge || 'OFFICIAL'}]
+                      </span>
+                      <span className="text-xs font-mono text-gray-400 font-bold">{selectedRole.idCode || 'ELEX28-ID'}</span>
+                    </div>
+                    <h3 className={`text-2xl md:text-3xl font-black font-cairo ${selectedRole.color} mb-1`}>
+                      {selectedRole.title}
+                    </h3>
+                    <div className="text-white font-extrabold text-xl md:text-2xl font-cairo">
+                      {selectedRole.name}
+                    </div>
                     {selectedRole.deputy && (
-                      <div className="text-electron-secondary font-bold text-xs md:text-sm mb-2 flex items-center gap-2 font-cairo">
-                        <div className="w-1.5 h-1.5 rounded-full bg-electron-secondary animate-pulse" />
+                      <div className="text-electron-secondary font-bold text-sm mt-1.5 flex items-center gap-1.5 font-cairo">
+                        <Sparkles size={14} className="text-electron-secondary" />
                         النائبة: {selectedRole.deputy}
                       </div>
                     )}
-                    <div className="text-electron-accent/60 text-[10px] tech-font uppercase tracking-widest">Engineering Student | ELEX28</div>
                   </div>
 
-                  <div className="space-y-4 md:space-y-6">
+                  <div className="space-y-6">
                     <div>
-                      <h4 className="text-electron-accent text-[10px] tech-font uppercase tracking-widest mb-2 md:mb-3">عن المنصب</h4>
-                      <p className="text-gray-300 leading-relaxed text-xs md:text-base">
+                      <h4 className="text-electron-accent text-[11px] font-mono uppercase tracking-widest mb-2 font-bold">
+                        [ النطاق والمهام الإدارية ]
+                      </h4>
+                      <p className="text-gray-300 leading-relaxed text-sm md:text-base font-cairo bg-white/[0.02] p-4 rounded-2xl border border-white/5">
                         {selectedRole.description}
                       </p>
                     </div>
 
                     <div>
-                      <h4 className="text-electron-accent text-[10px] tech-font uppercase tracking-widest mb-2 md:mb-3">المهام والمسؤوليات</h4>
-                      <ul className="grid grid-cols-1 gap-1.5 md:gap-2">
+                      <h4 className="text-electron-accent text-[11px] font-mono uppercase tracking-widest mb-3 font-bold">
+                        [ قائمة المسائل والمسؤوليات ]
+                      </h4>
+                      <ul className="grid grid-cols-1 gap-2.5">
                         {selectedRole.tasks.map((task: string, i: number) => (
-                          <li key={i} className="flex items-center gap-2 md:gap-3 text-gray-400 text-[11px] md:text-sm">
-                            <div className="w-1 md:w-1.5 h-1 md:h-1.5 rounded-full bg-electron-accent shadow-[0_0_5px_#00ffff]" />
-                            {task}
+                          <li key={i} className="flex items-center gap-3 text-gray-300 text-xs md:text-sm font-cairo bg-black/40 p-3 rounded-xl border border-white/5">
+                            <div className={`w-2 h-2 rounded-full ${selectedRole.color} shrink-0`} />
+                            <span>{task}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
 
-                    <div className="pt-4 md:pt-6 border-t border-white/5">
+                    <div className="pt-4 border-t border-white/10">
                       <a 
-                        href={`https://wa.me/${selectedRole.whatsapp}`}
+                        href={`https://wa.me/${selectedRole.whatsapp.replace(/[^0-9]/g, '')}`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="w-full md:w-auto inline-flex items-center justify-center gap-2 md:gap-3 px-6 md:px-8 py-3 md:py-4 rounded-2xl bg-electron-accent text-black font-bold text-sm md:text-base hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-electron-accent/20"
+                        className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-gradient-to-r from-green-500 to-emerald-600 text-black font-extrabold text-base hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-green-500/20 font-cairo"
                       >
-                        <MessageSquare size={18} className="md:size-5" />
-                        تواصل مباشر عبر واتساب
+                        <MessageSquare size={20} />
+                        تواصل مباشر عبر الواتساب الرسمي
                       </a>
                     </div>
                   </div>
