@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "motion/react";
-import { Cpu, Zap, Radio, BookOpen, DollarSign, Share2, Palette, ChevronDown, X, Globe, ShieldCheck, MessageSquare, QrCode, User, Clock, Calendar, Trophy, Award, Download, Search, Sparkles, Star, Crown, FileText, Printer, Eye, SlidersHorizontal, Home, Users, Send } from "lucide-react";
+import { Cpu, Zap, Radio, BookOpen, DollarSign, Share2, Palette, ChevronDown, X, Globe, ShieldCheck, MessageSquare, QrCode, User, Clock, Calendar, Trophy, Award, Download, Search, Sparkles, Star, Crown, FileText, Printer, Eye, SlidersHorizontal, Home, Users, Send, Heart, CheckCircle2, Code, ExternalLink, MapPin, Mail, Layers, Compass } from "lucide-react";
 
 // Interactive Particle Background Component
 const InteractiveBackground = () => {
@@ -255,32 +255,119 @@ const roles = [
 
 const studentResources = [
   { 
-    title: "المواد والملفات", 
-    description: "مستودع شامل لجميع المحاضرات والمراجع الدراسية.",
+    id: "exams-s6",
+    title: "امتحانات السمستر السادس", 
+    subtitle: "أرشيف وتجميعات امتحانات سابقة",
+    description: "القناة المخصصة لتجميعات، نماذج أسئلة، وامتحانات السمستر السادس السابقة والرسمية مع الحلول النموذجية المعتمدة.",
+    detailsList: [
+      "تجميعات امتحانات الميدتيرم والامتحانات النهائية",
+      "نماذج التكليفات والشيتات المحلولة لكافة المواد",
+      "ملخصات وملاحظات سريعة لليلة الامتحان"
+    ],
+    link: "https://t.me/+9BOzuRr8U80wY2U0", 
+    actionType: "external_link",
+    icon: FileText,
+    tag: "EXAM VAULT • T.ME",
+    badgeText: "قناة حصرية 📚",
+    color: "text-yellow-400",
+    borderColor: "border-yellow-500/40 hover:border-yellow-300",
+    glowColor: "shadow-[0_10px_35px_rgba(234,179,8,0.22)]",
+    badgeBg: "bg-yellow-500/15 text-yellow-400 border-yellow-500/40",
+    avatarBg: "bg-gradient-to-br from-yellow-500/20 to-amber-600/30 border-yellow-500/40",
+    accentGlow: "bg-yellow-500/25",
+    buttonText: "انتقل للقناة على تلغرام"
+  },
+  { 
+    id: "drive-materials",
+    title: "المكتبة الرقمية والملفات", 
+    subtitle: "مستودع Google Drive الموحد",
+    description: "مستودع سحابي شامل ومنظّم يضم كافة الشيتات، المحاضرات المصورة، العروض التقديمية، والمراجع الدراسية.",
+    detailsList: [
+      "مجلدات سحابية مقسمة حسب كل مادة دراسية",
+      "الشيتات الرسمية والسلايدات بصيغ PDF عالية الجودة",
+      "المراجع والملازم الأكاديمية الموصى بها"
+    ],
     link: "#", 
+    actionType: "materials_modal",
     icon: Share2,
-    tag: "Drive"
+    tag: "GOOGLE DRIVE ARCHIVE",
+    badgeText: "مستودع الملفات 📁",
+    color: "text-cyan-400",
+    borderColor: "border-cyan-500/30 hover:border-cyan-400",
+    glowColor: "shadow-[0_10px_30px_rgba(6,182,212,0.18)]",
+    badgeBg: "bg-cyan-500/10 text-cyan-400 border-cyan-500/30",
+    avatarBg: "bg-gradient-to-br from-cyan-500/20 to-teal-600/30 border-cyan-500/40",
+    accentGlow: "bg-cyan-500/20",
+    buttonText: "استعراض المكتبة والملفات"
   },
   { 
-    title: "الجداول الدراسية", 
-    description: "جدول المحاضرات والامتحانات المحدث لحظياً.",
+    id: "schedules",
+    title: "عدد ساعات المواد", 
+    subtitle: "توزيع الساعات المعتمدة لكافة المواد (20 ساعة)",
+    description: "تفاصيل عدد الساعات المعتمدة لكل مادة من مواد السمستر السادس الـ 8 بالتفصيل والمحاضرين.",
+    detailsList: [
+      "مواد (3 ساعات): الاتصالات التماثلية • المعالجات الدقيقة • التحليل العددي • تماثلية 2",
+      "مواد (ساعتين): إلكترونيات القدرة • الحقول الكهرومغناطيسية • VHDL • برمجة OOP",
+      "إجمالي الساعات المعتمدة للسمستر السادس: 20 ساعة دراسية معتمدة"
+    ],
     link: "#", 
-    icon: Zap,
-    tag: "Live"
+    actionType: "schedules_modal",
+    icon: Clock,
+    tag: "20 CREDIT HOURS",
+    badgeText: "20 ساعة معتمدة ⏱️",
+    color: "text-blue-400",
+    borderColor: "border-blue-500/30 hover:border-blue-400",
+    glowColor: "shadow-[0_10px_30px_rgba(59,130,246,0.18)]",
+    badgeBg: "bg-blue-500/10 text-blue-400 border-blue-500/30",
+    avatarBg: "bg-gradient-to-br from-blue-500/20 to-indigo-600/30 border-blue-500/40",
+    accentGlow: "bg-blue-500/20",
+    buttonText: "عرض عدد ساعات المواد"
   },
   { 
-    title: "القنوات الرسمية", 
-    description: "قنوات التلغرام والواتساب الرسمية للتواصل.",
+    id: "channels",
+    title: "القنوات الرسمية والمنصة", 
+    subtitle: "مجتمع الدفعة والمنصة الجامعية",
+    description: "روابط الانضمام لقنوات الواتساب والتلغرام الرسمية ودليل خطوة بخطوة لدخول المنصة الإلكترونية للجامعة.",
+    detailsList: [
+      "قناة الواتساب الرسمية للتنبيهات العاجلة",
+      "قناة التلغرام الأكاديمية المخصصة للمناقشات",
+      "دليل الدخول وشرح استخدام منصة الجامعة"
+    ],
     link: "#", 
+    actionType: "channels_modal",
     icon: Radio,
-    tag: "Social"
+    tag: "OFFICIAL NETWORK",
+    badgeText: "شبكة التواصل 🌐",
+    color: "text-emerald-400",
+    borderColor: "border-emerald-500/30 hover:border-emerald-400",
+    glowColor: "shadow-[0_10px_30px_rgba(16,185,129,0.18)]",
+    badgeBg: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
+    avatarBg: "bg-gradient-to-br from-emerald-500/20 to-green-600/30 border-emerald-500/40",
+    accentGlow: "bg-emerald-500/20",
+    buttonText: "الانضمام للقنوات والدليل"
   },
   { 
-    title: "المقررات الدراسية", 
-    description: "توصيف المواد الدراسية للسمستر الخامس.",
+    id: "courses",
+    title: "دليل المقررات التخصصية", 
+    subtitle: "توصيف ومحتويات السمستر السادس",
+    description: "استعراض توصيف المواد الأكاديمية للسمستر السادس، الساعات المعتمدة، أسماء الأساتذة، وقنوات المواد.",
+    detailsList: [
+      "توصيف تفصيلي لمفردات ومحتوى كل مقرر",
+      "أسماء المحاضرين والمشرفين على المواد",
+      "روابط قنوات التلغرام الخاصة بكل مادة"
+    ],
     link: "#", 
+    actionType: "courses_modal",
     icon: BookOpen,
-    tag: "Academic"
+    tag: "ACADEMIC SYLLABUS",
+    badgeText: "المحتوى الأكاديمي 📖",
+    color: "text-purple-400",
+    borderColor: "border-purple-500/30 hover:border-purple-400",
+    glowColor: "shadow-[0_10px_30px_rgba(168,85,247,0.18)]",
+    badgeBg: "bg-purple-500/10 text-purple-400 border-purple-500/30",
+    avatarBg: "bg-gradient-to-br from-purple-500/20 to-fuchsia-600/30 border-purple-500/40",
+    accentGlow: "bg-purple-500/20",
+    buttonText: "استكشاف المقررات والمواد"
   },
 ];
 
@@ -1652,65 +1739,127 @@ export default function App() {
               transition={{ duration: 0.3 }}
               className="w-full relative"
             >
-              {/* Student Resources Section */}
-              <section id="resources" className="py-20 md:py-32 px-6 bg-electron-panel/30 border-y border-electron-border relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-full circuit-bg opacity-10 pointer-events-none" />
-        
-        <div className="max-w-7xl mx-auto w-full relative z-10">
-          <div className="mb-16 md:mb-24">
-            <h2 className="text-3xl md:text-6xl font-bold mb-4 md:mb-6 font-cairo">بوابة <span className="gradient-text">الدفعة</span></h2>
-            <p className="text-gray-500 max-w-xl text-base md:text-lg">كل ما تحتاجه في مسيرتك بالسمستر السادس، مجمع في مكان واحد.</p>
-          </div>
+              {/* Student Resources & Services Section */}
+              <section id="resources" className="py-20 md:py-32 px-4 md:px-6 bg-[#030712]/80 border-y border-white/10 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-full circuit-bg opacity-15 pointer-events-none" />
+                <div className="absolute -top-40 right-1/4 w-[500px] h-[500px] bg-electron-accent/5 rounded-full blur-[140px] pointer-events-none" />
+                <div className="absolute -bottom-40 left-1/4 w-[500px] h-[500px] bg-electron-secondary/5 rounded-full blur-[140px] pointer-events-none" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {studentResources.map((res, i) => (
-              <motion.a
-                key={res.title}
-                href={res.link}
-                onClick={(e) => {
-                  if (res.title === "المقررات الدراسية") {
-                    e.preventDefault();
-                    setShowCourses(true);
-                  } else if (res.title === "المواد والملفات") {
-                    e.preventDefault();
-                    setShowMaterials(true);
-                  } else if (res.title === "القنوات الرسمية") {
-                    e.preventDefault();
-                    setShowChannels(true);
-                  } else if (res.title === "الجداول الدراسية") {
-                    e.preventDefault();
-                    setShowSchedulesAlert(true);
-                  }
-                }}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="glass-panel neon-card neon-glow p-6 md:p-8 group hover:border-electron-accent transition-all relative overflow-hidden"
-              >
-                <div className="absolute top-4 left-4 tech-font text-[8px] md:text-[10px] text-electron-accent/40 border border-electron-accent/20 px-2 py-1 rounded">
-                  {res.tag}
+                <div className="max-w-7xl mx-auto w-full relative z-10">
+                  {/* Header */}
+                  <div className="mb-14 md:mb-20 text-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-electron-accent/10 border border-electron-accent/30 text-electron-accent text-[10px] md:text-xs font-bold mb-4 font-mono tracking-widest uppercase">
+                      <Zap size={14} className="animate-pulse text-electron-accent" />
+                      DIGITAL SERVICES & VAULT • ELEX28
+                    </div>
+                    <h2 className="text-3xl md:text-6xl font-black mb-4 md:mb-6 font-cairo text-white tracking-tight">
+                      بوابة <span className="gradient-text">الخدمات الطلابية</span>
+                    </h2>
+                    <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-lg leading-relaxed font-cairo">
+                      منظومة متكاملة من الخدمات الرقمية، التجميعات، الأرشيف الأكاديمي، والجداول المحدثة المخصصة لمهندسي الدفعة بالسمستر السادس.
+                    </p>
+                  </div>
+
+                  {/* Services Cards Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    {studentResources.map((res, i) => {
+                      const ResIcon = res.icon;
+                      return (
+                        <motion.div
+                          key={res.id || res.title}
+                          initial={{ opacity: 0, y: 30 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          whileHover={{ y: -8 }}
+                          transition={{ delay: i * 0.08, duration: 0.4 }}
+                          className={`border ${res.borderColor || 'border-white/10'} bg-[#060a17]/90 backdrop-blur-2xl p-6 md:p-8 rounded-3xl relative overflow-hidden flex flex-col justify-between group transition-all duration-300 ${res.glowColor || ''}`}
+                        >
+                          {/* Ambient Glow Background */}
+                          <div className={`absolute -top-20 -right-20 w-48 h-48 rounded-full ${res.accentGlow || 'bg-electron-accent/10'} blur-3xl pointer-events-none group-hover:scale-150 transition-transform duration-700`} />
+                          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:via-electron-accent transition-all duration-500" />
+
+                          <div>
+                            {/* Top Bar: Tag & Badge */}
+                            <div className="flex items-center justify-between gap-2 mb-6 pb-4 border-b border-white/10 relative z-10">
+                              <span className="text-[10px] font-mono font-bold text-gray-400 tracking-wider uppercase">
+                                [ {res.tag} ]
+                              </span>
+                              <span className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold border tracking-wider ${res.badgeBg || 'bg-white/10 text-white'}`}>
+                                {res.badgeText}
+                              </span>
+                            </div>
+
+                            {/* Service Header: Icon & Title */}
+                            <div className="flex items-start gap-4 mb-5 relative z-10">
+                              <div className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl ${res.avatarBg || 'bg-white/10'} border flex items-center justify-center shrink-0 shadow-lg relative group-hover:scale-105 transition-transform duration-300`}>
+                                <div className="absolute inset-0 bg-white/5 rounded-2xl animate-pulse pointer-events-none" />
+                                <ResIcon size={28} className={`${res.color} relative z-10`} />
+                              </div>
+
+                              <div className="flex-1 min-w-0 text-right" dir="rtl">
+                                <span className="text-[10px] font-mono text-gray-400 uppercase tracking-wider block mb-1">
+                                  {res.subtitle}
+                                </span>
+                                <h3 className={`text-xl md:text-2xl font-black font-cairo tracking-tight ${res.color} leading-tight`}>
+                                  {res.title}
+                                </h3>
+                              </div>
+                            </div>
+
+                            {/* Main Description */}
+                            <p className="text-gray-300 text-xs md:text-sm leading-relaxed font-cairo mb-5 text-right bg-white/[0.02] p-3.5 rounded-2xl border border-white/5" dir="rtl">
+                              {res.description}
+                            </p>
+
+                            {/* Feature Highlights List */}
+                            {res.detailsList && (
+                              <div className="mb-6 space-y-2 text-right" dir="rtl">
+                                <span className="text-[10px] font-mono text-electron-accent uppercase tracking-widest block mb-2 font-bold">
+                                  [ المحتويات والخدمات المتاحة ]
+                                </span>
+                                {res.detailsList.map((detail: string, idx: number) => (
+                                  <div key={idx} className="flex items-center justify-start gap-2 text-gray-400 text-xs font-cairo">
+                                    <div className={`w-1.5 h-1.5 rounded-full ${res.color} shrink-0`} />
+                                    <span className="truncate">{detail}</span>
+                                  </div>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Action Button */}
+                          <div className="pt-4 border-t border-white/10 relative z-10">
+                            {res.actionType === "external_link" ? (
+                              <a
+                                href={res.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className={`w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-yellow-500 to-amber-600 text-black font-extrabold text-xs md:text-sm font-cairo hover:scale-[1.02] active:scale-95 transition-all shadow-lg shadow-yellow-500/20 flex items-center justify-center gap-2 group/btn`}
+                              >
+                                <Send size={16} className="group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5 transition-transform" />
+                                <span>{res.buttonText}</span>
+                              </a>
+                            ) : (
+                              <button
+                                onClick={() => {
+                                  if (res.actionType === "materials_modal") setShowMaterials(true);
+                                  else if (res.actionType === "schedules_modal") setShowSchedulesAlert(true);
+                                  else if (res.actionType === "channels_modal") setShowChannels(true);
+                                  else if (res.actionType === "courses_modal") setShowCourses(true);
+                                }}
+                                className="w-full py-3.5 px-4 rounded-2xl bg-white/5 border border-white/10 text-white font-bold text-xs md:text-sm font-cairo hover:bg-electron-accent hover:text-black hover:border-electron-accent transition-all flex items-center justify-center gap-2 group/btn"
+                              >
+                                <span>{res.buttonText}</span>
+                                <ChevronDown size={14} className="-rotate-90 group-hover/btn:translate-x-1 transition-transform" />
+                              </button>
+                            )}
+                          </div>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
                 </div>
-                <motion.div 
-                  className="w-12 h-12 md:w-14 md:h-14 bg-electron-accent/5 text-electron-accent rounded-2xl flex items-center justify-center mb-4 md:mb-6 group-hover:bg-electron-accent group-hover:text-black transition-all"
-                  whileHover={{ rotate: 15, scale: 1.1 }}
-                >
-                  <res.icon size={24} />
-                </motion.div>
-                <h3 className="text-lg md:text-xl font-bold mb-2 md:mb-3 tech-font flex items-center gap-2">
-                  {res.title}
-                </h3>
-                <p className="text-gray-500 text-xs md:text-sm leading-relaxed mb-4 md:mb-6">
-                  {res.description}
-                </p>
-                <div className="flex items-center gap-2 text-electron-accent text-xs md:text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-                  دخول الآن <ChevronDown size={12} className="-rotate-90" />
-                </div>
-              </motion.a>
-            ))}
-          </div>
-        </div>
-      </section>
+              </section>
 
             </motion.div>
           )}
@@ -1724,113 +1873,315 @@ export default function App() {
               transition={{ duration: 0.3 }}
               className="w-full relative"
             >
-              {/* CTA Section */}
-              <section className="py-16 md:py-32 px-4 md:px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="glass-panel neon-card neon-glow p-8 md:p-20 text-center relative overflow-hidden">
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-electron-accent via-electron-secondary to-electron-accent" />
-            
-            <h2 className="text-3xl md:text-6xl font-bold mb-4 md:mb-8 font-cairo tracking-tighter">تواصل مع <span className="text-electron-accent">الفريق</span></h2>
-            <p className="text-sm md:text-xl text-gray-400 mb-8 md:mb-12 max-w-2xl mx-auto leading-relaxed font-cairo">
-              هل لديك اقتراح لتطوير المنصة أو استفسار أكاديمي؟ نحن هنا للاستماع إليك.
-            </p>
-            
-            <div className="flex justify-center">
-              <a 
-                href="https://wa.me/+249118222378"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full md:w-auto px-8 md:px-12 py-4 md:py-5 bg-electron-accent text-black font-bold rounded-2xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3 shadow-lg shadow-electron-accent/20"
-              >
-                <MessageSquare size={20} />
-                إرسال رسالة للدفعة
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+              {/* Community & Contact Hub Section */}
+              <section className="py-16 md:py-28 px-4 md:px-6 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-full h-full circuit-bg opacity-10 pointer-events-none" />
+                <div className="absolute top-1/4 right-10 w-[450px] h-[450px] bg-electron-accent/10 rounded-full blur-[140px] pointer-events-none" />
+                <div className="absolute bottom-10 left-10 w-[450px] h-[450px] bg-emerald-500/10 rounded-full blur-[140px] pointer-events-none" />
+
+                <div className="max-w-5xl mx-auto relative z-10">
+                  {/* Header */}
+                  <div className="text-center mb-12 md:mb-16">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-electron-accent/10 border border-electron-accent/30 text-electron-accent text-[10px] md:text-xs font-bold mb-4 font-mono tracking-widest uppercase">
+                      <MessageSquare size={14} className="animate-pulse text-electron-accent" />
+                      COMMUNITY HELP DESK & DIRECT CONTACT • ELEX28
+                    </div>
+                    <h2 className="text-3xl md:text-6xl font-black mb-4 font-cairo text-white tracking-tight">
+                      مركز <span className="gradient-text">الدعم والتواصل المباشر</span>
+                    </h2>
+                    <p className="text-gray-400 max-w-2xl mx-auto text-sm md:text-lg font-cairo leading-relaxed">
+                      منظومة متكاملة لتقديم الدعم الأكاديمي والتنظيمي، الاستماع لملاحظاتكم، وتقديم المساعدة لكافة مهندسي الدفعة بالسمستر السادس.
+                    </p>
+                  </div>
+
+                  {/* Heartfelt Support Banner */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.96 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="mb-12 md:mb-16 p-6 md:p-12 rounded-3xl bg-gradient-to-r from-emerald-950/40 via-black/80 to-teal-950/40 border border-emerald-500/40 shadow-[0_10px_40px_rgba(16,185,129,0.15)] relative overflow-hidden text-center"
+                  >
+                    <div className="absolute -top-10 -left-10 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none" />
+                    <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-electron-accent/20 rounded-full blur-3xl pointer-events-none" />
+                    
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/40 mb-6 shadow-inner">
+                      <ShieldCheck size={32} className="animate-pulse text-emerald-400" />
+                    </div>
+
+                    <h3 className="text-xl md:text-3xl font-extrabold text-white font-cairo mb-4 leading-relaxed max-w-3xl mx-auto">
+                      "لو أي زول احتاج مساعدة في أي شيء، نحن موجودين وفي الخدمة دائماً إن شاء الله"
+                    </h3>
+                    <p className="text-gray-300 text-xs md:text-base font-cairo max-w-2xl mx-auto leading-relaxed">
+                      سواء كنت تبحث عن شيت دراسي، استفسار عن الساعات المعتمدة والجداول، أو واجهتك أي عقبة أكاديمية أو شخصية، فريق القيادة والأمانات على أتم الاستعداد لمساعدتك في أي وقت.
+                    </p>
+
+                    <div className="mt-8 flex flex-wrap items-center justify-center gap-3 font-cairo text-xs font-bold text-emerald-300">
+                      <span className="px-3.5 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-1.5">
+                        <CheckCircle2 size={14} /> خدمة الدفعة أولاً
+                      </span>
+                      <span className="px-3.5 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-1.5">
+                        <Clock size={14} /> متواجدون دائماً
+                      </span>
+                      <span className="px-3.5 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center gap-1.5">
+                        <ShieldCheck size={14} /> الخصوصية والسرية التامة
+                      </span>
+                    </div>
+                  </motion.div>
+
+                  {/* Interactive Quick Contact Form */}
+                  <div className="p-8 md:p-12 rounded-3xl bg-[#060a17]/90 border border-white/10 shadow-2xl relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-electron-accent/5 rounded-full blur-3xl pointer-events-none" />
+                    
+                    <div className="max-w-2xl mx-auto text-center mb-8">
+                      <span className="text-[10px] font-mono font-bold text-electron-accent uppercase tracking-widest block mb-2">
+                        [ DIRECT ASSISTANCE FORM ]
+                      </span>
+                      <h3 className="text-2xl md:text-3xl font-black text-white font-cairo mb-2">
+                        أرسل استفسارك أو طلبك مباشرة
+                      </h3>
+                      <p className="text-gray-400 text-xs md:text-sm font-cairo">
+                        اكتب تفاصيل استفسارك وسيتم تحويله تلقائياً لرسالة منسقة عبر الواتساب لرئيس الدفعة للرد عليك فوراً.
+                      </p>
+                    </div>
+
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        const form = e.target as HTMLFormElement;
+                        const name = (form.elements.namedItem('studentName') as HTMLInputElement).value || 'طالب/طالبة بالدفعة';
+                        const topic = (form.elements.namedItem('topic') as HTMLSelectElement).value;
+                        const msg = (form.elements.namedItem('message') as HTMLTextAreaElement).value;
+                        
+                        const text = `السلام عليكم ورحمة الله وبركاته،%0Aأنا المهندس/ة: ${encodeURIComponent(name)}%0Aالموضوع: ${encodeURIComponent(topic)}%0Aالرسالة/الاستفسار:%0A${encodeURIComponent(msg)}`;
+                        window.open(`https://wa.me/+249118222378?text=${text}`, '_blank');
+                      }}
+                      className="max-w-xl mx-auto space-y-4 font-cairo text-right"
+                      dir="rtl"
+                    >
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                          <label className="block text-xs font-bold text-gray-300 mb-1">الاسم الكريم (اختياري)</label>
+                          <input
+                            type="text"
+                            name="studentName"
+                            placeholder="مثال: م. أحمد عبد الله"
+                            className="w-full bg-black/60 border border-white/10 focus:border-electron-accent rounded-xl px-4 py-3 text-xs text-white outline-none transition-colors"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-xs font-bold text-gray-300 mb-1">نوع المساعدة المطلوبة</label>
+                          <select
+                            name="topic"
+                            className="w-full bg-black/60 border border-white/10 focus:border-electron-accent rounded-xl px-4 py-3 text-xs text-white outline-none transition-colors"
+                          >
+                            <option value="استفسار أكاديمي / شيتات ومواد">استفسار أكاديمي / شيتات ومواد</option>
+                            <option value="امتحانات السمستر السادس">امتحانات السمستر السادس</option>
+                            <option value="الساعات المعتمدة للمواد">الساعات المعتمدة للمواد</option>
+                            <option value="اقتراح لتطوير المنصة والخدمات">اقتراح لتطوير المنصة والخدمات</option>
+                            <option value="مساعدة شخصية أو عامة">مساعدة شخصية أو عامة</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold text-gray-300 mb-1">تفاصيل الاستفسار أو الطلب *</label>
+                        <textarea
+                          name="message"
+                          required
+                          rows={4}
+                          placeholder="اكتب تفاصيل ما تحتاج إليه هنا وستصلنا رسالتك فوراً..."
+                          className="w-full bg-black/60 border border-white/10 focus:border-electron-accent rounded-xl p-4 text-xs text-white outline-none transition-colors resize-none"
+                        />
+                      </div>
+
+                      <button
+                        type="submit"
+                        className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-electron-accent to-electron-secondary text-black font-extrabold text-sm font-cairo hover:scale-[1.01] active:scale-95 transition-all shadow-lg shadow-electron-accent/20 flex items-center justify-center gap-2 cursor-pointer"
+                      >
+                        <Send size={18} />
+                        <span>إرسال الطلب مباشرة عبر الواتساب</span>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </section>
 
             </motion.div>
           )}
         </AnimatePresence>
       </main>
 
-      {/* Footer */}
-      <footer className="relative pt-20 pb-10 px-6 border-t border-electron-border bg-black overflow-hidden font-inter">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-electron-accent/50 to-transparent" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[200px] bg-electron-accent/5 blur-[100px] rounded-full pointer-events-none" />
-        
+      {/* Ultra-Professional & Responsive Cybernetic Footer */}
+      <footer className="relative pt-16 pb-28 md:pb-14 px-4 sm:px-6 md:px-10 border-t border-white/10 bg-[#02050e] overflow-hidden font-cairo" dir="rtl">
+        {/* Top Glowing Laser Accent & Radial Background Blurs */}
+        <div className="absolute top-0 left-0 w-full h-[1.5px] bg-gradient-to-r from-transparent via-electron-accent to-transparent shadow-[0_0_20px_#00ffff]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[180px] bg-electron-accent/10 blur-[140px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-purple-600/5 blur-[160px] rounded-full pointer-events-none" />
+
         <div className="max-w-7xl mx-auto relative z-10">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 mb-20">
-            <div className="md:col-span-5">
-              <div className="tech-font text-3xl font-bold gradient-text mb-6">ELEX28</div>
-              <p className="text-gray-400 text-base leading-relaxed mb-8 max-w-md">
-                المنصة الرقمية المتكاملة لطلاب هندسة الإلكترونيات - السمستر السادس. 
-                نسعى لتمكين الطلاب من خلال توفير الموارد الأكاديمية والتنظيمية في بيئة تقنية متطورة.
+          {/* Main Footer Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 md:gap-12 mb-12">
+            
+            {/* Col 1: Brand & Identity (4 cols) */}
+            <div className="lg:col-span-4 space-y-4 text-right">
+              <div className="flex items-center gap-3">
+                <span className="w-3.5 h-3.5 rounded-full bg-electron-accent animate-pulse shadow-[0_0_15px_#00ffff]" />
+                <span className="tech-font text-2xl sm:text-3xl font-black gradient-text tracking-wider">ELEX28</span>
+                <span className="px-2.5 py-0.5 rounded-full bg-electron-accent/10 border border-electron-accent/30 text-electron-accent text-[10px] font-mono font-bold tracking-widest">
+                  SEMESTER 6 • 20 CH
+                </span>
+              </div>
+              
+              <p className="text-gray-300 text-xs sm:text-sm leading-relaxed max-w-sm font-cairo">
+                المنصة الرقمية المتكاملة لطلاب قسم هندسة الإلكترونيات بالسمستر السادس (دفعة 2020). توفر المكتبة الشاملة، أرشيف الامتحانات، حساب الساعات، والتواصل المباشر.
               </p>
-              <div className="flex gap-4">
-                <a href="https://t.me/+Agkt05rV37tmODc0" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl border border-white/5 bg-white/5 flex items-center justify-center text-gray-400 hover:text-purple-400 hover:border-purple-400/50 hover:bg-purple-400/5 transition-all duration-300">
-                  <Send size={18} />
-                </a>
-                <a href="https://t.me/+Agkt05rV37tmODc0" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl border border-white/5 bg-white/5 flex items-center justify-center text-gray-400 hover:text-blue-400 hover:border-blue-400/50 hover:bg-blue-400/5 transition-all duration-300">
-                  <Share2 size={18} />
-                </a>
-                <a href="#" className="w-10 h-10 rounded-xl border border-white/5 bg-white/5 flex items-center justify-center text-gray-400 hover:text-electron-accent hover:border-electron-accent/50 hover:bg-electron-accent/5 transition-all duration-300">
-                  <Globe size={18} />
-                </a>
+
+              {/* Quick Communication & Media Channels */}
+              <div className="pt-2 space-y-2">
+                <span className="text-[10px] font-mono text-gray-400 font-bold uppercase tracking-wider block">
+                  قنوات التواصل المباشرة
+                </span>
+                <div className="flex flex-wrap items-center gap-2">
+                  <a 
+                    href="https://wa.me/+249118222378" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    title="الواتساب المباشر"
+                    className="px-3 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 hover:border-emerald-400 hover:bg-emerald-500/20 text-emerald-400 text-xs font-bold font-cairo transition-all flex items-center gap-2"
+                  >
+                    <MessageSquare size={14} />
+                    <span>واتساب الدفعة</span>
+                  </a>
+                  <a 
+                    href="https://t.me/+9BOzuRr8U80wY2U0" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    title="قناة امتحانات السمستر السادس"
+                    className="px-3 py-2 rounded-xl bg-yellow-500/10 border border-yellow-500/30 hover:border-yellow-400 hover:bg-yellow-500/20 text-yellow-400 text-xs font-bold font-cairo transition-all flex items-center gap-2"
+                  >
+                    <FileText size={14} />
+                    <span>امتحانات S6</span>
+                  </a>
+                  <a 
+                    href="https://t.me/+Agkt05rV37tmODc0" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    title="المكتبة الرقمية بالتلغرام"
+                    className="px-3 py-2 rounded-xl bg-purple-500/10 border border-purple-500/30 hover:border-purple-400 hover:bg-purple-500/20 text-purple-400 text-xs font-bold font-cairo transition-all flex items-center gap-2"
+                  >
+                    <Send size={14} />
+                    <span>المكتبة الرقمية</span>
+                  </a>
+                </div>
               </div>
             </div>
-            
-            <div className="md:col-span-3">
-              <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-[0.2em] opacity-90">الوصول السريع</h4>
-              <ul className="space-y-4 text-gray-500 text-sm font-cairo">
-                {['هيكل الدفعة', 'بوابة الدفعة', 'المكتبة الرقمية', 'تواصل معنا'].map((item, idx) => (
-                  <li key={idx}>
-                    <a href="#" className="hover:text-electron-accent transition-colors flex items-center gap-2 group">
-                      <div className="w-1 h-1 rounded-full bg-electron-accent opacity-0 group-hover:opacity-100 transition-opacity" />
-                      {item}
-                    </a>
-                  </li>
-                ))}
+
+            {/* Col 2: Quick Links (3 cols) */}
+            <div className="lg:col-span-3 space-y-3 text-right">
+              <h4 className="text-white font-black text-sm uppercase tracking-wider border-b border-white/10 pb-2 flex items-center gap-2">
+                <Compass size={15} className="text-electron-accent" />
+                <span>أقسام المنصة</span>
+              </h4>
+              <ul className="space-y-2.5 text-xs text-gray-300">
+                <li>
+                  <button onClick={() => { setActiveTab("home"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="hover:text-electron-accent transition-colors flex items-center gap-2 group cursor-pointer">
+                    <span className="w-1.5 h-1.5 rounded-full bg-electron-accent/40 group-hover:bg-electron-accent transition-colors" />
+                    الرئيسية
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => { setActiveTab("results"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="hover:text-electron-accent transition-colors flex items-center gap-2 group cursor-pointer">
+                    <span className="w-1.5 h-1.5 rounded-full bg-electron-accent/40 group-hover:bg-electron-accent transition-colors" />
+                    لوحة الشرف الأكاديمية
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => { setActiveTab("structure"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="hover:text-electron-accent transition-colors flex items-center gap-2 group cursor-pointer">
+                    <span className="w-1.5 h-1.5 rounded-full bg-electron-accent/40 group-hover:bg-electron-accent transition-colors" />
+                    هيكل ومجلس الدفعة والأمانات
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => { setActiveTab("materials"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="hover:text-electron-accent transition-colors flex items-center gap-2 group cursor-pointer">
+                    <span className="w-1.5 h-1.5 rounded-full bg-electron-accent/40 group-hover:bg-electron-accent transition-colors" />
+                    الخدمات والمكتبة الرقمية
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => { setActiveTab("social"); window.scrollTo({ top: 0, behavior: "smooth" }); }} className="hover:text-electron-accent transition-colors flex items-center gap-2 group cursor-pointer">
+                    <span className="w-1.5 h-1.5 rounded-full bg-electron-accent/40 group-hover:bg-electron-accent transition-colors" />
+                    مركز الدعم والتواصل المباشر
+                  </button>
+                </li>
               </ul>
             </div>
 
-            <div className="md:col-span-4">
-              <h4 className="text-white font-bold mb-6 text-sm uppercase tracking-[0.2em] opacity-90">الموقع الأكاديمي</h4>
-              <div className="space-y-4">
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-electron-accent shrink-0">
-                    <Globe size={14} />
-                  </div>
+            {/* Col 3: Academic Affiliation (3 cols) */}
+            <div className="lg:col-span-3 space-y-3 text-right">
+              <h4 className="text-white font-black text-sm uppercase tracking-wider border-b border-white/10 pb-2 flex items-center gap-2">
+                <Globe size={15} className="text-electron-accent" />
+                <span>المرجع الأكاديمي</span>
+              </h4>
+              <div className="space-y-3 text-xs text-gray-300">
+                <div className="flex items-start gap-2.5">
+                  <Globe size={15} className="text-electron-accent shrink-0 mt-0.5" />
                   <div>
-                    <div className="text-white text-sm font-medium">جامعة السودان للعلوم والتكنولوجيا</div>
-                    <div className="text-gray-500 text-xs mt-1">كلية الهندسة - قسم هندسة الإلكترونيات</div>
+                    <span className="font-bold block text-white">جامعة السودان للعلوم والتكنولوجيا</span>
+                    <span className="text-gray-400 text-[11px]">كلية الهندسة • المجمع الجناحي</span>
                   </div>
                 </div>
-                <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center text-electron-secondary shrink-0">
-                    <Zap size={14} />
-                  </div>
+                <div className="flex items-start gap-2.5">
+                  <Zap size={15} className="text-electron-secondary shrink-0 mt-0.5" />
                   <div>
-                    <div className="text-white text-sm font-medium">الالتحاق: السمستر السادس</div>
-                    <div className="text-gray-500 text-xs mt-1">دفعة 2020 | العام الدراسي 2026</div>
+                    <span className="font-bold block text-white">قسم هندسة الإلكترونيات</span>
+                    <span className="text-gray-400 text-[11px]">السمستر السادس (20 CH) • دفعة 2020</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2.5">
+                  <CheckCircle2 size={15} className="text-emerald-400 shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-bold block text-white">العام الدراسي 2026</span>
+                    <span className="text-gray-400 text-[11px]">منظومة معتمدة من مجلس الدفعة</span>
                   </div>
                 </div>
               </div>
             </div>
+
+            {/* Col 4: Platform Badges & Features (2 cols) */}
+            <div className="lg:col-span-2 space-y-3 text-right">
+              <h4 className="text-white font-black text-sm uppercase tracking-wider border-b border-white/10 pb-2 flex items-center gap-2">
+                <Layers size={15} className="text-electron-accent" />
+                <span>المزايا</span>
+              </h4>
+              <div className="flex flex-wrap gap-1.5">
+                <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-gray-300 text-[10px]">المكتبة الرقمية</span>
+                <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-gray-300 text-[10px]">أرشيف الامتحانات</span>
+                <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-gray-300 text-[10px]">لوحة الشرف</span>
+                <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-gray-300 text-[10px]">كشف الساعات</span>
+                <span className="px-2.5 py-1 rounded-lg bg-white/5 border border-white/10 text-gray-300 text-[10px]">الدعم المباشر</span>
+              </div>
+            </div>
+
           </div>
 
-          <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-gray-600 text-[10px] uppercase tracking-[0.2em] font-medium font-mono">
-            <div className="text-center md:text-right">
-              DESIGNED BY <span className="text-electron-accent">ELEX28 TECH TEAM</span>
-              <div className="text-[8px] italic font-bold text-electron-accent drop-shadow-[0_0_5px_rgba(0,242,255,0.8)] mt-1 tech-font tracking-widest">
-                OMAR FATHI
-              </div>
+          {/* Bottom Designer & Developer Signature Bar */}
+          <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs font-mono">
+            {/* Rights & Institution Info */}
+            <div className="text-center sm:text-right text-gray-400 text-[11px] font-cairo">
+              <span>جميع الحقوق محفوظة © 2026 • </span>
+              <span className="text-white font-bold">منصة ELEX28 الرقمية</span>
+              <span className="text-gray-500"> | جامعة السودان للعلوم والتكنولوجيا</span>
             </div>
-            <div className="flex flex-wrap justify-center gap-6 md:gap-10">
-              <a href="#" className="hover:text-white transition-colors font-sans">Privacy</a>
-              <a href="#" className="hover:text-white transition-colors font-sans">Terms</a>
-              <a href="#" className="hover:text-white transition-colors font-sans">SUST © 2026</a>
+            
+            {/* Ultra-Professional Designer & Developer Credit */}
+            <div className="flex items-center justify-center">
+              <div className="px-4 py-2 rounded-2xl bg-gradient-to-r from-electron-accent/15 via-black/80 to-electron-secondary/15 border border-electron-accent/40 shadow-[0_0_15px_rgba(0,242,255,0.15)] flex items-center gap-2 text-xs font-cairo">
+                <Code size={14} className="text-electron-accent animate-pulse shrink-0" />
+                <span className="text-gray-300 font-medium">تم تصميم وتطوير المنصة بواسطة</span>
+                <span className="font-black text-electron-accent tracking-wide hover:underline cursor-pointer">
+                  omar fathi
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-electron-accent animate-ping" />
+              </div>
             </div>
           </div>
         </div>
@@ -2737,17 +3088,36 @@ export default function App() {
                   <div className="w-16 h-16 bg-electron-accent/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-electron-accent/20">
                     <BookOpen size={32} className="text-electron-accent" />
                   </div>
-                  <h3 className="text-2xl md:text-4xl font-bold font-cairo gradient-text mb-2">المقررات والمحاضرين</h3>
-                  <p className="text-gray-400 text-sm md:text-lg font-cairo">تفاصيل مواد الفصل الدراسي الحالي - ELEX28</p>
+                  <h3 className="text-2xl md:text-4xl font-bold font-cairo gradient-text mb-2">كشف عدد ساعات المواد والمحاضرين</h3>
+                  <p className="text-gray-400 text-sm md:text-lg font-cairo">تفاصيل الساعات المعتمدة لكافة مواد السمستر السادس (20 ساعة) - ELEX28</p>
                 </div>
 
-                <div className="overflow-x-auto rounded-2xl border border-white/5 bg-white/5">
+                {/* Mobile View: Cards Layout */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:hidden max-h-[55vh] overflow-y-auto pr-1">
+                  {coursesWithProfs.map((course, idx) => (
+                    <div key={idx} className="bg-white/5 border border-white/10 p-4 rounded-2xl flex flex-col gap-2 relative">
+                      <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                        <h4 className="text-white font-bold text-sm font-cairo">{course.name}</h4>
+                        <span className="px-2.5 py-0.5 rounded-full bg-electron-accent/15 text-electron-accent text-[10px] font-bold font-mono border border-electron-accent/30">
+                          {course.hours} ساعات ({course.hours} CH)
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2 text-gray-300 text-xs font-cairo">
+                        <User size={13} className="text-electron-accent" />
+                        <span>المحاضر: {course.prof}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Tablet / Desktop View: Table */}
+                <div className="hidden md:block overflow-x-auto rounded-2xl border border-white/5 bg-white/5">
                   <table className="w-full text-right border-collapse">
                     <thead>
                       <tr className="border-b border-white/10 bg-white/5">
                         <th className="p-3 md:p-6 text-electron-accent font-bold font-cairo text-xs md:text-lg">المادة</th>
                         <th className="p-3 md:p-6 text-electron-accent font-bold font-cairo text-xs md:text-lg">المحاضر</th>
-                        <th className="p-3 md:p-6 text-electron-accent font-bold font-cairo text-xs md:text-lg text-center">الساعات</th>
+                        <th className="p-3 md:p-6 text-electron-accent font-bold font-cairo text-xs md:text-lg text-center">الساعات المعتمدة</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -2767,12 +3137,12 @@ export default function App() {
                               <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 shrink-0">
                                 <User size={12} className="md:size-[14px] text-electron-accent" />
                               </div>
-                              <span className="truncate max-w-[80px] md:max-w-none">{course.prof}</span>
+                              <span className="truncate max-w-[120px] md:max-w-none">{course.prof}</span>
                             </div>
                           </td>
                           <td className="p-3 md:p-6 text-center">
-                            <span className="px-2 py-0.5 md:px-3 md:py-1 rounded-full bg-electron-accent/10 text-electron-accent text-[9px] md:text-xs font-bold tech-font border border-electron-accent/20 whitespace-nowrap">
-                              {course.hours} CH
+                            <span className="px-2.5 py-1 rounded-full bg-electron-accent/10 text-electron-accent text-[10px] md:text-xs font-bold tech-font border border-electron-accent/20 whitespace-nowrap">
+                              {course.hours} ساعات ({course.hours} CH)
                             </span>
                           </td>
                         </motion.tr>
@@ -2830,26 +3200,51 @@ export default function App() {
                   <p className="text-gray-400 text-sm md:text-lg font-cairo">انضم لمجتمع ELEX28 على منصات التواصل الاجتماعي</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
+                  {/* Semester 6 Exams Telegram Channel */}
+                  <motion.a
+                    href="https://t.me/+9BOzuRr8U80wY2U0"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="border border-yellow-500/30 bg-yellow-500/5 p-6 rounded-2xl group hover:border-yellow-400 hover:bg-yellow-500/10 transition-all flex flex-col items-center text-center gap-4 relative overflow-hidden shadow-lg shadow-yellow-500/10"
+                  >
+                    <div className="absolute top-2 left-2 px-2 py-0.5 rounded-full bg-yellow-500/20 text-yellow-400 text-[9px] font-mono font-bold">
+                      EXAMS VAULT
+                    </div>
+                    <div className="w-14 h-14 rounded-2xl bg-yellow-500/20 flex items-center justify-center text-yellow-400 group-hover:bg-yellow-400 group-hover:text-black transition-all border border-yellow-500/40">
+                      <FileText size={28} />
+                    </div>
+                    <div>
+                      <h4 className="text-base font-bold font-cairo mb-1 text-yellow-400">امتحانات السمستر السادس</h4>
+                      <p className="text-gray-300 text-[11px] font-cairo leading-relaxed">تجميعات الأسئلة، امتحانات الميدتيرم، والامتحانات النهائية الرسمية مع الحلول.</p>
+                    </div>
+                    <div className="px-4 py-1.5 rounded-full border border-yellow-500/40 text-yellow-400 text-[10px] font-bold group-hover:bg-yellow-400 group-hover:text-black transition-all font-cairo flex items-center gap-1">
+                      <span>دخول قناة الامتحانات</span>
+                      <Send size={12} />
+                    </div>
+                  </motion.a>
+
                   {/* WhatsApp Channel */}
                   <motion.a
                     href="https://whatsapp.com/channel/0029VbCoSxB4NVipkChIbc15"
                     target="_blank"
                     rel="noopener noreferrer"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="glass-panel neon-card neon-glow p-6 group hover:border-green-500 transition-all flex flex-col items-center text-center gap-4 relative overflow-hidden"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="glass-panel border border-green-500/30 p-6 rounded-2xl group hover:border-green-400 hover:bg-green-500/10 transition-all flex flex-col items-center text-center gap-4 relative overflow-hidden"
                   >
-                    <div className="absolute inset-0 bg-green-500/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="w-16 h-16 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-black transition-all">
-                      <MessageSquare size={32} />
+                    <div className="w-14 h-14 rounded-2xl bg-green-500/10 flex items-center justify-center text-green-400 group-hover:bg-green-500 group-hover:text-black transition-all border border-green-500/30">
+                      <MessageSquare size={28} />
                     </div>
                     <div>
-                      <h4 className="text-lg font-bold font-cairo mb-1">قناة الواتساب</h4>
-                      <p className="text-gray-500 text-[10px] md:text-xs font-cairo">أخبار الدفعة، التنبيهات العاجلة، والإعلانات الرسمية.</p>
+                      <h4 className="text-base font-bold font-cairo mb-1 text-green-400">قناة الواتساب الرسمية</h4>
+                      <p className="text-gray-300 text-[11px] font-cairo leading-relaxed">أخبار الدفعة، التنبيهات العاجلة، والإعلانات الرسمية الهامة.</p>
                     </div>
-                    <div className="px-5 py-1.5 rounded-full border border-green-500/30 text-green-500 text-[10px] font-bold group-hover:bg-green-500 group-hover:text-black transition-all font-cairo">
-                      انضم الآن
+                    <div className="px-4 py-1.5 rounded-full border border-green-500/30 text-green-400 text-[10px] font-bold group-hover:bg-green-500 group-hover:text-black transition-all font-cairo">
+                      انضم للواتساب
                     </div>
                   </motion.a>
 
@@ -2858,20 +3253,20 @@ export default function App() {
                     href="https://t.me/+Agkt05rV37tmODc0"
                     target="_blank"
                     rel="noopener noreferrer"
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    className="glass-panel neon-card neon-glow p-6 group hover:border-blue-400 transition-all flex flex-col items-center text-center gap-4 relative overflow-hidden"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="glass-panel border border-blue-400/30 p-6 rounded-2xl group hover:border-blue-400 hover:bg-blue-400/10 transition-all flex flex-col items-center text-center gap-4 relative overflow-hidden"
                   >
-                    <div className="absolute inset-0 bg-blue-400/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                    <div className="w-16 h-16 rounded-2xl bg-blue-400/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-400 group-hover:text-black transition-all">
-                      <Share2 size={32} />
+                    <div className="w-14 h-14 rounded-2xl bg-blue-400/10 flex items-center justify-center text-blue-400 group-hover:bg-blue-400 group-hover:text-black transition-all border border-blue-400/30">
+                      <Share2 size={28} />
                     </div>
                     <div>
-                      <h4 className="text-lg font-bold font-cairo mb-1">قناة التلغرام</h4>
-                      <p className="text-gray-500 text-[10px] md:text-xs font-cairo">المكتبة الرقمية، الملفات الأكاديمية، والنقاشات العلمية.</p>
+                      <h4 className="text-base font-bold font-cairo mb-1 text-blue-400">قناة التلغرام الأكاديمية</h4>
+                      <p className="text-gray-300 text-[11px] font-cairo leading-relaxed">المكتبة الرقمية، الملفات الأكاديمية، والنقاشات العلمية.</p>
                     </div>
-                    <div className="px-5 py-1.5 rounded-full border border-blue-400/30 text-blue-400 text-[10px] font-bold group-hover:bg-blue-400 group-hover:text-black transition-all font-cairo">
-                      انضم الآن
+                    <div className="px-4 py-1.5 rounded-full border border-blue-400/30 text-blue-400 text-[10px] font-bold group-hover:bg-blue-400 group-hover:text-black transition-all font-cairo">
+                      انضم للتلغرام
                     </div>
                   </motion.a>
                 </div>
