@@ -549,11 +549,13 @@ function ExamCountdown() {
     hours: 0,
     minutes: 0,
     seconds: 0,
-    progress: 0
+    totalHours: 0,
+    progress: 0,
+    isExpired: false
   });
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    const calculateTime = () => {
       const now = new Date();
       const difference = targetDate.getTime() - now.getTime();
       const totalDuration = targetDate.getTime() - startDate.getTime();
@@ -561,74 +563,152 @@ function ExamCountdown() {
       const progress = Math.min(Math.max((elapsed / totalDuration) * 100, 0), 100);
 
       if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((difference / 1000 / 60) % 60);
+        const seconds = Math.floor((difference / 1000) % 60);
+        const totalHours = Math.floor(difference / (1000 * 60 * 60));
+
         setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60),
-          progress
+          days,
+          hours,
+          minutes,
+          seconds,
+          totalHours,
+          progress,
+          isExpired: false
         });
       } else {
-        clearInterval(timer);
         setTimeLeft({
           days: 0,
           hours: 0,
           minutes: 0,
           seconds: 0,
-          progress: 100
+          totalHours: 0,
+          progress: 100,
+          isExpired: true
         });
       }
-    }, 1000);
+    };
 
+    calculateTime();
+    const timer = setInterval(calculateTime, 1000);
     return () => clearInterval(timer);
   }, []);
 
+  // Format dynamic deadline text based on remaining time
+  const getDeadlineText = () => {
+    if (timeLeft.isExpired) {
+      return "بدأت الامتحانات 🔥";
+    }
+    if (timeLeft.days >= 1) {
+      return `Deadline ${timeLeft.days} ${timeLeft.days === 1 ? 'day' : 'days'}`;
+    }
+    if (timeLeft.hours >= 1) {
+      return `Deadline ${timeLeft.hours} ${timeLeft.hours === 1 ? 'hour' : 'hours'}`;
+    }
+    if (timeLeft.minutes >= 1) {
+      return `Deadline ${timeLeft.minutes} minutes`;
+    }
+    return `Deadline ${timeLeft.seconds} seconds`;
+  };
+
+  const isUrgent = !timeLeft.isExpired && timeLeft.days <= 3;
+  const isCritical = !timeLeft.isExpired && timeLeft.days < 1;
+
   const timeUnits = [
-    { label: "أيام", value: timeLeft.days, color: "text-cyan-400" },
-    { label: "ساعات", value: timeLeft.hours, color: "text-blue-400" },
-    { label: "دقائق", value: timeLeft.minutes, color: "text-purple-400" },
-    { label: "ثواني", value: timeLeft.seconds, color: "text-yellow-400" },
+    { label: "أيام", value: timeLeft.days, color: "text-red-400" },
+    { label: "ساعات", value: timeLeft.hours, color: "text-amber-400" },
+    { label: "دقائق", value: timeLeft.minutes, color: "text-cyan-400" },
+    { label: "ثواني", value: timeLeft.seconds, color: "text-white" },
   ];
 
   return (
-    <section id="exam-countdown" className="py-16 md:py-24 px-4 md:px-6 relative overflow-hidden">
-      <div className="absolute inset-0 bg-electron-accent/5 blur-[150px] -z-10" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-electron-secondary/10 rounded-full blur-[140px] pointer-events-none" />
+    <section id="exam-countdown" className="py-12 sm:py-16 md:py-24 px-3 sm:px-6 relative overflow-hidden">
+      {/* Background Atmosphere Lights */}
+      <div className="absolute inset-0 bg-gradient-to-b from-red-950/10 via-transparent to-[#02050e] pointer-events-none -z-10" />
+      <div className="absolute top-1/3 left-10 w-[300px] sm:w-[500px] h-[250px] sm:h-[350px] bg-red-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[300px] sm:w-[500px] h-[250px] sm:h-[350px] bg-cyan-500/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-5xl mx-auto">
         <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="border border-white/10 bg-[#050914]/80 backdrop-blur-2xl p-6 md:p-14 rounded-3xl relative overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
+          className="border border-red-500/20 bg-[#050814]/90 backdrop-blur-2xl p-4 sm:p-7 md:p-10 rounded-2xl sm:rounded-3xl relative overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.9)]"
         >
-          {/* High-Tech Circuit Accent Lines */}
-          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-electron-accent via-electron-secondary to-yellow-500" />
-          <div className="absolute top-0 right-0 w-32 h-32 bg-electron-accent/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-32 h-32 bg-electron-secondary/10 rounded-full blur-3xl pointer-events-none" />
+          {/* Header Circuit Edge Accent */}
+          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-red-600 via-amber-500 to-electron-accent shadow-[0_0_15px_#ef4444]" />
+          <div className="absolute top-0 right-0 w-32 sm:w-40 h-32 sm:h-40 bg-red-600/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-32 sm:w-40 h-32 sm:h-40 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="relative z-10">
-            <div className="text-center mb-10 md:mb-14">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-electron-accent/10 border border-electron-accent/25 text-electron-accent text-[10px] md:text-xs font-bold mb-4 font-mono tracking-widest uppercase">
-                <Clock size={14} className="animate-pulse text-electron-accent" />
-                EXAM COUNTDOWN • TERM 06 • 24 AUGUST 2026
+            {/* Top Section Header */}
+            <div className="text-center mb-6 sm:mb-8 md:mb-10">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-[10px] sm:text-xs font-bold mb-3 sm:mb-4 font-mono tracking-wider sm:tracking-widest uppercase shadow-sm">
+                <Clock size={13} className="animate-pulse text-red-400 shrink-0" />
+                <span>EXAM COUNTDOWN • TERM 06 • 24 AUG 2026</span>
               </div>
-              <h2 className="text-3xl md:text-6xl font-black font-cairo mb-4 text-white tracking-tight">
-                العد التنازلي <span className="gradient-text">لامتحانات السمستر السادس</span>
+              <h2 className="text-xl sm:text-3xl md:text-5xl font-black font-cairo mb-2 sm:mb-3 text-white tracking-tight">
+                الوقت المتبقي <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 via-orange-400 to-yellow-400">للامتحانات النهائية</span>
               </h2>
-              <p className="text-gray-400 text-sm md:text-lg max-w-2xl mx-auto font-cairo leading-relaxed">
-                موعد انطلاق الامتحانات النهائية يوم <strong className="text-electron-accent font-mono">24 أغسطس 2026</strong>.. استغل كل لحظة متبقية في المذاكرة والمراجعة والتحصيل العلمي!
+              <p className="text-gray-300 text-xs sm:text-sm md:text-base max-w-2xl mx-auto font-cairo leading-relaxed px-1">
+                موعد انطلاق الامتحانات النهائية يوم <strong className="text-red-400 font-mono">24 أغسطس 2026</strong>.. استثمر كل ساعة في المذاكرة والتحضير!
               </p>
             </div>
 
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-10 md:mb-14">
+            {/* ══════════════════════════════════════════════════════════════════
+                DYNAMIC DEADLINE TEXT & STATUS
+               ══════════════════════════════════════════════════════════════════ */}
+            <div className="text-center mb-6 sm:mb-8 md:mb-10">
+              <motion.div 
+                key={getDeadlineText()}
+                initial={{ scale: 0.95, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="inline-block"
+              >
+                <div className="text-2xl sm:text-4xl md:text-6xl font-black font-mono tracking-tight text-white drop-shadow-[0_0_25px_rgba(239,68,68,0.6)]">
+                  <span className="text-red-500">{getDeadlineText().split(' ')[0]} </span>
+                  <span className="text-white">{getDeadlineText().split(' ').slice(1).join(' ')}</span>
+                </div>
+              </motion.div>
+              
+              {/* Humorous and motivating nudge */}
+              <p className="text-gray-300 text-xs sm:text-sm md:text-base font-cairo mt-2.5 sm:mt-3 font-medium flex items-center justify-center gap-1.5 sm:gap-2">
+                <span>القاتل قرب... شد حيلك يا ELEX28 😈📚</span>
+              </p>
+
+              {/* Urgency Status Badge */}
+              <div className="mt-3 flex items-center justify-center">
+                <span className={`text-[10px] sm:text-xs font-cairo font-bold px-3 py-1 rounded-full border text-center ${
+                  isCritical 
+                    ? 'bg-red-500/20 text-red-400 border-red-500/40 animate-pulse'
+                    : isUrgent 
+                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/40' 
+                    : 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                }`}>
+                  {timeLeft.isExpired 
+                    ? '🔥 فترة الامتحانات جارية حالياً' 
+                    : isCritical 
+                    ? '🔴 الساعات الأخيرة قبل موعد الامتحان!' 
+                    : isUrgent 
+                    ? '🟠 مرحلة المراجعة المكثفة وحل الامتحانات السابقة' 
+                    : '🟢 الوقت متاح للتحصيل والفهم المتأني'}
+                </span>
+              </div>
+            </div>
+
+            {/* ══════════════════════════════════════════════════════════════════
+                LIVE NUMERICAL COUNTDOWN CARDS (Days / Hours / Mins / Secs)
+               ══════════════════════════════════════════════════════════════════ */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6 mb-6 sm:mb-8 md:mb-10">
               {timeUnits.map((unit, idx) => (
                 <div key={idx} className="relative group">
-                  <div className="border border-white/10 bg-black/40 backdrop-blur-xl p-6 md:p-8 rounded-2xl flex flex-col items-center justify-center group-hover:border-electron-accent/40 group-hover:shadow-[0_0_25px_rgba(0,242,255,0.15)] transition-all duration-300">
-                    <span className={`text-4xl md:text-7xl font-black font-mono mb-2 tracking-tighter ${unit.color}`}>
+                  <div className="border border-white/10 bg-black/50 backdrop-blur-xl p-3 sm:p-5 md:p-7 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center group-hover:border-red-500/40 group-hover:shadow-[0_0_25px_rgba(239,68,68,0.2)] transition-all duration-300">
+                    <span className={`text-2.5xl sm:text-4xl md:text-6xl font-black font-mono mb-0.5 sm:mb-1 tracking-tighter ${unit.color}`}>
                       {String(unit.value).padStart(2, '0')}
                     </span>
-                    <span className="text-[11px] md:text-xs font-bold font-cairo text-gray-400 tracking-wider">
+                    <span className="text-[10px] sm:text-xs font-bold font-cairo text-gray-400 tracking-wider">
                       {unit.label}
                     </span>
                   </div>
@@ -636,40 +716,307 @@ function ExamCountdown() {
               ))}
             </div>
 
-            {/* Preparation Progress Bar */}
-            <div className="space-y-3 bg-white/[0.02] p-5 rounded-2xl border border-white/5">
-              <div className="flex justify-between items-center text-[10px] md:text-xs font-mono font-bold uppercase tracking-widest">
-                <span className="text-gray-400 font-cairo">مؤشر التقدم نحو بداية الامتحانات</span>
-                <span className="text-electron-accent font-mono">{Math.round(timeLeft.progress)}%</span>
+            {/* ══════════════════════════════════════════════════════════════════
+                CLEAN, RESPONSIVE PROGRESS BAR CARD
+               ══════════════════════════════════════════════════════════════════ */}
+            <div className="relative bg-[#070b19]/90 p-3.5 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl border border-red-500/20 shadow-[0_10px_35px_rgba(0,0,0,0.8)] overflow-hidden" dir="rtl">
+              
+              {/* Subtle ambient lighting */}
+              <div className="absolute top-0 right-0 w-48 sm:w-64 h-24 sm:h-32 bg-red-600/10 blur-3xl pointer-events-none" />
+              <div className="absolute bottom-0 left-0 w-48 sm:w-64 h-24 sm:h-32 bg-cyan-500/10 blur-3xl pointer-events-none" />
+
+              {/* Progress Header & Percentage */}
+              <div className="flex justify-between items-center text-xs sm:text-sm font-mono font-bold mb-3 sm:mb-4 border-b border-white/5 pb-2.5 sm:pb-3">
+                <div className="flex items-center gap-1.5 sm:gap-2 font-cairo text-gray-300 text-[11px] sm:text-xs md:text-sm">
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-ping shrink-0" />
+                  <span>مؤشر اقتراب موعد الامتحان</span>
+                </div>
+                <div className="flex items-center gap-1.5 sm:gap-2">
+                  <span className="text-gray-400 text-[10px] sm:text-xs font-mono">المنقضي:</span>
+                  <span className="text-red-400 text-xs sm:text-sm md:text-base font-mono font-black bg-red-950/80 px-2 py-0.5 rounded border border-red-500/30">
+                    {Math.round(timeLeft.progress)}%
+                  </span>
+                </div>
               </div>
-              <div className="h-2.5 md:h-3.5 w-full bg-black/60 rounded-full overflow-hidden border border-white/10 p-0.5">
-                <motion.div 
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${timeLeft.progress}%` }}
-                  transition={{ duration: 1.5, ease: "easeOut" }}
-                  className="h-full bg-gradient-to-r from-electron-accent via-electron-secondary to-yellow-400 rounded-full shadow-[0_0_15px_rgba(0,255,255,0.6)]"
-                />
+
+              {/* ── INTERACTIVE SCENE: FIXED STUDENT AT FAR LEFT (FINISH LINE) + KILLER ADVANCING ALONG RUNWAY ── */}
+              <div className="relative flex items-end gap-1.5 sm:gap-3 md:gap-5 mb-2 select-none" dir="ltr">
+                
+                {/* ── 1. THE STUDENT FINISH LINE (Fixed outside the bar at Far Left) ── */}
+                <div className="flex-shrink-0 relative flex flex-col items-center justify-end z-20 pb-0.5 w-[58px] sm:w-[80px] md:w-[100px]">
+                  {/* Desk Light Cone with ambient glow */}
+                  <div 
+                    className={`absolute -top-7 sm:-top-9 left-0 w-18 sm:w-24 h-22 sm:h-28 bg-gradient-to-b ${
+                      isCritical 
+                        ? 'from-red-500/30 via-amber-400/20 to-transparent animate-pulse' 
+                        : 'from-white/25 via-cyan-400/10 to-transparent'
+                    } pointer-events-none rounded-full blur-sm`}
+                    style={{ clipPath: 'polygon(0% 0%, 40% 0%, 100% 100%, 0% 100%)' }}
+                  />
+
+                  {/* Student Silhouette SVG (Facing Right towards desk & upcoming deadline) */}
+                  <svg 
+                    viewBox="0 0 120 120" 
+                    className={`w-12 h-12 sm:w-16 sm:h-16 md:w-22 md:h-22 ${
+                      isCritical 
+                        ? 'drop-shadow-[0_0_12px_rgba(239,68,68,0.9)]' 
+                        : 'drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]'
+                    }`}
+                    fill="none" 
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    {/* Desk Lamp */}
+                    <path d="M24 18 Q 32 18 36 32 L 40 65" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" />
+                    <path d="M24 14 L 34 24 L 18 26 Z" fill="#ffffff" />
+                    <circle cx="26" cy="24" r="2.5" fill={isCritical ? "#ff2222" : "#00f2ff"} className="animate-pulse" />
+
+                    {/* Study Desk & Legs (Vibrates subtly when writing frantically) */}
+                    <motion.g
+                      animate={isCritical ? { x: [-0.4, 0.4, -0.4], y: [0, -0.3, 0] } : {}}
+                      transition={{ duration: 0.1, repeat: Infinity }}
+                    >
+                      <rect x="10" y="66" width="75" height="5" rx="2" fill="#ffffff" />
+                      <line x1="18" y1="71" x2="16" y2="108" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" />
+                      <line x1="78" y1="71" x2="80" y2="108" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" />
+
+                      {/* Notebook & Open Book */}
+                      <path d="M36 66 L 52 62 L 68 66 L 52 65 Z" fill="#ffffff" />
+                      <line x1="52" y1="62" x2="52" y2="66" stroke="#94a3b8" strokeWidth="1" />
+
+                      {/* Laptop Screen with Dynamic Glow */}
+                      <rect x="16" y="52" width="18" height="14" rx="1.5" fill="#0f172a" stroke="#ffffff" strokeWidth="1.5" />
+                      <rect 
+                        x="18" y="54" width="14" height="10" rx="0.5" 
+                        fill={isCritical ? "#ef4444" : "#00f2ff"} 
+                        opacity="0.9" 
+                        className="animate-pulse" 
+                      />
+                    </motion.g>
+
+                    {/* Student Chair */}
+                    <path d="M84 68 L 98 68 L 96 108" stroke="#94a3b8" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="100" y1="52" x2="98" y2="80" stroke="#94a3b8" strokeWidth="2.5" strokeLinecap="round" />
+                    <line x1="98" y1="80" x2="100" y2="108" stroke="#94a3b8" strokeWidth="2.5" strokeLinecap="round" />
+
+                    {/* Student Body (Leans deeper over the desk when <24 hours left) */}
+                    <motion.path 
+                      d={isCritical 
+                        ? "M96 64 C 92 48, 76 46, 68 50 L 60 66 L 78 68 Z" 
+                        : "M94 62 C 92 54, 82 52, 74 54 L 66 66 L 82 68 Z"
+                      } 
+                      fill="#ffffff"
+                      animate={isCritical ? { y: [0, -1.2, 0] } : {}}
+                      transition={{ duration: 0.35, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                    <path d="M86 68 L 72 70 L 74 100" stroke="#ffffff" strokeWidth="6" strokeLinecap="round" />
+
+                    {/* Stress Sweat Droplet when under 24 hours */}
+                    {isCritical && (
+                      <motion.path 
+                        d="M80 34 C 78 32, 78 29, 80 28 C 82 29, 82 32, 80 34 Z" 
+                        fill="#38bdf8" 
+                        animate={{ y: [0, 8, 16], opacity: [0, 1, 0] }} 
+                        transition={{ duration: 0.7, repeat: Infinity, ease: "easeIn" }} 
+                      />
+                    )}
+
+                    {/* Student Head (Speed and agitation increases when <24h) */}
+                    <motion.g
+                      animate={{ 
+                        y: isCritical ? [0, -3.5, 1, -2, 0] : (isUrgent ? [0, -2, 0] : [0, -1.5, 0]), 
+                        rotate: isCritical ? [0, -8, 3, -5, 0] : (isUrgent ? [0, -4, 0] : [0, -2, 0]) 
+                      }}
+                      transition={{ 
+                        duration: isCritical ? 0.3 : (isUrgent ? 0.8 : 2), 
+                        repeat: Infinity, 
+                        ease: "easeInOut" 
+                      }}
+                    >
+                      <circle cx={isCritical ? "68" : "72"} cy={isCritical ? "39" : "42"} r="7.5" fill="#ffffff" />
+                      {isCritical && (
+                        <line x1="77" y1="36" x2="81" y2="34" stroke="#38bdf8" strokeWidth="1.5" strokeLinecap="round" />
+                      )}
+                    </motion.g>
+
+                    {/* Student Arm & Pen (frantic writing motion) */}
+                    <motion.g
+                      animate={{ 
+                        x: isCritical ? [-4, 5, -3, 4, 0] : (isUrgent ? [-3, 3, 0] : [0, -2, 0]), 
+                        y: isCritical ? [-2, 1.5, -1.5, 1, 0] : (isUrgent ? [-1.2, 0.8, 0] : [0, -0.8, 0]) 
+                      }}
+                      transition={{ 
+                        duration: isCritical ? 0.12 : (isUrgent ? 0.45 : 1.2), 
+                        repeat: Infinity, 
+                        ease: "easeInOut" 
+                      }}
+                    >
+                      <path 
+                        d={isCritical ? "M72 54 Q 60 58 50 62" : "M76 56 Q 66 62 56 64"} 
+                        stroke="#ffffff" 
+                        strokeWidth="4" 
+                        strokeLinecap="round" 
+                      />
+                      <line 
+                        x1={isCritical ? "51" : "57"} 
+                        y1={isCritical ? "60" : "62"} 
+                        x2={isCritical ? "45" : "52"} 
+                        y2={isCritical ? "64" : "65"} 
+                        stroke={isCritical ? "#f87171" : "#38bdf8"} 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                      />
+                      {isCritical && (
+                        <circle cx="44" cy="65" r="1.5" fill="#facc15" className="animate-ping" />
+                      )}
+                    </motion.g>
+                  </svg>
+
+                  {/* Finish Line Indicator Pin Marker */}
+                  <div className="w-1.5 h-2.5 bg-white shadow-[0_0_8px_#ffffff] rounded-full animate-pulse -mt-1" />
+                </div>
+
+                {/* ── 2. THE RUNWAY & PROGRESS BAR (Killer advances from Right towards Left) ── */}
+                <div className="flex-1 flex flex-col justify-end min-w-0">
+                  
+                  {/* Killer Movement Track */}
+                  <div className="relative w-full h-[95px] sm:h-[115px] md:h-[135px] mb-1 select-none overflow-visible" dir="ltr">
+                    
+                    {/* ── THE KILLER / DEATH REAPER WITH SCYTHE (Advancing from Right to Left) ── */}
+                    <motion.div 
+                      className="absolute bottom-0 z-20 transition-all duration-1000 ease-out pointer-events-none"
+                      style={{ 
+                        // Right = 0% (left: 96%), Left = 100% (left: 4%)
+                        left: `${Math.max(Math.min(100 - timeLeft.progress, 96), 4)}%`, 
+                        transform: 'translateX(-50%)' 
+                      }}
+                      animate={{
+                        y: isCritical ? [0, -4, 4, -3, 0] : (isUrgent ? [0, -5, 0] : [0, -6, 0]),
+                      }}
+                      transition={{
+                        duration: isCritical ? 0.25 : (isUrgent ? 1.2 : 2),
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      <div className="relative flex flex-col items-center">
+                        {/* Glowing Red Backlight */}
+                        <div className="absolute -inset-2 bg-red-600/30 rounded-full blur-lg pointer-events-none animate-pulse" />
+
+                        {/* Reaper Silhouette SVG (Facing Left towards Student) */}
+                        <svg 
+                          viewBox="0 0 100 120" 
+                          className="w-11 h-13 sm:w-15 sm:h-17 md:w-19 md:h-22 drop-shadow-[0_0_12px_rgba(239,68,68,0.9)]"
+                          fill="none" 
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          {/* Scythe Blade pointing to the left towards student */}
+                          <path 
+                            d="M62 12 C 42 -5, 12 5, 4 32 C 14 18, 36 12, 54 22 Z" 
+                            fill="#ff1f1f" 
+                            className="animate-pulse"
+                          />
+                          <path 
+                            d="M56 14 C 38 0, 14 8, 4 32" 
+                            stroke="#ffffff" 
+                            strokeWidth="1.5" 
+                            strokeLinecap="round"
+                            opacity="0.9"
+                          />
+                          {/* Scythe Staff */}
+                          <line 
+                            x1="55" y1="14" 
+                            x2="85" y2="110" 
+                            stroke="#7f1d1d" 
+                            strokeWidth="3.5" 
+                            strokeLinecap="round" 
+                          />
+                          <line 
+                            x1="55" y1="14" 
+                            x2="85" y2="110" 
+                            stroke="#ef4444" 
+                            strokeWidth="1.2" 
+                            strokeLinecap="round" 
+                          />
+
+                          {/* Reaper Cowl Head */}
+                          <path 
+                            d="M58 28 C 68 28, 76 38, 74 50 C 72 62, 62 60, 52 60 C 42 60, 36 48, 40 36 C 44 28, 52 28, 58 28 Z" 
+                            fill="#dc2626" 
+                          />
+                          <path 
+                            d="M62 38 C 66 44, 65 52, 58 54 C 52 53, 50 44, 54 38 Z" 
+                            fill="#1a0000" 
+                          />
+                          {/* Glowing Red Eye */}
+                          <circle cx="57" cy="45" r="2" fill="#ff0044" className="animate-ping" />
+                          <circle cx="57" cy="45" r="1.5" fill="#ffffff" />
+
+                          {/* Cloak Silhouette */}
+                          <path 
+                            d="M74 50 Q 82 75 88 108 Q 72 102 62 108 Q 52 100 42 108 Q 34 85 42 56 Z" 
+                            fill="#b91c1c" 
+                          />
+                          <path 
+                            d="M68 54 Q 70 80 75 106 Q 64 98 56 106 Q 48 82 54 56 Z" 
+                            fill="#991b1b" 
+                          />
+                          <circle cx="64" cy="52" r="3.5" fill="#fca5a5" />
+                        </svg>
+
+                        {/* Laser Pointer down into the bar */}
+                        <div className="w-1.5 h-2.5 bg-red-500 shadow-[0_0_8px_#ef4444] rounded-full animate-pulse -mt-1" />
+                      </div>
+                    </motion.div>
+
+                  </div>
+
+                  {/* Progress Track & Bar (RTL) */}
+                  <div className="relative">
+                    <div className="h-3 sm:h-4 w-full bg-slate-950 rounded-full overflow-hidden border border-white/15 p-0.5 shadow-inner" dir="rtl">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${timeLeft.progress}%` }}
+                        transition={{ duration: 1.5, ease: "easeOut" }}
+                        className="h-full bg-gradient-to-l from-red-700 via-red-500 to-red-400 rounded-full shadow-[0_0_18px_rgba(239,68,68,0.8)] relative"
+                      >
+                        {/* Glowing Leading Edge */}
+                        <div className="absolute left-0 top-0 bottom-0 w-2.5 sm:w-3 bg-white rounded-full shadow-[0_0_10px_#ffffff]" />
+                      </motion.div>
+                    </div>
+                  </div>
+
+                </div>
+
               </div>
-              <div className="flex justify-between text-[9px] md:text-[11px] text-gray-500 font-cairo pt-1">
-                <span>بداية فترة التحضير (1 يونيو 2026)</span>
-                <span className="text-electron-accent font-bold">موعد الامتحان (24 أغسطس 2026)</span>
+
+              {/* Bottom Timeline Markers */}
+              <div className="flex flex-col sm:flex-row justify-between text-[10px] sm:text-xs text-gray-400 font-cairo pt-2.5 sm:pt-3 border-t border-white/5 gap-1.5 sm:gap-2" dir="rtl">
+                <span className="flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-600 shrink-0" />
+                  <span>بداية التحضير: 1 يونيو 2026</span>
+                </span>
+                <span className="flex items-center gap-1.5 text-white font-bold">
+                  <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping shrink-0" />
+                  <span>الامتحان النهائي: 24 أغسطس 2026</span>
+                </span>
               </div>
             </div>
 
-            <div className="mt-8 md:mt-12 flex flex-col md:flex-row items-center justify-between gap-4 pt-6 border-t border-white/10 text-xs font-cairo">
-              <div className="flex items-center gap-3">
-                <Calendar size={18} className="text-electron-accent shrink-0" />
+            {/* Bottom Meta Badges */}
+            <div className="mt-4 sm:mt-6 md:mt-8 flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 pt-4 sm:pt-6 border-t border-white/10 text-xs font-cairo">
+              <div className="flex items-center gap-2.5 sm:gap-3 w-full sm:w-auto justify-start">
+                <Calendar size={16} className="text-red-400 shrink-0" />
                 <div className="text-right">
-                  <div className="text-white font-bold text-sm">الإثنين، 24 أغسطس 2026</div>
-                  <div className="text-gray-500 text-[10px] font-mono">TARGET EXAM DATE</div>
+                  <div className="text-white font-bold text-xs sm:text-sm">الإثنين، 24 أغسطس 2026</div>
+                  <div className="text-gray-500 text-[9px] sm:text-[10px] font-mono">TARGET EXAM DATE</div>
                 </div>
               </div>
               
-              <div className="flex items-center gap-3">
-                <Zap size={18} className="text-yellow-400 shrink-0" />
-                <div className="text-right">
-                  <div className="text-white font-bold text-sm">السمستر السادس (ELEX28)</div>
-                  <div className="text-gray-500 text-[10px] font-mono">ACADEMIC TERM</div>
+              <div className="flex items-center gap-2.5 sm:gap-3 w-full sm:w-auto justify-start sm:justify-end">
+                <Zap size={16} className="text-yellow-400 shrink-0" />
+                <div className="text-right sm:text-left">
+                  <div className="text-white font-bold text-xs sm:text-sm">السمستر السادس (ELEX28)</div>
+                  <div className="text-gray-500 text-[9px] sm:text-[10px] font-mono">ACADEMIC TERM</div>
                 </div>
               </div>
             </div>
